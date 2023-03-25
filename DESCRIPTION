@@ -1,0 +1,20 @@
+Package: fmsne
+Version: 0.1.1
+Title: Fast Multi-scale Neighbour Embedding
+Authors@R: c(
+    person("Cyril de Bodt", email = "cyril.debodt@uclouvain.be",
+        role = "aut"),
+    person("Laurent Gatto", email = "laurent.gatto@uclouvain.ne",
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1520-2268")))
+License: TBD
+Description: Provides an R interface for various Python
+    implementations of neighbour embedding methods, including
+    multi-scale SNE, multi-scale t-SNE, fast implementations thereof,
+    and a dimensionality reduction quality assessment criterion.
+Imports:
+    basilisk,
+    SingleCellExperiment
+Suggests:
+    BiocManager
+Encoding: UTF-8
+StagedInstall: no
