@@ -33,9 +33,12 @@ runMSSNE <- function(x,
                   maxls = 50,
                   maxcor = 10,
                   fit_U = TRUE,
+                  subset_row = NULL,
                   name = "MSSNE") {
     stopifnot(inherits(x, "SingleCellExperiment"))
     X <- as.matrix(assay(x))
+    if (!is.null(subset_row))
+        X <- X[subset_row, ]
     n_components <- as.integer(n_components)
 
     ans <- basiliskRun(env = fmsneenv,

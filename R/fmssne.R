@@ -39,9 +39,12 @@ runFMSSNE <- function(x,
                       fit_U = TRUE,
                       bht = 0.45,
                       fseed = 1L,
+                      subset_row = NULL,
                       name = "FMSSNE") {
     stopifnot(inherits(x, "SingleCellExperiment"))
     X <- as.matrix(assay(x))
+    if (!is.null(subset_row))
+        X <- X[subset_row, ]
     n_components <- as.integer(n_components)
     fseed <- as.integer(fseed)
 

@@ -1,75 +1,85 @@
 library(scater)
 library(scran)
 library(scRNAseq)
-library(org.Mm.eg.db)
 library(BiocSingular)
+library(AnnotationHub)
 
-## Load data
-sce.zeisel <- ZeiselBrainData()
-sce.zeisel <- aggregateAcrossFeatures(sce.zeisel,
-                                      id=sub("_loc[0-9]+$", "",
-                                             rownames(sce.zeisel)))
-rowData(sce.zeisel)$Ensembl <- mapIds(org.Mm.eg.db,
-                                      keys=rownames(sce.zeisel),
-                                      keytype="SYMBOL",
-                                      column="ENSEMBL")
 
-## Quality control
-unfiltered <- sce.zeisel
-stats <- perCellQCMetrics(sce.zeisel, subsets=list(
-    Mt=rowData(sce.zeisel)$featureType=="mito"))
-qc <- quickPerCellQC(stats, percent_subsets=c("altexps_ERCC_percent",
-    "subsets_Mt_percent"))
-sce.zeisel <- sce.zeisel[,!qc$discard]
+## source: https://bioconductor.org/books/3.16/OSCA.workflows/bach-mouse-mammary-gland-10x-genomics.html
+
+
+######################################
+## 12.2 Data loading
+sce.mam <- BachMammaryData(samples="G_1")
+
+rownames(sce.mam) <- uniquifyFeatureNames(
+    rowData(sce.mam)$Ensembl, rowData(sce.mam)$Symbol)
+
+ens.mm.v97 <- AnnotationHub()[["AH73905"]]
+rowData(sce.mam)$SEQNAME <- mapIds(ens.mm.v97, keys=rowData(sce.mam)$Ensembl,
+                                   keytype="GENEID", column="SEQNAME")
+
+######################################
+## 12.3 Quality control
+
+unfiltered <- sce.mam
+
+is.mito <- rowData(sce.mam)$SEQNAME == "MT"
+stats <- perCellQCMetrics(sce.mam, subsets=list(Mito=which(is.mito)))
+qc <- quickPerCellQC(stats, percent_subsets="subsets_Mito_percent")
+sce.mam <- sce.mam[,!qc$discard]
+
 colData(unfiltered) <- cbind(colData(unfiltered), stats)
 unfiltered$discard <- qc$discard
 
+######################################
+## 12.4 Normalization
 
-## Normalisation
-set.seed(1000)
-clusters <- quickCluster(sce.zeisel)
-sce.zeisel <- computeSumFactors(sce.zeisel, cluster=clusters)
-sce.zeisel <- logNormCounts(sce.zeisel)
+set.seed(101000110)
+clusters <- quickCluster(sce.mam)
+sce.mam <- computeSumFactors(sce.mam, clusters=clusters)
+sce.mam <- logNormCounts(sce.mam)
 
-## Variance modelling
-dec.zeisel <- modelGeneVarWithSpikes(sce.zeisel, "ERCC")
-top.hvgs <- getTopHVGs(dec.zeisel, prop=0.1)
+######################################
+## 12.5 Variance modelling
 
-## Dimensionality reduction
-set.seed(101011001)
-sce.zeisel <- denoisePCA(sce.zeisel,
-                         technical=dec.zeisel, subset.row=top.hvgs)
-sce.zeisel <- runTSNE(sce.zeisel, dimred="PCA")
+set.seed(00010101)
+dec.mam <- modelGeneVarByPoisson(sce.mam)
+top.mam <- getTopHVGs(dec.mam, prop=0.1)
 
-perplexity
+######################################
+## 12.6 Dimensionality reduction
 
-## Clustering
-snn.gr <- buildSNNGraph(sce.zeisel, use.dimred="PCA")
-colLabels(sce.zeisel) <- factor(igraph::cluster_walktrap(snn.gr)$membership)
+set.seed(101010011)
+sce.mam <- denoisePCA(sce.mam, technical=dec.mam, subset.row=top.mam)
 
-plotTSNE(sce.zeisel, colour_by="label")
+sce.mam <- runTSNE(sce.mam, dimred="PCA",
+                   perplexity = 30,
+                   name = "TSNE30")
 
+sce.mam <- runTSNE(sce.mam, dimred="PCA",
+                   perplexity = 200,
+                   name = "TSNE200")
+
+######################################
+## 12.7 Clustering
+
+snn.gr <- buildSNNGraph(sce.mam, use.dimred="PCA", k=25)
+colLabels(sce.mam) <- factor(igraph::cluster_walktrap(snn.gr)$membership)
+
+######################################
 ## Fast multi-scale neighbour embeddig
 library(fmsne)
-test()
 
-## sce.zeisel <- fmsne::runMSSNE(sce.zeisel)
-## plotMSSNE(sce.zeisel, colour_by="label")
+sce.mam <- fmsne::runFMSSNE(sce.mam, subset_row = top.mam)
 
-sce.zeisel <- fmsne::runFMSSNE(sce.zeisel[top.hvgs, ])
+reducedDims(sce.mam)
 
-sce.zeisel <- runTSNE(sce.zeisel, dimred="PCA",
-                      perplexity = 30,
-                      name = "TSNE30")
-sce.zeisel <- runTSNE(sce.zeisel, dimred="PCA",
-                      perplexity = 200,
-                      name = "TSNE200")
-
-reducedDims(sce.zeisel)
-
+sce <- sce.mam
 gridExtra::grid.arrange(
-               plotReducedDim(sce.zeisel, colour_by="label",
+               plotReducedDim(sce, colour_by="label",
                               dimred = "TSNE30"),
-               plotReducedDim(sce.zeisel, colour_by="label",
+               plotReducedDim(sce, colour_by="label",
                               dimred = "TSNE200"),
-               plotFMSSNE(sce.zeisel, colour_by="label"))
+               plotPCA(sce, colour_by = "label"),
+               plotFMSSNE(sce, colour_by="label"))
