@@ -1,5 +1,5 @@
 Package: fmsne
-Version: 0.1.8
+Version: 0.1.9
 Title: Fast Multi-scale Neighbour Embedding
 Authors@R: c(
     person("Cyril de Bodt",
