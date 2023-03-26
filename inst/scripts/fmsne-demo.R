@@ -86,3 +86,7 @@ gridExtra::grid.arrange(
                plotPCA(sce, colour_by = "label"),
                plotFMSSNE(sce, colour_by="label"),
                plotFMSTSNE(sce, colour_by="label"))
+
+
+reducedDim(sce, "PCA")
+reducedDim(sce, "TSNE30")

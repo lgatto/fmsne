@@ -551,3 +551,15 @@ def viz_qa(Ly, fname=None, f_format=None, ymin=None, ymax=None, Lmarkers=None, L
     # Saving or showing the figure, and closing
     save_show_fig(fname=fname, f_format=f_format)
     plt.close()
+
+
+## Utils function - added by lgatto
+
+def eval_dr_quality_from_data(X, Y):
+    """
+    Compute the pairwise Euclidean distances in a data set and DR
+    quality assessment criteria R_{NX}(K) and AUC. See
+    eucl_dist_matr() and eval_dr_quality for details.
+    """
+    return eval_dr_quality(d_hd = eucl_dist_matr(X),
+                           d_ld = eucl_dist_matr(Y))
