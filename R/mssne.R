@@ -32,15 +32,15 @@ runMSSNE <- function(x,
                   ftol = 2.2204460492503131e-09,
                   maxls = 50,
                   maxcor = 10,
-                  fit_U = TRUE) {
+                  fit_U = TRUE,
+                  name = "MSSNE") {
     stopifnot(inherits(x, "SingleCellExperiment"))
-    X <- assay(x)
-    if (DelayedArray::is_sparse(X))
-        mat <- as.matrix(X)
+    X <- as.matrix(assay(x))
     n_components <- as.integer(n_components)
 
-    ans <- basiliskRun(env = fmsneenv, fun = .run_mssne,
-                       X = t(X),
+    ans <- basiliskRun(env = fmsneenv,
+                       fun = .run_mssne,
+                       X = X,
                        n_components = n_components,
                        init = init,
                        rand_state = rand_state,
@@ -51,7 +51,7 @@ runMSSNE <- function(x,
                        maxcor = maxcor,
                        fit_U = fit_U)
     rownames(ans) <- colnames(x)
-    reducedDim(x, "MSSNE") <- ans
+    reducedDim(x, name) <- ans
     x
 }
 
@@ -60,6 +60,6 @@ runMSSNE <- function(x,
 plotMSSNE <- function(object, ..., ncomponents = 2) {
     plotReducedDim(object,
                    ncomponents = ncomponents,
-                   dimred = "TSNE",
+                   dimred = "MSSNE",
                    ...)
 }

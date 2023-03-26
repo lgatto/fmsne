@@ -41,15 +41,35 @@ sce.zeisel <- denoisePCA(sce.zeisel,
                          technical=dec.zeisel, subset.row=top.hvgs)
 sce.zeisel <- runTSNE(sce.zeisel, dimred="PCA")
 
+perplexity
+
 ## Clustering
 snn.gr <- buildSNNGraph(sce.zeisel, use.dimred="PCA")
 colLabels(sce.zeisel) <- factor(igraph::cluster_walktrap(snn.gr)$membership)
-
 
 plotTSNE(sce.zeisel, colour_by="label")
 
 ## Fast multi-scale neighbour embeddig
 library(fmsne)
+test()
 
-sce.zeisel <- fmsne::runMSSNE(sce.zeisel)
-plotMSSNE(sce.zeisel, colour_by="label")
+## sce.zeisel <- fmsne::runMSSNE(sce.zeisel)
+## plotMSSNE(sce.zeisel, colour_by="label")
+
+sce.zeisel <- fmsne::runFMSSNE(sce.zeisel[top.hvgs, ])
+
+sce.zeisel <- runTSNE(sce.zeisel, dimred="PCA",
+                      perplexity = 30,
+                      name = "TSNE30")
+sce.zeisel <- runTSNE(sce.zeisel, dimred="PCA",
+                      perplexity = 200,
+                      name = "TSNE200")
+
+reducedDims(sce.zeisel)
+
+gridExtra::grid.arrange(
+               plotReducedDim(sce.zeisel, colour_by="label",
+                              dimred = "TSNE30"),
+               plotReducedDim(sce.zeisel, colour_by="label",
+                              dimred = "TSNE200"),
+               plotFMSSNE(sce.zeisel, colour_by="label"))
