@@ -72,17 +72,17 @@ colLabels(sce.mam) <- factor(igraph::cluster_walktrap(snn.gr)$membership)
 library(fmsne)
 
 sce.mam <- fmsne::runFMSSNE(sce.mam, subset_row = top.mam)
+sce.mam <- fmsne::runFMSTSNE(sce.mam, subset_row = top.mam)
 
 reducedDims(sce.mam)
 
 sce <- sce.mam
 
-pdf()
 gridExtra::grid.arrange(
                plotReducedDim(sce, colour_by="label",
                               dimred = "TSNE30"),
                plotReducedDim(sce, colour_by="label",
                               dimred = "TSNE200"),
                plotPCA(sce, colour_by = "label"),
-               plotFMSSNE(sce, colour_by="label"))
-dev.off()
+               plotFMSSNE(sce, colour_by="label"),
+               plotFMSTSNE(sce, colour_by="label"))

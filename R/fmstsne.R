@@ -7,7 +7,6 @@
                          ftol = 2.2204460492503131e-09,
                          maxls = 50,
                          maxcor = 10,
-                         fit_U = TRUE,
                          bht = 0.45,
                          fseed = 1L) {
     fmsnepy <- reticulate::import("fmsnepy")
@@ -20,7 +19,6 @@
                            ftol = ftol,
                            maxls = maxls,
                            maxcor = maxcor,
-                           fit_U = fit_U,
                            bht = bht,
                            fseed = fseed)
     ans
@@ -36,7 +34,6 @@ runFMSTSNE <- function(x,
                        ftol = 2.2204460492503131e-09,
                        maxls = 50,
                        maxcor = 10,
-                       fit_U = TRUE,
                        bht = 0.45,
                        fseed = 1L,
                        subset_row = NULL,
@@ -59,7 +56,6 @@ runFMSTSNE <- function(x,
                        ftol = ftol,
                        maxls = maxls,
                        maxcor = maxcor,
-                       fit_U = fit_U,
                        bht = bht,
                        fseed = fseed)
     rownames(ans) <- colnames(x)
