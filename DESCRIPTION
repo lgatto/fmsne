@@ -1,5 +1,5 @@
 Package: fmsne
-Version: 0.1.1
+Version: 0.1.2
 Title: Fast Multi-scale Neighbour Embedding
 Authors@R: c(
     person("Cyril de Bodt", email = "cyril.debodt@uclouvain.be",
@@ -18,3 +18,4 @@ Suggests:
     BiocManager
 Encoding: UTF-8
 StagedInstall: no
+RoxygenNote: 7.2.3
