@@ -1,0 +1,14 @@
+The R code provided as part of this package is provided under a GPL-3
+license.
+
+The python and C code in `inst/fmsnepy` and `inst/fmsnepyx`
+directories of released under the following terms:
+
+The python code is by Cyril de Bodt. Copyright (c) 2021 Université
+catholique de Louvain (UCLouvain), ICTEAM. All rights reserved.
+
+You can use, modify and redistribute this software freely, but not for
+commercial purposes.
+
+The use of this software is at your own risk; the authors are not
+responsible for any damage as a result from errors in the software.
