@@ -40,7 +40,7 @@ runMSSNE <- function(x,
     n_components <- as.integer(n_components)
 
     ans <- basiliskRun(env = fmsneenv, fun = .run_mssne,
-                       X_hds = t(X),
+                       X = t(X),
                        n_components = n_components,
                        init = init,
                        rand_state = rand_state,
