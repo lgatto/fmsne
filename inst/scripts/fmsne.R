@@ -76,6 +76,8 @@ sce.mam <- fmsne::runFMSSNE(sce.mam, subset_row = top.mam)
 reducedDims(sce.mam)
 
 sce <- sce.mam
+
+pdf()
 gridExtra::grid.arrange(
                plotReducedDim(sce, colour_by="label",
                               dimred = "TSNE30"),
@@ -83,3 +85,4 @@ gridExtra::grid.arrange(
                               dimred = "TSNE200"),
                plotPCA(sce, colour_by = "label"),
                plotFMSSNE(sce, colour_by="label"))
+dev.off()
