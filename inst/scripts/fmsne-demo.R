@@ -101,5 +101,6 @@ sapply(rk, "[[", 2)
 
 sapply(rk, "[[", 1) |>
     matplot(type = "l", lty = 1, lwd = 2)
-legend("topleft", names(rk), lty = 1, col = 1:5,
+legend("topleft", paste(names(rk), round(sapply(rk, "[[", 2), 3)),
+       lty = 1, col = 1:5,
        bty = "n")
