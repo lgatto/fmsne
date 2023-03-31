@@ -107,3 +107,26 @@ legend("topleft",
        paste(names(rk), round(sapply(rk, "[[", 2), 3)),
        lty = 1, col = 1:5,
        bty = "n")
+
+## --------------------------------------------------------------
+
+ref1 <- readRDS("~/tmp/ref.rds")
+ref1 <- runTSNE(ref1, dimred = "PCA",
+                perplexity = 30,
+                name = "TSNE30")
+
+
+ref2 <- readRDS("~/tmp/ref2.rds")
+names(colData(ref2))[13] <- "Trophoblast"
+ref2 <- runPCA(ref2)
+ref2 <- runTSNE(ref2, dimred = "PCA",
+                perplexity = 30,
+                name = "TSNE30")
+
+gridExtra::grid.arrange(
+               plotReducedDim(ref1, colour_by = "cellType",
+                              dimred = "TSNE30"),
+               plotPCA(ref1, colour_by = "cellType"),
+               plotReducedDim(ref2, colour_by = "Trophoblast",
+                              dimred = "TSNE30"),
+               plotPCA(ref2, colour_by = "Trophoblast"))
