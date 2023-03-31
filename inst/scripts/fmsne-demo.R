@@ -43,7 +43,7 @@ sce.mam <- logNormCounts(sce.mam)
 ######################################
 ## 12.5 Variance modelling
 
-set.seed(00010101)
+nset.seed(00010101)
 dec.mam <- modelGeneVarByPoisson(sce.mam)
 top.mam <- getTopHVGs(dec.mam, prop=0.1)
 
@@ -85,7 +85,7 @@ gridExtra::grid.arrange(
                               dimred = "TSNE200"),
                plotPCA(sce, colour_by = "label"),
                plotFMSSNE(sce, colour_by="label"),
-               plotFMSTSNE(sce, colour_by="label"))
+               plotFMSTSNE(sce, colour_by="label"))g
 
 
 reducedDim(sce, "PCA")
@@ -101,8 +101,6 @@ sapply(rk, "[[", 2)
 
 sapply(rk, "[[", 1) |>
     matplot(type = "l", lty = 1, lwd = 2, log = "x")
-
-
 legend("topleft",
        paste(names(rk), round(sapply(rk, "[[", 2), 3)),
        lty = 1, col = 1:5,
@@ -130,3 +128,8 @@ gridExtra::grid.arrange(
                plotReducedDim(ref2, colour_by = "Trophoblast",
                               dimred = "TSNE30"),
                plotPCA(ref2, colour_by = "Trophoblast"))
+
+
+
+ref1 <- fmsne::runFMSSNE(ref1)
+## ref2 <- fmsne::runFMSSNE(ref2)

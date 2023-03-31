@@ -1,0 +1,11 @@
+- Licensing?
+
+- How to compare, when t-SNE is run on the PCA data (I believe run on
+  most variable genes, 50 PCs) and MS versions on top features. Should
+  we try to run all of it on PCAs and/or top features?
+
+- Use non-fast methods, shouldn't be a problem time-wise for 1300 genes.
+
+- QA should be run on top genes only - same ones as those fed methods.
+
+- (FMSTSNE: could try bht 0.75)
