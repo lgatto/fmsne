@@ -9,18 +9,18 @@
                          maxcor = 10,
                          bht = 0.45,
                          fseed = 1L) {
-    fmsnepy <- reticulate::import("fmsnepy")
-    ans <- fmsnepy$fmstsne(X_hds = t(X),
-                           n_components = n_components,
-                           init = init,
-                           rand_state = rand_state,
-                           nit_max = nit_max,
-                           gtol = gtol,
-                           ftol = ftol,
-                           maxls = maxls,
-                           maxcor = maxcor,
-                           bht = bht,
-                           fseed = fseed)
+    fmsne <- reticulate::import("fmsne")
+    ans <- fmsne$fmstsne(X_hds = t(X),
+                         n_components = n_components,
+                         init = init,
+                         rand_state = rand_state,
+                         nit_max = nit_max,
+                         gtol = gtol,
+                         ftol = ftol,
+                         maxls = maxls,
+                         maxcor = maxcor,
+                         bht = bht,
+                         fseed = fseed)
     ans
 }
 

@@ -1,6 +1,6 @@
 .run_eval_dr_quality_from_data <- function(x, y) {
-    fmsnepy <- reticulate::import("fmsnepy")
-    ans <- fmsnepy$eval_dr_quality_from_data(X = x,
+    fmsne <- reticulate::import("fmsne")
+    ans <- fmsne$eval_dr_quality_from_data(X = x,
                                              Y = y)
     names(ans) <- c("Rk", "AUC")
     ans

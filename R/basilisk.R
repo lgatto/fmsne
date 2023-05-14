@@ -13,6 +13,7 @@
 fmsneenv <- BasiliskEnvironment(
     envname = "fmsne", pkgname = "fmsne",
     packages = .all_deps,
-    channels = c("bioconda", "conda-forge"),
-    paths = c("fmsnepy", "fmsnepyx")
+    pip = "fmsne==0.5.1",
+    channels = c("bioconda", "conda-forge")
+    ## paths = c("fmsne") ## in ./inst/fmsne
 )
