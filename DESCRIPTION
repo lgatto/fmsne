@@ -9,7 +9,7 @@ Authors@R: c(
          email = "laurent.gatto@uclouvain.ne",
          role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-1520-2268")))
-License: GPL-3
+License: MIT
 Description: Provides an R interface for various Python
     implementations of neighbour embedding methods, including
     multi-scale SNE, multi-scale t-SNE, fast implementations thereof,
