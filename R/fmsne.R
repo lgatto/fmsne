@@ -2,13 +2,36 @@
 ##'
 ##' @description
 ##'
-##' The `mssne()` function performs a nonlinear dimensionality
-##' reduction through multi-scale SNE (Ms SNE), as presented in Lee et
-##' al. (2015) below and summarized in de Bodt et al. (2020). This
-##' function enables reducing the dimension of a data set. Given a
-##' data set with N samples, the 'mssne' function has O(N**2 log(N))
-##' time complexity. It can hence run on dataset with up to a few
-##' thousands of samples.
+##' The `fmsne` package offers various functions to perform nonlinear
+##' dimensionality reduction through multi-scale (MS) stochastic
+##' neighbor embedding (SNE) or t-distributed SNE (t-SNE), including
+##' fast versions thereof.
+##'
+##' - The `mssne()` function performs a nonlinear dimensionality
+##'   reduction through multi-scale SNE, as presented in Lee et
+##'   al. (2015) below and summarized in de Bodt et al. (2020).  Given
+##'   a data set with N samples, the 'mssne()' function has O(N**2
+##'   log(N)) time complexity. It can hence run on dataset with up to
+##'   a few thousands of cells.
+##'
+##' - The `mstsne()` function performs nonlinear dimensionality
+##'   reduction through multi-scale t-SNE, as presented in the
+##'   reference de Bodt et al. (2018) below and summarized in de Bodt
+##'   et al. (2020). Given a data set with N samples, the 'mstsne'
+##'   function has O(N**2 log(N)) time complexity. It can hence run on
+##'   dataset with up to a few thousands of cells.
+##'
+##' - The `fmssne()` function performs nonlinear dimensionality
+##'   reduction through fast multi-scale SNE, as presented in Lee et
+##'   al. (2015) below. Given a data set with N samples, the 'fmssne'
+##'   function has O(N (log(N))**2) time complexity. It can hence run
+##'   on very large-scale datasets.
+##'
+##' - The `fmstsne()` function performs nonlinear dimensionality
+##'   reduction through fast multi-scale t-SNE, as presented in the de
+##'   Bodt et al. (2020) below.  Given a data set with N samples, the
+##'   'fmstsne' function has O(N (log(N))**2) time complexity. It can
+##'   hence run on very large-scale datasets.
 ##'
 ##' See the vignette for further details.
 ##'
@@ -55,6 +78,17 @@
 ##'     TRUE usually tends to slightly improve DR quality at the
 ##'     expense of slightly increasing computation time.
 ##'
+##' @param bht `logical(1)` indicating whether to fit the U in the
+##'     definition of the LD similarities in [2]. If `TRUE`, the U is
+##'     tuned as in Lee et al. (2015). Otherwise, it is forced to
+##'     1. Setting `fit_U` to `TRUE` usually tends to slightly improve
+##'     dimensionality reduction quality at the expense of slightly
+##'     increasing computation time.
+##'
+##' @param fseed strictly positive `integer(1)` defining the random
+##'     seed used to perform the random sampling of the
+##'     high-dimensional data set at the different scales.
+##'
 ##' @param subset_row Vector specifying the subset of features to use
 ##'     for dimensionality reduction. This can be a character vector
 ##'     of row names, an integer vector of row indices or a logical
@@ -73,6 +107,7 @@
 ##' The [plotFMSSNE()], [plotFMSTSNE()], [plotMSSNE()] and [plotMSTSNE()]
 ##' functions to visualise the low dimension embeddings.
 ##'
+##' @aliases runMSSNE runMSTSNE runFMSSNE runFMSTSNE fmsne
 ##'
 ##' @references
 ##'
@@ -85,5 +120,14 @@
 ##'   Multiscale Neighbor Embedding, in IEEE Transactions on Neural
 ##'   Networks and Learning Systems, 2020, doi:
 ##'   10.1109/TNNLS.2020.3042807.
+##'
+##' - de Bodt, C., Mulders, D., Verleysen, M., & Lee,
+##'   J. A. (2018). Perplexity-free t-SNE and twice Student tt-SNE. In
+##'   ESANN (pp. 123-128).
+##'
+##' - Lee, J. A., Peluffo-Ordóñez, D. H., & Verleysen,
+##'   (2015). Multi-scale similarities in stochastic neighbour
+##'   embedding: Reducing dimensionality while preserving both local
+##'   and global structure. Neurocomputing, 169, 246-261.
 ##'
 ##' @author Laurent Gatto
