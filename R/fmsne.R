@@ -107,7 +107,9 @@
 ##' The [plotFMSSNE()], [plotFMSTSNE()], [plotMSSNE()] and [plotMSTSNE()]
 ##' functions to visualise the low dimension embeddings.
 ##'
-##' @aliases runMSSNE runMSTSNE runFMSSNE runFMSTSNE fmsne
+##' @aliases runMSSNE runMSTSNE runFMSSNE runFMSTSNE
+##'
+##' @name fmsne
 ##'
 ##' @references
 ##'
@@ -130,4 +132,7 @@
 ##'   embedding: Reducing dimensionality while preserving both local
 ##'   and global structure. Neurocomputing, 169, 246-261.
 ##'
+##' @docType package
+##'
 ##' @author Laurent Gatto
+NULL

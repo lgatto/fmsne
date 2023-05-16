@@ -1,9 +1,9 @@
-#' Test function returning python function names
-#'
-#' @export
-#'
-#' @importFrom reticulate import
-#' @importFrom basilisk basiliskStart basiliskRun basiliskStop
+##' Test function returning python function names
+##'
+##' @noRd
+##'
+##' @importFrom reticulate import
+##' @importFrom basilisk basiliskStart basiliskRun basiliskStop
 fmsnePythonNames <- function() {
     cl <- basiliskStart(fmsneenv)
     fmsne.names <- basiliskRun(cl, function() {

@@ -55,6 +55,8 @@ plotMSSNE <- function(object, ..., ncomponents = 2) {
 
 
 ##' @export
+##'
+##' @rdname plotFMSNE
 plotFMSSNE <- function(object, ..., ncomponents = 2) {
     plotReducedDim(object,
                    ncomponents = ncomponents,
@@ -64,7 +66,19 @@ plotFMSSNE <- function(object, ..., ncomponents = 2) {
 
 
 ##' @export
+##'
+##' @rdname plotFMSNE
 plotFMSTSNE <- function(object, ..., ncomponents = 2) {
+    plotReducedDim(object,
+                   ncomponents = ncomponents,
+                   dimred = "FMSTSNE",
+                   ...)
+}
+
+##' @export
+##'
+##' @rdname plotFMSNE
+plotMSTSNE <- function(object, ..., ncomponents = 2) {
     plotReducedDim(object,
                    ncomponents = ncomponents,
                    dimred = "FMSTSNE",

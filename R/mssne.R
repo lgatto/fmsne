@@ -1,4 +1,6 @@
 ##' @export
+##'
+##' @rdname fmsne
 runMSSNE <- function(x,
                      n_components = 2L,
                      init = 'pca',
