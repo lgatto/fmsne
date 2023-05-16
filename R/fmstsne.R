@@ -62,12 +62,3 @@ runFMSTSNE <- function(x,
     reducedDim(x, name) <- ans
     x
 }
-
-
-##' @export
-plotFMSTSNE <- function(object, ..., ncomponents = 2) {
-    plotReducedDim(object,
-                   ncomponents = ncomponents,
-                   dimred = "FMSTSNE",
-                   ...)
-}

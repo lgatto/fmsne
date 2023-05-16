@@ -144,12 +144,3 @@ runMSSNE <- function(x,
                        fit_U = fit_U)
     ans
 }
-
-
-##' @export
-plotMSSNE <- function(object, ..., ncomponents = 2) {
-    plotReducedDim(object,
-                   ncomponents = ncomponents,
-                   dimred = "MSSNE",
-                   ...)
-}
