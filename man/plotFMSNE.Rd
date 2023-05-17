@@ -16,43 +16,44 @@ plotFMSTSNE(object, ..., ncomponents = 2)
 plotMSTSNE(object, ..., ncomponents = 2)
 }
 \arguments{
-\item{object}{A `SingleCellExperiment` object.}
+\item{object}{A \code{SingleCellExperiment} object.}
 
 \item{...}{Additional arguments to pass to
-[scater::plotReducedDim()].}
+\code{\link[scater:plotReducedDim]{scater::plotReducedDim()}}.}
 
-\item{ncomponents}{`numeric(1)` indicating the number of
+\item{ncomponents}{\code{numeric(1)} indicating the number of
 dimensions components to plot This can also be a numeric
-vector, see [scater::plotReducedDim()] for details.}
+vector, see \code{\link[scater:plotReducedDim]{scater::plotReducedDim()}} for details.}
 }
 \value{
-A `ggplot` object.
+A \code{ggplot} object.
 }
 \description{
 Wrapper fonctions to create plots for specific types
-    of reduced dimension results produced by the various `fmsne`
-    dimensionality reductions. The function follow the `scater`
-    package's syntax.
+of reduced dimension results produced by the various \code{fmsne}
+dimensionality reductions. The function follow the \code{scater}
+package's syntax.
 }
 \details{
-As for the equivalent functions from the `scater` package, each
-function is a convenient wrapper around [scater::plotReducedDim()]
-that searches the [SingleCellExperiment::reducedDims()] slot for
+As for the equivalent functions from the \code{scater} package, each
+function is a convenient wrapper around \code{\link[scater:plotReducedDim]{scater::plotReducedDim()}}
+that searches the \code{\link[SingleCellExperiment:reducedDims]{SingleCellExperiment::reducedDims()}} slot for
 an appropriately named dimensionality reduction result:
-
-- "FMSTSNE" for `plotFMSTNSE()`
-- "FMSSNE" for `plotFMSNSE()`
-- "MSTSNE" for `plotMSTNSE()`
-- "MSTSNE" for `plotMSNSE()`
+\itemize{
+\item "FMSTSNE" for \code{plotFMSTNSE()}
+\item "FMSSNE" for \code{plotFMSNSE()}
+\item "MSTSNE" for \code{plotMSTNSE()}
+\item "MSTSNE" for \code{plotMSNSE()}
+}
 
 Its only purpose is to streamline workflows to avoid the need to
 specify the ‘dimred’ argument.
 }
 \seealso{
-[runFMSSNE()], [runFMSSNE()], [runMSTSNE()] and [runMSSNE()] for
+\code{\link[=runFMSSNE]{runFMSSNE()}}, \code{\link[=runFMSSNE]{runFMSSNE()}}, \code{\link[=runMSTSNE]{runMSTSNE()}} and \code{\link[=runMSSNE]{runMSSNE()}} for
 the functions that actually perform the calculations.
 
-[scater::plotReducedDim()] for the underlying plotting function.
+\code{\link[scater:plotReducedDim]{scater::plotReducedDim()}} for the underlying plotting function.
 }
 \author{
 Laurent Gatto

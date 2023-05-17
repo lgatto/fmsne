@@ -19,6 +19,9 @@ Imports:
     SingleCellExperiment
 Suggests:
     BiocManager
+BugReports: https://github.com/lgatto/fmsne/issues
 Encoding: UTF-8
 StagedInstall: no
 RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr

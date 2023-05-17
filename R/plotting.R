@@ -13,8 +13,11 @@
 ##' an appropriately named dimensionality reduction result:
 ##'
 ##' - "FMSTSNE" for `plotFMSTNSE()`
+##'
 ##' - "FMSSNE" for `plotFMSNSE()`
+##'
 ##' - "MSTSNE" for `plotMSTNSE()`
+##'
 ##' - "MSTSNE" for `plotMSNSE()`
 ##'
 ##' Its only purpose is to streamline workflows to avoid the need to

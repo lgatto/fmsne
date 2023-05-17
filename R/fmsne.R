@@ -79,11 +79,11 @@
 ##'     expense of slightly increasing computation time.
 ##'
 ##' @param bht `logical(1)` indicating whether to fit the U in the
-##'     definition of the LD similarities in [2]. If `TRUE`, the U is
-##'     tuned as in Lee et al. (2015). Otherwise, it is forced to
-##'     1. Setting `fit_U` to `TRUE` usually tends to slightly improve
-##'     dimensionality reduction quality at the expense of slightly
-##'     increasing computation time.
+##'     definition of the LD similarities in Lee et al. (2015). If
+##'     `TRUE`, the U is tuned as in Lee et al. (2015). Otherwise, it
+##'     is forced to 1. Setting `fit_U` to `TRUE` usually tends to
+##'     slightly improve dimensionality reduction quality at the
+##'     expense of slightly increasing computation time.
 ##'
 ##' @param fseed strictly positive `integer(1)` defining the random
 ##'     seed used to perform the random sampling of the
