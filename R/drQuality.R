@@ -28,6 +28,27 @@
 ##' * \sum_{i=1}^{N} |v_i^K \cap n_i^K|/K$, where N refers to the
 ##' number of data points and $\cap$ to the set intersection operator.
 ##'
+##' $Q_{NX}(K)$ ranges between 0 and 1; the closer to 1, the better.
+##'
+##' As the expectation of $Q_{NX}(K)$ with random low-dimensional
+##' coordinates is equal to $K/(N-1)$, which is increasing with $K$,
+##' $R_{NX}(K) = ((N-1)*Q_{NX}(K)-K)/(N-1-K)$ enables more easily
+##' comparing different neighborhood sizes $K$.
+##'
+##' $R_{NX}(K)$ ranges between -1 and 1, but a negative value
+##' indicates that the embedding performs worse than
+##' random. Therefore, $R_{NX}(K)$ typically lies between 0 and 1.
+##'
+##' The $R_{NX}(K)$ values for K=1 to N-2 can be displayed as a curve
+##' with a log scale for K, as closer neighbors typically prevail.
+##'
+##' The area under the resulting curve (AUC) is a scalar score which
+##' grows with dimensionality reduction quality, quantified at all
+##' scales with an emphasis on small ones.
+##'
+##' The AUC lies between -1 and 1, but a negative value implies
+##' performances which are worse than random.
+##'
 ##'
 ##' @param object A `SingleCellExperiment` object.
 ##'
