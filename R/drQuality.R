@@ -49,6 +49,17 @@
 ##' The AUC lies between -1 and 1, but a negative value implies
 ##' performances which are worse than random.
 ##'
+##' Given a dataset with N cells, the function has $O(N**2 log(N))$
+##' time complexity. It can hence run using databases with up to a few
+##' thousands of cells.
+##'
+##' On the other hand, given a data set with N samples, the
+##' 'red_rnx_auc' function has O(N*Kup*log(N)) time complexity, where
+##' Kup is the maximum neighborhood size accounted when computing the
+##' quality criteria. This function can hence run using much larger
+##' databases than 'eval_dr_quality', provided that Kup is small
+##' compared to N.
+##'
 ##'
 ##' @param object A `SingleCellExperiment` object.
 ##'
@@ -86,24 +97,42 @@
 ##'   M. (2013). Type 1 and 2 mixtures of Kullback–Leibler divergences
 ##'   as cost functions in dimensionality reduction based on
 ##'   similarity preservation. Neurocomputing, 112, 92-108.
-
-
 ##'
 ##' @author Laurent Gatto
-drQuality <- function(object, dimred = "PCA") {
+drQuality <- function(object, dimred = "PCA", Kup = NA) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     x <- t(as.matrix(assay(object)))
     y <- reducedDim(object, dimred)
-    basiliskRun(env = fmsneenv,
-                fun = .run_eval_dr_quality_from_data,
-                x = x,
-                y = y)
+    if (is.na(Kup)) {
+        ans <- basiliskRun(env = fmsneenv,
+                           fun = .run_eval_dr_quality_from_data,
+                           x = x,
+                           y = y)
+    } else {
+        Kup <- as.integer(Kup)
+        stopifnot(length(Kup) == 1,
+                  Kup > 0)
+        ans <- basiliskRun(env = fmsneenv,
+                           fun = .run_eval_red_rnx_aux_from_data,
+                           x = x,
+                           y = y)
+    }
+    ans
 }
 
 .run_eval_dr_quality_from_data <- function(x, y) {
     fmsne <- reticulate::import("fmsne")
     ans <- fmsne$eval_dr_quality_from_data(X = x,
                                            Y = y)
+    names(ans) <- c("Rk", "AUC")
+    ans
+}
+
+.run_eval_red_rnx_aux_from_data <- function(x, y) {
+    fmsne <- reticulate::import("fmsne")
+    ans <- fmsne$eval_red_rnx_aux_from_data(X = x,
+                                            Y = y,
+                                            Kup)
     names(ans) <- c("Rk", "AUC")
     ans
 }
