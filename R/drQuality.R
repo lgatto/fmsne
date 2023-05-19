@@ -10,56 +10,52 @@
 ##' @details
 ##'
 ##' The `drQuality()` function computes the dimensionality reduction
-##' quality assessment criteria R_{NX}(K) and AUC, as defined in Lee
-##' et al. (2009, 2010, 2103) and Lee and Verleysen (2009, 2010) , 5]
-##' and as employed in the experiments reported in de Bodt et
-##' al. (2020).
+##' quality assessment criteria $R_{NX}(K)$ and AUC, as defined in Lee
+##' et al. (2009, 2010, 2103) and Lee and Verleysen (2009, 2010) and
+##' as used in the experiments reported in de Bodt et al. (2020).
 ##'
 ##' These criteria measure the neighborhood preservation around the
 ##' data points from the high-diensional space to the
 ##' low-dimenensional space.
 ##'
-##' Based on the high-dimenensional and low-dimenensional distances,
-##' the sets v_i^K (resp. n_i^K) of the K nearest neighbors of data
-##' point i in the high-dimenensional space (resp. low-dimenensional
-##' space) can first be computed.
+##' Based on the high-dimenensional and low-dimenensional Euclidean
+##' distances, the sets $v_i^K$ (resp. $n_i^K$) of the K nearest
+##' neighbors of data point i in the high-dimenensional space
+##' (resp. low-dimenensional space) can first be computed.
 ##'
 ##' Their average normalized agreement develops as $Q_{NX}(K) = (1/N)
 ##' * \sum_{i=1}^{N} |v_i^K \cap n_i^K|/K$, where N refers to the
-##' number of data points and $\cap$ to the set intersection operator.
-##'
-##' $Q_{NX}(K)$ ranges between 0 and 1; the closer to 1, the better.
+##' number of data points and $\cap$ to the set intersection
+##' operator. $Q_{NX}(K)$ ranges between 0 and 1; the closer to 1, the
+##' better.
 ##'
 ##' As the expectation of $Q_{NX}(K)$ with random low-dimensional
 ##' coordinates is equal to $K/(N-1)$, which is increasing with $K$,
-##' $R_{NX}(K) = ((N-1)*Q_{NX}(K)-K)/(N-1-K)$ enables more easily
-##' comparing different neighborhood sizes $K$.
-##'
-##' $R_{NX}(K)$ ranges between -1 and 1, but a negative value
-##' indicates that the embedding performs worse than
-##' random. Therefore, $R_{NX}(K)$ typically lies between 0 and 1.
-##'
-##' The $R_{NX}(K)$ values for K=1 to N-2 can be displayed as a curve
-##' with a log scale for K, as closer neighbors typically prevail.
+##' $R_{NX}(K) = ((N-1)*Q_{NX}(K)-K)/(N-1-K)$ enables to more easily
+##' comparing different neighborhood sizes $K$. $R_{NX}(K)$ ranges
+##' between -1 and 1, but a negative value indicates that the
+##' embedding performs worse than random. Therefore, $R_{NX}(K)$
+##' typically lies between 0 and 1. The $R_{NX}(K)$ values for K=1 to
+##' N-2 can be displayed as a curve with a log scale for K, as closer
+##' neighbours typically prevail.
 ##'
 ##' The area under the resulting curve (AUC) is a scalar score which
 ##' grows with dimensionality reduction quality, quantified at all
-##' scales with an emphasis on small ones.
-##'
-##' The AUC lies between -1 and 1, but a negative value implies
-##' performances which are worse than random.
+##' scales with an emphasis on small ones. The AUC lies between -1 and
+##' 1, but a negative value implies performances which are worse than
+##' random.
 ##'
 ##' Given a dataset with N cells, the function has $O(N**2 log(N))$
 ##' time complexity. It can hence run using databases with up to a few
 ##' thousands of cells.
 ##'
-##' On the other hand, given a data set with N samples, the
-##' 'red_rnx_auc' function has O(N*Kup*log(N)) time complexity, where
-##' Kup is the maximum neighborhood size accounted when computing the
-##' quality criteria. This function can hence run using much larger
-##' databases than 'eval_dr_quality', provided that Kup is small
-##' compared to N.
-##'
+##' The `Kup` parameter sets the maximum neighborhood size when
+##' computing the quality criteria, that is computed only for the
+##' neighborhood sizes K up to Kup, as opposed to all possible
+##' neighborhood sizes when `Kup` is `NA`. This reduces the time
+##' complexity to $O(N*Kup*log(N))$. Setting `Kup` can hence be run
+##' using much larger dataset, provided that `Kup` is small compared
+##' to the total number of cells N.
 ##'
 ##' @param object A `SingleCellExperiment` object.
 ##'
@@ -110,8 +106,7 @@ drQuality <- function(object, dimred = "PCA", Kup = NA) {
                            y = y)
     } else {
         Kup <- as.integer(Kup)
-        stopifnot(length(Kup) == 1,
-                  Kup > 0)
+        stopifnot(length(Kup) == 1, Kup > 0)
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_red_rnx_aux_from_data,
                            x = x,
