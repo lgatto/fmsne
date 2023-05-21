@@ -15,13 +15,13 @@
 ##' as used in the experiments reported in de Bodt et al. (2020).
 ##'
 ##' These criteria measure the neighborhood preservation around the
-##' data points from the high-diensional space to the
-##' low-dimenensional space.
+##' data points from the high-dimensional space to the
+##' low-dimensional space.
 ##'
-##' Based on the high-dimenensional and low-dimenensional Euclidean
+##' Based on the high-dimensional and low-dimensional Euclidean
 ##' distances, the sets $v_i^K$ (resp. $n_i^K$) of the K nearest
-##' neighbors of data point i in the high-dimenensional space
-##' (resp. low-dimenensional space) can first be computed.
+##' neighbours of data point i in the high-dimensional space
+##' (resp. low-dimensional space) can first be computed.
 ##'
 ##' Their average normalized agreement develops as $Q_{NX}(K) = (1/N)
 ##' * \sum_{i=1}^{N} |v_i^K \cap n_i^K|/K$, where N refers to the
@@ -32,7 +32,7 @@
 ##' As the expectation of $Q_{NX}(K)$ with random low-dimensional
 ##' coordinates is equal to $K/(N-1)$, which is increasing with $K$,
 ##' $R_{NX}(K) = ((N-1)*Q_{NX}(K)-K)/(N-1-K)$ enables to more easily
-##' comparing different neighborhood sizes $K$. $R_{NX}(K)$ ranges
+##' compare different neighbourhood sizes $K$. $R_{NX}(K)$ ranges
 ##' between -1 and 1, but a negative value indicates that the
 ##' embedding performs worse than random. Therefore, $R_{NX}(K)$
 ##' typically lies between 0 and 1. The $R_{NX}(K)$ values for K=1 to
@@ -108,7 +108,7 @@ drQuality <- function(object, dimred = "PCA", Kup = NA) {
         Kup <- as.integer(Kup)
         stopifnot(length(Kup) == 1, Kup > 0)
         ans <- basiliskRun(env = fmsneenv,
-                           fun = .run_eval_red_rnx_aux_from_data,
+                           fun = .run_eval_red_rnx_auc_from_data,
                            x = x,
                            y = y,
                            Kup = Kup)
@@ -121,14 +121,16 @@ drQuality <- function(object, dimred = "PCA", Kup = NA) {
     ans <- fmsne$eval_dr_quality_from_data(X = x,
                                            Y = y)
     names(ans) <- c("Rk", "AUC")
+    names(ans[["Rk"]]) <- seq(1, nrow(x)-2, 1)
     ans
 }
 
-.run_eval_red_rnx_aux_from_data <- function(x, y, Kup) {
+.run_eval_red_rnx_auc_from_data <- function(x, y, Kup) {
     fmsne <- reticulate::import("fmsne")
-    ans <- fmsne$eval_red_rnx_aux_from_data(X = x,
+    ans <- fmsne$eval_red_rnx_auc_from_data(X = x,
                                             Y = y,
                                             Kup = Kup)
     names(ans) <- c("Rk", "AUC")
+    names(ans[["Rk"]]) <- seq(1, Kup, 1)
     ans
 }
