@@ -64,7 +64,6 @@ runMSTSNE(
   ftol = 2.22044604925031e-09,
   maxls = 50,
   maxcor = 10,
-  fit_U = TRUE,
   subset_row = NULL,
   name = "MSTSNE"
 )
@@ -114,11 +113,11 @@ TRUE usually tends to slightly improve DR quality at the
 expense of slightly increasing computation time.}
 
 \item{bht}{\code{logical(1)} indicating whether to fit the U in the
-definition of the LD similarities in \link{2}. If \code{TRUE}, the U is
-tuned as in Lee et al. (2015). Otherwise, it is forced to
-1. Setting \code{fit_U} to \code{TRUE} usually tends to slightly improve
-dimensionality reduction quality at the expense of slightly
-increasing computation time.}
+definition of the LD similarities in Lee et al. (2015). If
+\code{TRUE}, the U is tuned as in Lee et al. (2015). Otherwise, it
+is forced to 1. Setting \code{fit_U} to \code{TRUE} usually tends to
+slightly improve dimensionality reduction quality at the
+expense of slightly increasing computation time.}
 
 \item{fseed}{strictly positive \code{integer(1)} defining the random
 seed used to perform the random sampling of the
