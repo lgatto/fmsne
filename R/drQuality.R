@@ -110,7 +110,8 @@ drQuality <- function(object, dimred = "PCA", Kup = NA) {
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_red_rnx_aux_from_data,
                            x = x,
-                           y = y)
+                           y = y,
+                           Kup = Kup)
     }
     ans
 }
@@ -123,11 +124,11 @@ drQuality <- function(object, dimred = "PCA", Kup = NA) {
     ans
 }
 
-.run_eval_red_rnx_aux_from_data <- function(x, y) {
+.run_eval_red_rnx_aux_from_data <- function(x, y, Kup) {
     fmsne <- reticulate::import("fmsne")
     ans <- fmsne$eval_red_rnx_aux_from_data(X = x,
                                             Y = y,
-                                            Kup)
+                                            Kup = Kup)
     names(ans) <- c("Rk", "AUC")
     ans
 }

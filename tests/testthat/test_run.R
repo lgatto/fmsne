@@ -1,20 +1,9 @@
-ncells <- 100L
-u <- matrix(rpois(20000, 5), ncol=ncells)
-colnames(u) <- paste0("Cell", 1:100)
-rownames(u) <- paste0("Gene", 1:200)
-v <- log2(u + 1)
-suppressWarnings(
-    sce0 <- SingleCellExperiment(assays=list(counts=u, logcounts=v)) |>
-    runPCA() |>
-        scater::runTSNE())
-rd0 <- reducedDims(sce0)
-
 ################################################################################
 ## FMSTSNE
 
 test_that("runFMSTSNE() works", {
     sce <- runFMSTSNE(sce0)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSTSNE"))
     expect_identical(dim(reducedDim(sce, "FMSTSNE")),
                      c(ncells, 2L))
@@ -24,7 +13,7 @@ test_that("runFMSTSNE() works", {
 
 test_that("runFMSTSNE(n_components) works", {
  sce <- runFMSTSNE(sce0, n_components = 3)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSTSNE"))
     expect_identical(dim(reducedDim(sce, "FMSTSNE")),
                      c(ncells, 3L))
@@ -50,7 +39,7 @@ test_that("runFMSTSNE(subset_row) works", {
                      c("FMSTSNE_31", "FMSTSNE_32"))
     expect_identical(dim(reducedDim(sce, "FMSTSNE_1")),
                      c(ncells, 2L))
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSTSNE_1", "FMSTSNE_2", "FMSTSNE_3"))
 })
 
@@ -59,7 +48,7 @@ test_that("runFMSTSNE(subset_row) works", {
 
 test_that("runFMSSNE() works", {
     sce <- runFMSSNE(sce0)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSSNE"))
     expect_identical(dim(reducedDim(sce, "FMSSNE")),
                      c(ncells, 2L))
@@ -69,7 +58,7 @@ test_that("runFMSSNE() works", {
 
 test_that("runFMSSNE(n_components) works", {
  sce <- runFMSSNE(sce0, n_components = 3)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSSNE"))
     expect_identical(dim(reducedDim(sce, "FMSSNE")),
                      c(ncells, 3L))
@@ -95,7 +84,7 @@ test_that("runFMSSNE(subset_row) works", {
                      c("FMSSNE_31", "FMSSNE_32"))
     expect_identical(dim(reducedDim(sce, "FMSSNE_1")),
                      c(ncells, 2L))
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSSNE_1", "FMSSNE_2", "FMSSNE_3"))
 })
 
@@ -105,7 +94,7 @@ test_that("runFMSSNE(subset_row) works", {
 
 test_that("runMSTSNE() works", {
     sce <- runMSTSNE(sce0)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSTSNE"))
     expect_identical(dim(reducedDim(sce, "MSTSNE")),
                      c(ncells, 2L))
@@ -115,7 +104,7 @@ test_that("runMSTSNE() works", {
 
 test_that("runMSTSNE(n_components) works", {
     sce <- runMSTSNE(sce0, n_components = 3)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSTSNE"))
     expect_identical(dim(reducedDim(sce, "MSTSNE")),
                      c(ncells, 3L))
@@ -141,7 +130,7 @@ test_that("runMSTSNE(subset_row) works", {
                      c("MSTSNE_31", "MSTSNE_32"))
     expect_identical(dim(reducedDim(sce, "MSTSNE_1")),
                      c(ncells, 2L))
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSTSNE_1", "MSTSNE_2", "MSTSNE_3"))
 })
 
@@ -151,7 +140,7 @@ test_that("runMSTSNE(subset_row) works", {
 
 test_that("runMSSNE() works", {
     sce <- runMSSNE(sce0)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSSNE"))
     expect_identical(dim(reducedDim(sce, "MSSNE")),
                      c(ncells, 2L))
@@ -161,7 +150,7 @@ test_that("runMSSNE() works", {
 
 test_that("runMSSNE(n_components) works", {
  sce <- runMSSNE(sce0, n_components = 3)
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSSNE"))
     expect_identical(dim(reducedDim(sce, "MSSNE")),
                      c(ncells, 3L))
@@ -187,6 +176,6 @@ test_that("runMSSNE(subset_row) works", {
                      c("MSSNE_31", "MSSNE_32"))
     expect_identical(dim(reducedDim(sce, "MSSNE_1")),
                      c(ncells, 2L))
-    expect_identical(names(reducedDims(sce)),
+    expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSSNE_1", "MSSNE_2", "MSSNE_3"))
 })
