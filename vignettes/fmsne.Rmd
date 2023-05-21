@@ -13,7 +13,7 @@ output:
     toc_depth: 2
     code_folding: show
 date: "`r doc_date()`"
-package: "`r pkg_ver('fmsne)`"
+package: "`r pkg_ver('fmsne')`"
 vignette: >
   %\VignetteIndexEntry{The fmsne package}
   %\VignetteEngine{knitr::rmarkdown}
