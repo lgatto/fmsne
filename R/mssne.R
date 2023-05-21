@@ -24,7 +24,7 @@ runMSSNE <- function(x,
                        X = X,
                        n_components = n_components,
                        init = init,
-                       rand_state = rand_state,
+                       rand_state = NA,
                        nit_max = nit_max,
                        gtol = gtol,
                        ftol = ftol,
@@ -32,6 +32,7 @@ runMSSNE <- function(x,
                        maxcor = maxcor,
                        fit_U = fit_U)
     rownames(ans) <- colnames(x)
+    colnames(ans) <- paste0(name, seq_len(n_components))
     reducedDim(x, name) <- ans
     x
 }

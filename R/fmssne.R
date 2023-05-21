@@ -29,7 +29,7 @@ runFMSSNE <- function(x,
                        X = X,
                        n_components = n_components,
                        init = init,
-                       rand_state = rand_state,
+                       rand_state = NA,
                        nit_max = nit_max,
                        gtol = gtol,
                        ftol = ftol,
@@ -39,6 +39,7 @@ runFMSSNE <- function(x,
                        bht = bht,
                        fseed = fseed)
     rownames(ans) <- colnames(x)
+    colnames(ans) <- paste0(name, seq_len(n_components))
     reducedDim(x, name) <- ans
     x
 }

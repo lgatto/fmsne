@@ -10,7 +10,6 @@ runMSTSNE <- function(x,
                       ftol = 2.2204460492503131e-09,
                       maxls = 50,
                       maxcor = 10,
-                      fit_U = TRUE,
                       subset_row = NULL,
                       name = "MSTSNE") {
     stopifnot(inherits(x, "SingleCellExperiment"))
@@ -24,14 +23,14 @@ runMSTSNE <- function(x,
                        X = X,
                        n_components = n_components,
                        init = init,
-                       rand_state = rand_state,
+                       rand_state = NA,
                        nit_max = nit_max,
                        gtol = gtol,
                        ftol = ftol,
                        maxls = maxls,
-                       maxcor = maxcor,
-                       fit_U = fit_U)
+                       maxcor = maxcor)
     rownames(ans) <- colnames(x)
+    colnames(ans) <- paste0(name, seq_len(n_components))
     reducedDim(x, name) <- ans
     x
 }
