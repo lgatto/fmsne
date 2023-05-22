@@ -106,13 +106,16 @@
 drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     x <- t(as.matrix(assay(object)))
-    stopifnot(length(dimred) > 1)
-    ans <- lapply(dimred, function(rd) {
+    stopifnot(length(dimred) > 0)
+    res <- lapply(dimred, function(rd) {
         y <- reducedDim(object, rd)
-        .single_drQuality(x, t, Kup)
+        .single_drQuality(x, y, Kup)
     })
-
-
+    ans <- sapply(res, "[[", 1)
+    aux <- sapply(res, "[[", 2)
+    names(aux) <- colnames(ans) <- dimred
+    attr(ans,"AUC") <- aux
+    ans
 }
 
 .single_drQuality <- function(x, y, Kup = NA) {
