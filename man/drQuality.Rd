@@ -12,6 +12,10 @@ drQuality(object, dimred = "PCA", Kup = NA)
 \item{dimred}{\code{character(1)} with the \code{reducedDims} low dimension
 embeddings to be assessed.}
 }
+\value{
+A list containing a vector of \code{Rx} values and a \code{AUC}
+scalar.
+}
 \description{
 Rank-based criteria measuring the high-dimensional neighborhood
 preservation in the low-dimensional embedding Lee et al. (2009,
@@ -20,54 +24,58 @@ Bodt et al. (2020).
 }
 \details{
 The \code{drQuality()} function computes the dimensionality reduction
-quality assessment criteria $R_{NX}(K)$ and AUC, as defined in Lee
-et al. (2009, 2010, 2103) and Lee and Verleysen (2009, 2010) and
-as used in the experiments reported in de Bodt et al. (2020).
+quality assessment criteria \eqn{R_{NX}(K)} and AUC, as defined in
+Lee et al. (2009, 2010, 2103) and Lee and Verleysen (2009, 2010)
+and as used in the experiments reported in de Bodt et al. (2020).
 
 These criteria measure the neighborhood preservation around the
 data points from the high-dimensional space to the
 low-dimensional space.
 
 Based on the high-dimensional and low-dimensional Euclidean
-distances, the sets $v_i^K$ (resp. $n_i^K$) of the K nearest
-neighbours of data point i in the high-dimensional space
+distances, the sets \eqn{v_i^K} (resp. \eqn{n_i^K}) of the K
+nearest neighbours of data point i in the high-dimensional space
 (resp. low-dimensional space) can first be computed.
 
-Their average normalized agreement develops as $Q_{NX}(K) = (1/N)
-\itemize{
-\item \sum_{i=1}^{N} |v_i^K \cap n_i^K|/K$, where N refers to the
-number of data points and $\cap$ to the set intersection
-operator. $Q_{NX}(K)$ ranges between 0 and 1; the closer to 1, the
-better.
-}
+Their average normalized agreement develops as
 
-As the expectation of $Q_{NX}(K)$ with random low-dimensional
-coordinates is equal to $K/(N-1)$, which is increasing with $K$,
-$R_{NX}(K) = ((N-1)*Q_{NX}(K)-K)/(N-1-K)$ enables to more easily
-compare different neighbourhood sizes $K$. $R_{NX}(K)$ ranges
-between -1 and 1, but a negative value indicates that the
-embedding performs worse than random. Therefore, $R_{NX}(K)$
-typically lies between 0 and 1. The $R_{NX}(K)$ values for K=1 to
-N-2 can be displayed as a curve with a log scale for K, as closer
-neighbours typically prevail.
+\deqn{Q_{NX}(K) = \frac{1}{N} \times \sum_{i=1}^{N} \frac{|v_i^K \cap n_i^K|}{K}}{%%
+      Q_{NX}(K) = (1/N) * Sum_{i=1}^{N} |intersect(v_i^K, n_i^K)|/K}
 
-The area under the resulting curve (AUC) is a scalar score which
+where N refers to the number of data points and
+\eqn{\cap}{intersect()} to the set intersection
+operator. \eqn{Q_{NX}(K)} ranges between 0 and 1; the closer to 1,
+the better.
+
+As the expectation of \eqn{Q_{NX}(K)} with random low-dimensional
+coordinates is equal to \eqn{\frac{K}{N-1}}{K/(N-1}, which is
+increasing with K
+
+\deqn{R_{NX}(K) = \frac{(N-1) \times Q_{NX}(K)-K}{N-1-K}}{%%
+      R_{NX}(K) = ((N-1)*Q_{NX}(K)-K)/(N-1-K)}
+
+enables to more easily compare different neighbourhood sizes
+K. \eqn{R_{NX}(K)} ranges between -1 and 1, but a negative value
+indicates that the embedding performs worse than
+random. Therefore, \eqn{R_{NX}(K)} typically lies between 0 and 1.
+The \eqn{R_{NX}(K)} values of K ranging from 1 to N-2 can be
+displayed as a curve with a log scale for K, as closer neighbours
+typically prevail.
+
+The area under the resulting curve (AUC) is a scalar score that
 grows with dimensionality reduction quality, quantified at all
 scales with an emphasis on small ones. The AUC lies between -1 and
 1, but a negative value implies performances which are worse than
 random.
 
-Given a dataset with N cells, the function has $O(N**2 log(N))$
-time complexity. It can hence run using databases with up to a few
-thousands of cells.
-
-The \code{Kup} parameter sets the maximum neighborhood size when
-computing the quality criteria, that is computed only for the
-neighborhood sizes K up to Kup, as opposed to all possible
-neighborhood sizes when \code{Kup} is \code{NA}. This reduces the time
-complexity to $O(N\emph{Kup}log(N))$. Setting \code{Kup} can hence be run
-using much larger dataset, provided that \code{Kup} is small compared
-to the total number of cells N.
+Given a dataset with N cells, the function has \eqn{O(N^2 \times log(N))}
+time complexity. The \code{Kup} parameter sets the maximum neighborhood
+size when computing the quality criteria, that is computed only
+for the neighborhood sizes K up to Kup, as opposed to all possible
+neighborhood sizes (for \code{Kup} set to \code{NA}). This reduces the time
+complexity to \eqn{O(N \times Kup \times log(N))}{O(N * Kup * log(N))}.
+Setting \code{Kup} can hence be run using much larger dataset, provided
+that \code{Kup} is small compared to the total number of cells N.
 }
 \references{
 \itemize{
