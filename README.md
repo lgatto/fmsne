@@ -21,9 +21,9 @@ purposes.
 If you use the codes in this repository or the article, please cite
 as:
 
-> C. de Bodt, D. Mulders, M. Verleysen and J. A. Lee, "Fast Multiscale
-> Neighbor Embedding," in IEEE Transactions on Neural Networks and
-> Learning Systems, 2020, doi: 10.1109/TNNLS.2020.3042807.
+- C. de Bodt, D. Mulders, M. Verleysen and J. A. Lee, "Fast Multiscale
+  Neighbor Embedding," in IEEE Transactions on Neural Networks and
+  Learning Systems, 2020, doi: 10.1109/TNNLS.2020.3042807.
 
 ## Installation
 
