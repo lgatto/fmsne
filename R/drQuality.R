@@ -59,8 +59,9 @@
 ##'
 ##' @param object A `SingleCellExperiment` object.
 ##'
-##' @param dimred `character(1)` with the `reducedDims` low dimension
-##'     embeddings to be assessed.
+##' @param dimred `character()` with the `reducedDims` low dimension
+##'     embeddings to be assessed. Default is to use all available
+##'     with `reducedDimNames(object)`.
 ##'
 ##' @return
 ##'
@@ -95,10 +96,19 @@
 ##'   similarity preservation. Neurocomputing, 112, 92-108.
 ##'
 ##' @author Laurent Gatto
-drQuality <- function(object, dimred = "PCA", Kup = NA) {
+drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     x <- t(as.matrix(assay(object)))
-    y <- reducedDim(object, dimred)
+    stopifnot(length(dimred) > 1)
+    ans <- lapply(dimred, function(rd) {
+        y <- reducedDim(object, rd)
+        .single_drQuality(x, t, Kup)
+    })
+
+
+}
+
+.single_drQuality <- function(x, y, Kup = NA) {
     if (is.na(Kup)) {
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_dr_quality_from_data,
