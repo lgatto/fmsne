@@ -16,7 +16,7 @@ runMSSNE <- function(x,
     stopifnot(inherits(x, "SingleCellExperiment"))
     X <- as.matrix(assay(x))
     if (!is.null(subset_row))
-        X <- X[subset_row, ]
+        X <- X[subset_row, , drop = FALSE]
     n_components <- as.integer(n_components)
 
     ans <- basiliskRun(env = fmsneenv,

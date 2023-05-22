@@ -9,16 +9,22 @@ Authors@R: c(
          email = "laurent.gatto@uclouvain.ne",
          role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-1520-2268")))
-License: MIT
+License: MIT + file LICENCE
 Description: Provides an R interface for various Python
     implementations of neighbour embedding methods, including
     multi-scale SNE, multi-scale t-SNE, fast implementations thereof,
     and a dimensionality reduction quality assessment criterion.
+Depends:
+    SingleCellExperiment
 Imports:
     basilisk,
-    SingleCellExperiment
+    reticulate,
+    SummarizedExperiment,
+    scater
 Suggests:
     BiocManager,
+    knitr,
+    BiocStyle,
     testthat (>= 3.0.0)
 BugReports: https://github.com/lgatto/fmsne/issues
 Encoding: UTF-8

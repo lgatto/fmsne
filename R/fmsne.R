@@ -100,12 +100,14 @@
 ##'     the function.
 ##'
 ##' @return A modified ‘x’ is returned that contains the multi-scale
-##'     t-SNE coordinates in ‘reducedDim(x, name)’.
+##'     coordinates in ‘reducedDim(x, name)’.
 ##'
 ##' @seealso
 ##'
-##' The [plotFMSSNE()], [plotFMSTSNE()], [plotMSSNE()] and [plotMSTSNE()]
-##' functions to visualise the low dimension embeddings.
+##' The [plotFMSSNE()], [plotFMSTSNE()], [plotMSSNE()] and
+##' [plotMSTSNE()] functions to visualise the low dimension embeddings
+##' and [drQuality()] the ynsupervised dimensionality reduction
+##' quality assessment.
 ##'
 ##' @aliases runMSSNE runMSTSNE runFMSSNE runFMSTSNE
 ##'

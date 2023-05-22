@@ -12,6 +12,12 @@ drQuality(object, dimred = reducedDimNames(object), Kup = NA)
 \item{dimred}{\code{character()} with the \code{reducedDims} low dimension
 embeddings to be assessed. Default is to use all available
 with \code{reducedDimNames(object)}.}
+
+\item{Kup}{\code{numeric(1)} defining the maximum number of nearest
+neighbours tp compute the quality metrics for. Default is
+\code{NA}, i.e. compute the \code{Rx} metric for all values (i.e. 1 to
+N-2). If set, the \code{Rx} metric is computed for neighborhood
+sizes of 1 up to \code{Kup}.}
 }
 \value{
 A list containing a vector of \code{Rx} values and a \code{AUC}
@@ -70,11 +76,13 @@ scales with an emphasis on small ones. The AUC lies between -1 and
 random.
 
 Given a dataset with N cells, the function has \eqn{O(N^2 \times log(N))}
+
 time complexity. The \code{Kup} parameter sets the maximum neighborhood
 size when computing the quality criteria, that is computed only
-for the neighborhood sizes K up to Kup, as opposed to all possible
-neighborhood sizes (for \code{Kup} set to \code{NA}). This reduces the time
-complexity to \eqn{O(N \times Kup \times log(N))}{O(N * Kup * log(N))}.
+for the neighborhood sizes of K equal to 1 up to Kup, as opposed
+to all possible neighborhood sizes (for \code{Kup} set to \code{NA}). This
+reduces the time complexity to
+\eqn{O(N \times Kup \times log(N))}{O(N * Kup * log(N))}.
 Setting \code{Kup} can hence be run using much larger dataset, provided
 that \code{Kup} is small compared to the total number of cells N.
 }
@@ -101,6 +109,11 @@ M. (2013). Type 1 and 2 mixtures of Kullback–Leibler divergences
 as cost functions in dimensionality reduction based on
 similarity preservation. Neurocomputing, 112, 92-108.
 }
+}
+\seealso{
+\code{\link[=runFMSSNE]{runFMSSNE()}}, \code{\link[=runFMSSNE]{runFMSSNE()}}, \code{\link[=runMSTSNE]{runMSTSNE()}} and \code{\link[=runMSSNE]{runMSSNE()}} for
+the functions that perform the multi-scale stochastic neighbour
+embeddings.
 }
 \author{
 Laurent Gatto

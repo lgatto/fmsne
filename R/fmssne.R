@@ -20,7 +20,7 @@ runFMSSNE <- function(x,
     stopifnot(fseed >= 1)
     X <- as.matrix(assay(x))
     if (!is.null(subset_row))
-        X <- X[subset_row, ]
+        X <- X[subset_row, , drop = FALSE]
     n_components <- as.integer(n_components)
     fseed <- as.integer(fseed)
 

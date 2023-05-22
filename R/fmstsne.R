@@ -1,5 +1,9 @@
 ##' @export
 ##'
+##' @importFrom reticulate import
+##'
+##' @import SingleCellExperiment
+##'
 ##' @rdname fmsne
 runFMSTSNE <- function(x,
                        n_components = 2L,

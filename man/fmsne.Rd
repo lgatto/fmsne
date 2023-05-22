@@ -135,7 +135,7 @@ the function.}
 }
 \value{
 A modified ‘x’ is returned that contains the multi-scale
-t-SNE coordinates in ‘reducedDim(x, name)’.
+coordinates in ‘reducedDim(x, name)’.
 }
 \description{
 The \code{fmsne} package offers various functions to perform nonlinear
@@ -189,8 +189,10 @@ and global structure. Neurocomputing, 169, 246-261.
 }
 }
 \seealso{
-The \code{\link[=plotFMSSNE]{plotFMSSNE()}}, \code{\link[=plotFMSTSNE]{plotFMSTSNE()}}, \code{\link[=plotMSSNE]{plotMSSNE()}} and \code{\link[=plotMSTSNE]{plotMSTSNE()}}
-functions to visualise the low dimension embeddings.
+The \code{\link[=plotFMSSNE]{plotFMSSNE()}}, \code{\link[=plotFMSTSNE]{plotFMSTSNE()}}, \code{\link[=plotMSSNE]{plotMSSNE()}} and
+\code{\link[=plotMSTSNE]{plotMSTSNE()}} functions to visualise the low dimension embeddings
+and \code{\link[=drQuality]{drQuality()}} the ynsupervised dimensionality reduction
+quality assessment.
 }
 \author{
 Laurent Gatto

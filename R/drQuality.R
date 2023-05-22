@@ -55,11 +55,14 @@
 ##' random.
 ##'
 ##' Given a dataset with N cells, the function has \eqn{O(N^2 \times log(N))}
+##'
+##'
 ##' time complexity. The `Kup` parameter sets the maximum neighborhood
 ##' size when computing the quality criteria, that is computed only
-##' for the neighborhood sizes K up to Kup, as opposed to all possible
-##' neighborhood sizes (for `Kup` set to `NA`). This reduces the time
-##' complexity to \eqn{O(N \times Kup \times log(N))}{O(N * Kup * log(N))}.
+##' for the neighborhood sizes of K equal to 1 up to Kup, as opposed
+##' to all possible neighborhood sizes (for `Kup` set to `NA`). This
+##' reduces the time complexity to
+##' \eqn{O(N \times Kup \times log(N))}{O(N * Kup * log(N))}.
 ##' Setting `Kup` can hence be run using much larger dataset, provided
 ##' that `Kup` is small compared to the total number of cells N.
 ##'
@@ -69,10 +72,22 @@
 ##'     embeddings to be assessed. Default is to use all available
 ##'     with `reducedDimNames(object)`.
 ##'
+##' @param Kup `numeric(1)` defining the maximum number of nearest
+##'     neighbours tp compute the quality metrics for. Default is
+##'     `NA`, i.e. compute the `Rx` metric for all values (i.e. 1 to
+##'     N-2). If set, the `Rx` metric is computed for neighborhood
+##'     sizes of 1 up to `Kup`.
+##'
 ##' @return A list containing a vector of `Rx` values and a `AUC`
 ##'     scalar.
 ##'
 ##' @export
+##'
+##' @seealso
+##'
+##' [runFMSSNE()], [runFMSSNE()], [runMSTSNE()] and [runMSSNE()] for
+##' the functions that perform the multi-scale stochastic neighbour
+##' embeddings.
 ##'
 ##' @references
 ##'
@@ -103,6 +118,10 @@
 ##'   similarity preservation. Neurocomputing, 112, 92-108.
 ##'
 ##' @author Laurent Gatto
+##'
+##' @importFrom reticulate import
+##'
+##' @importFrom SummarizedExperiment assay
 drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     x <- t(as.matrix(assay(object)))
