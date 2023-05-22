@@ -14,7 +14,7 @@ embeddings to be assessed. Default is to use all available
 with \code{reducedDimNames(object)}.}
 
 \item{Kup}{\code{numeric(1)} defining the maximum number of nearest
-neighbours tp compute the quality metrics for. Default is
+neighbours to compute the quality metrics for. Default is
 \code{NA}, i.e. compute the \code{Rx} metric for all values (i.e. 1 to
 N-2). If set, the \code{Rx} metric is computed for neighborhood
 sizes of 1 up to \code{Kup}.}

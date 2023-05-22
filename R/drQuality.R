@@ -73,7 +73,7 @@
 ##'     with `reducedDimNames(object)`.
 ##'
 ##' @param Kup `numeric(1)` defining the maximum number of nearest
-##'     neighbours tp compute the quality metrics for. Default is
+##'     neighbours to compute the quality metrics for. Default is
 ##'     `NA`, i.e. compute the `Rx` metric for all values (i.e. 1 to
 ##'     N-2). If set, the `Rx` metric is computed for neighborhood
 ##'     sizes of 1 up to `Kup`.
