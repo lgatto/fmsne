@@ -3,28 +3,24 @@
 dimensionality reduction through multi-scale (MS) stochastic
 neighbor embedding (SNE) or t-distributed SNE (t-SNE), including
 fast versions thereof.
-The mssne() function performs a nonlinear dimensionality
+The runMSSNE() function performs a nonlinear dimensionality
 reduction through multi-scale SNE, as presented in Lee et
 al. (2015) below and summarized in de Bodt et al. (2020).  Given
-a data set with N samples, the 'mssne()' function has O(N**2
-log(N)) time complexity. It can hence run on dataset with up to
-a few thousands of cells.
-The mstsne() function performs nonlinear dimensionality
+a data set with N samples, it has \(O(N^2 log(N))\) time
+complexity.
+The runMSTSNE() function performs nonlinear dimensionality
 reduction through multi-scale t-SNE, as presented in the
 reference de Bodt et al. (2018) below and summarized in de Bodt
-et al. (2020). Given a data set with N samples, the 'mstsne'
-function has O(N**2 log(N)) time complexity. It can hence run on
-dataset with up to a few thousands of cells.
-The fmssne() function performs nonlinear dimensionality
+et al. (2020). Given a data set with N samples, it has
+\(O(N^2 log(N))\) time complexity.
+The runFMSSNE() function performs nonlinear dimensionality
 reduction through fast multi-scale SNE, as presented in Lee et
-al. (2015) below. Given a data set with N samples, the 'fmssne'
-function has O(N (log(N))**2) time complexity. It can hence run
-on very large-scale datasets.
-The fmstsne() function performs nonlinear dimensionality
+al. (2015) below. Given a data set with N samples, it has
+\(O(N log(N)^2)\) time complexity.
+The runFMSTSNE() function performs nonlinear dimensionality
 reduction through fast multi-scale t-SNE, as presented in the de
-Bodt et al. (2020) below.  Given a data set with N samples, the
-'fmstsne' function has O(N (log(N))**2) time complexity. It can
-hence run on very large-scale datasets.
+Bodt et al. (2020) below.  Given a data set with N samples, it
+has \(O(N log(N))^2\) time complexity.
 
 
 See the vignette for further details."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -80,28 +76,24 @@ See the vignette for further details."><!-- mathjax --><script src="https://cdnj
     <p>The <code>fmsne</code> package offers various functions to perform nonlinear
 dimensionality reduction through multi-scale (MS) stochastic
 neighbor embedding (SNE) or t-distributed SNE (t-SNE), including
-fast versions thereof.</p><ul><li><p>The <code>mssne()</code> function performs a nonlinear dimensionality
+fast versions thereof.</p><ul><li><p>The <code>runMSSNE()</code> function performs a nonlinear dimensionality
 reduction through multi-scale SNE, as presented in Lee et
 al. (2015) below and summarized in de Bodt et al. (2020).  Given
-a data set with N samples, the 'mssne()' function has O(N**2
-log(N)) time complexity. It can hence run on dataset with up to
-a few thousands of cells.</p></li>
-<li><p>The <code>mstsne()</code> function performs nonlinear dimensionality
+a data set with N samples, it has \(O(N^2 log(N))\) time
+complexity.</p></li>
+<li><p>The <code>runMSTSNE()</code> function performs nonlinear dimensionality
 reduction through multi-scale t-SNE, as presented in the
 reference de Bodt et al. (2018) below and summarized in de Bodt
-et al. (2020). Given a data set with N samples, the 'mstsne'
-function has O(N**2 log(N)) time complexity. It can hence run on
-dataset with up to a few thousands of cells.</p></li>
-<li><p>The <code>fmssne()</code> function performs nonlinear dimensionality
+et al. (2020). Given a data set with N samples, it has
+\(O(N^2 log(N))\) time complexity.</p></li>
+<li><p>The <code>runFMSSNE()</code> function performs nonlinear dimensionality
 reduction through fast multi-scale SNE, as presented in Lee et
-al. (2015) below. Given a data set with N samples, the 'fmssne'
-function has O(N (log(N))**2) time complexity. It can hence run
-on very large-scale datasets.</p></li>
-<li><p>The <code>fmstsne()</code> function performs nonlinear dimensionality
+al. (2015) below. Given a data set with N samples, it has
+\(O(N log(N)^2)\) time complexity.</p></li>
+<li><p>The <code>runFMSTSNE()</code> function performs nonlinear dimensionality
 reduction through fast multi-scale t-SNE, as presented in the de
-Bodt et al. (2020) below.  Given a data set with N samples, the
-'fmstsne' function has O(N (log(N))**2) time complexity. It can
-hence run on very large-scale datasets.</p></li>
+Bodt et al. (2020) below.  Given a data set with N samples, it
+has \(O(N log(N))^2\) time complexity.</p></li>
 </ul><p>See the vignette for further details.</p>
     </div>
 
