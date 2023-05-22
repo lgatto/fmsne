@@ -1,0 +1,240 @@
+@ARTICLE{Van_Der_Maaten2014-8,
+  title     = "Accelerating {t-SNE} using tree-based algorithms",
+  author    = "Van Der Maaten, Laurens",
+  abstract  = "The paper investigates the acceleration of t-SNE--an embedding
+               technique that is commonly used for the visualization of
+               high-dimensional data in scatter plots--using two tree-based
+               algorithms. In particular, the paper develops variants of the
+               Barnes-Hut algorithm and of the dual-tree algorithm that
+               approximate the gradient used for learning t-SNE embeddings in
+               O(N log N). Our experiments show that the resulting algorithms
+               substantially accelerate t-SNE, and that they make it possible
+               to learn embeddings of data sets with millions of objects.
+               Somewhat counterintuitively, the Barnes-Hut variant of t-SNE
+               appears to outperform the dual-tree variant.",
+  journal   = "J. Mach. Learn. Res.",
+  publisher = "JMLR.org",
+  volume    =  15,
+  number    =  1,
+  pages     = "3221--3245",
+  month     =  jan,
+  year      =  2014,
+  keywords  = "embedding, t-SNE, dual-tree algorithm, Barnes-Hut algorithm,
+               space-partitioning trees, multidimensional scaling"
+}
+
+@INPROCEEDINGS{De_Bodt_undated-6,
+  title           = "Perplexity-free {t-SNE} and twice Student {tt-SNE}",
+  booktitle       = "Proceedings of the European Symposium on Artificial Neural
+                     Networks, Computational Intelligence and Machine Learning",
+  author          = "de Bodt, Cyril and Mulders, Dounia and Verleysen, Michel
+                     and Lee, John A",
+  abstract        = "In dimensionality reduction and data visualisation, t-SNE
+                     has become a popular method. In this paper, we propose two
+                     variants to the Gaussian similarities used to characterise
+                     the neighbourhoods around each high-dimensional datum in
+                     t-SNE. A first alternative is to use t distributions like
+                     already used in the low-dimensional embedding space; a
+                     variable degree of freedom accounts for the intrinsic
+                     dimensionality of data. The second variant relies on
+                     compounds of Gaussian neighbourhoods with growing widths,
+                     thereby suppressing the need for the user to adjust a
+                     single size or perplexity. In both cases, heavy-tailed
+                     distributions thus characterise the neighbourhood
+                     relationships in the data space. Experiments show that
+                     both variants are competitive with t-SNE, at no extra
+                     cost.",
+  pages           = "123--128",
+  conference      = "ESANN 2018",
+  location        = "Bruges"
+}
+
+@ARTICLE{Lee2013-5,
+  title    = "Type 1 and 2 mixtures of {Kullback--Leibler} divergences as cost
+              functions in dimensionality reduction based on similarity
+              preservation",
+  author   = "Lee, John A and Renard, Emilie and Bernard, Guillaume and Dupont,
+              Pierre and Verleysen, Michel",
+  abstract = "Stochastic neighbor embedding (SNE) and its variants are methods
+              of dimensionality reduction (DR) that involve normalized softmax
+              similarities derived from pairwise distances. These methods try
+              to reproduce in the low-dimensional embedding space the
+              similarities observed in the high-dimensional data space. Their
+              outstanding experimental results, compared to previous
+              state-of-the-art methods, originate from their capability to foil
+              the curse of dimensionality. Previous work has shown that this
+              immunity stems partly from a property of shift invariance that
+              allows appropriately normalized softmax similarities to mitigate
+              the phenomenon of norm concentration. This paper investigates a
+              complementary aspect, namely, the cost function that quantifies
+              the mismatch between similarities computed in the high- and
+              low-dimensional spaces. Stochastic neighbor embedding and its
+              variant t-SNE rely on a single Kullback--Leibler divergence,
+              whereas a weighted mixture of two dual KL divergences is used in
+              neighborhood retrieval and visualization (NeRV). We propose in
+              this paper a different mixture of KL divergences, which is a
+              scaled version of the generalized Jensen--Shannon divergence. We
+              show experimentally that this divergence produces embeddings that
+              better preserve small K-ary neighborhoods, as compared to both
+              the single KL divergence used in SNE and t-SNE and the mixture
+              used in NeRV. These results allow us to conclude that future
+              improvements in similarity-based DR will likely emerge from
+              better definitions of the cost function.",
+  journal  = "Neurocomputing",
+  volume   =  112,
+  pages    = "92--108",
+  month    =  jul,
+  year     =  2013,
+  keywords = "Dimensionality reduction; Manifold learning; Stochastic neighbor
+              embedding; Divergence"
+}
+
+@ARTICLE{Lee2010-4,
+  title    = "Scale-independent quality criteria for dimensionality reduction",
+  author   = "Lee, John A and Verleysen, Michel",
+  abstract = "Dimensionality reduction aims at representing high-dimensional
+              data in low-dimensional spaces, in order to facilitate their
+              visual interpretation. Many techniques exist, ranging from simple
+              linear projections to more complex nonlinear transformations. The
+              large variety of methods emphasizes the need of quality criteria
+              that allow for fair comparisons between them. This paper extends
+              previous work about rank-based quality criteria and proposes to
+              circumvent their scale dependency. Most dimensionality reduction
+              techniques indeed rely on a scale parameter that distinguish
+              between local and global data properties. Such a scale dependency
+              can be similarly found in usual quality criteria: they assess the
+              embedding quality on a certain scale. Experiments with various
+              dimensionality reduction techniques eventually show the strengths
+              and weaknesses of the proposed scale-independent criteria.",
+  journal  = "Pattern Recognit. Lett.",
+  volume   =  31,
+  number   =  14,
+  pages    = "2248--2257",
+  month    =  oct,
+  year     =  2010,
+  keywords = "Dimensionality reduction; Embedding; Manifold learning; Quality
+              assessment"
+}
+
+@ARTICLE{Lee2009-3,
+  title    = "Quality assessment of dimensionality reduction: Rank-based
+              criteria",
+  author   = "Lee, John A and Verleysen, Michel",
+  abstract = "Dimensionality reduction aims at providing low-dimensional
+              representations of high-dimensional data sets. Many new nonlinear
+              methods have been proposed for the last years, yet the question
+              of their assessment and comparison remains open. This paper first
+              reviews some of the existing quality measures that are based on
+              distance ranking and K-ary neighborhoods. Next, the definition of
+              the co-ranking matrix provides a tool for comparing the ranks in
+              the initial data set and some low-dimensional embedding. Rank
+              errors and concepts such as neighborhood intrusions and
+              extrusions can then be associated with different blocks of the
+              co-ranking matrix. Several quality criteria can be cast within
+              this unifying framework; they are shown to involve one or several
+              of these characteristic blocks. Following this line, simple
+              criteria are proposed, which quantify two aspects of the
+              embedding quality, namely its overall quality and its tendency to
+              favor intrusions or extrusions. They are applied to several
+              recent dimensionality reduction methods in two experiments, with
+              both artificial and real data.",
+  journal  = "Neurocomputing",
+  volume   =  72,
+  number   =  7,
+  pages    = "1431--1443",
+  month    =  mar,
+  year     =  2009,
+  keywords = "Dimensionality reduction; Embedding; Quality assessment;
+              Co-ranking matrix; Trustworthiness and continuity; Intrusion and
+              extrusion fractions"
+}
+
+@ARTICLE{Lee2015-2,
+  title    = "Multi-scale similarities in stochastic neighbour embedding:
+              Reducing dimensionality while preserving both local and global
+              structure",
+  author   = "Lee, John A and Peluffo-Ord{\'o}{\~n}ez, Diego H and Verleysen,
+              Michel",
+  abstract = "Stochastic neighbour embedding (SNE) and its variants are methods
+              of nonlinear dimensionality reduction that involve soft Gaussian
+              neighbourhoods to measure similarities for all pairs of data. In
+              order to build a suitable embedding, these methods try to
+              reproduce in a low-dimensional space the neighbourhoods that are
+              observed in the high-dimensional data space. Previous works have
+              investigated the immunity of such similarities to norm
+              concentration, as well as enhanced cost functions, like sums of
+              Jensen--Shannon divergences. This paper proposes an additional
+              refinement, namely multi-scale similarities, which are averages
+              of soft Gaussian neighbourhoods with exponentially growing
+              bandwidths. Such multi-scale similarities can replace the
+              regular, single-scale neighbourhoods in SNE-like methods. Their
+              objective is then to maximise the embedding quality on all
+              scales, with the best preservation of both local and global
+              neighbourhoods, and also to exempt the user from having to fix a
+              scale arbitrarily. Experiments with several data sets show that
+              the proposed multi-scale approach captures better the structure
+              of data and improves significantly the quality of dimensionality
+              reduction.",
+  journal  = "Neurocomputing",
+  volume   =  169,
+  pages    = "246--261",
+  month    =  dec,
+  year     =  2015,
+  keywords = "Nonlinear dimensionality reduction; Manifold learning; Data
+              visualisation; Jensen--Shannon divergence; Stochastic neighbour
+              embedding"
+}
+
+@ARTICLE{De_Bodt2022-1,
+  title    = "Fast Multiscale Neighbor Embedding",
+  author   = "de Bodt, Cyril and Mulders, Dounia and Verleysen, Michel and Lee,
+              John Aldo",
+  abstract = "Dimension reduction (DR) computes faithful low-dimensional (LD)
+              representations of high-dimensional (HD) data. Outstanding
+              performances are achieved by recent neighbor embedding (NE)
+              algorithms such as t -SNE, which mitigate the curse of
+              dimensionality. The single-scale or multiscale nature of NE
+              schemes drives the HD neighborhood preservation in the LD space
+              (LDS). While single-scale methods focus on single-sized
+              neighborhoods through the concept of perplexity, multiscale ones
+              preserve neighborhoods in a broader range of sizes and account
+              for the global HD organization to define the LDS. For both
+              single-scale and multiscale methods, however, their time
+              complexity in the number of samples is unaffordable for big data
+              sets. Single-scale methods can be accelerated by relying on the
+              inherent sparsity of the HD similarities they involve. On the
+              other hand, the dense structure of the multiscale HD similarities
+              prevents developing fast multiscale schemes in a similar way.
+              This article addresses this difficulty by designing randomized
+              accelerations of the multiscale methods. To account for all
+              levels of interactions, the HD data are first subsampled at
+              different scales, enabling to identify small and relevant
+              neighbor sets for each data point thanks to vantage-point trees.
+              Afterward, these sets are employed with a Barnes-Hut algorithm to
+              cheaply evaluate the considered cost function and its gradient,
+              enabling large-scale use of multiscale NE schemes. Extensive
+              experiments demonstrate that the proposed accelerations are,
+              statistically significantly, both faster than the original
+              multiscale methods by orders of magnitude, and better preserving
+              the HD neighborhoods than state-of-the-art single-scale schemes,
+              leading to high-quality LD embeddings. Public codes are freely
+              available at https://github.com/cdebodt.",
+  journal  = "IEEE Trans Neural Netw Learn Syst",
+  volume   =  33,
+  number   =  4,
+  pages    = "1546--1560",
+  month    =  apr,
+  year     =  2022,
+  language = "en"
+}
+
+@ARTICLE{Van_der_Maaten2008-7,
+  title       = "Visualizing Data using {t-SNE}",
+  author      = "van der Maaten, Laurens and Hinton, Geoffrey",
+  journal     = "J. Mach. Learn. Res.",
+  volume      =  9,
+  number      =  86,
+  pages       = "2579--2605",
+  year        =  2008,
+  original_id = "c169f69a-aaf6-04d6-b59a-3886b4c71977"
+}

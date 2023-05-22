@@ -12,6 +12,7 @@ output:
     toc_float: true
     toc_depth: 2
     code_folding: show
+bibliography: fmsne.bib
 date: "`r doc_date()`"
 package: "`r pkg_ver('fmsne')`"
 vignette: >
@@ -38,7 +39,6 @@ The `fmsne` R package implements the [fast multi-scale neighbour
 embedding](https://github.com/lgatto/Fast_Multi-scale_NE) methods
 developed by [Cyril de Bodt](https://github.com/cdebodt).
 
-
 The fast algorithms which are implemented are described in the article
 [Fast Multiscale Neighbor
 Embedding](https://ieeexplore.ieee.org/document/9308987), from Cyril
@@ -49,13 +49,18 @@ The implementations are provided using the python programming
 language, but involve some C and Cython codes for performance
 purposes.
 
-If you use the codes in this repository or the article, please cite
-as:
+If you use the codes in this repository or the article, please cite as
+[@De_Bodt2022-1]:
 
-> C. de Bodt, D. Mulders, M. Verleysen and J. A. Lee, "Fast Multiscale
-> Neighbor Embedding," in IEEE Transactions on Neural Networks and
-> Learning Systems, 2020, doi: 10.1109/TNNLS.2020.3042807.
+- C. de Bodt, D. Mulders, M. Verleysen and J. A. Lee, "Fast Multiscale
+  Neighbor Embedding," in IEEE Transactions on Neural Networks and
+  Learning Systems, 2020, doi: 10.1109/TNNLS.2020.3042807.
 
+and this package:
+
+```{r}
+citation("fmsne")
+```
 
 ## Installation instructions
 
@@ -84,105 +89,43 @@ pip install fmsne
 
 # Package functionality
 
-Neighbor Embedding
+## Neighbor Embedding
 
-- `mssne`: nonlinear dimensionality reduction through multi-scale SNE
-  (Ms SNE), as presented in the reference [2] below and summarized in
-  [1]. This function enables reducing the dimension of a data
-  set. Given a data set with N samples, the 'mssne' function has
-  O(N**2 log(N)) time complexity.
+- `runMSSNE()`: nonlinear dimensionality reduction through multi-scale
+  (MS) stochastic neighbor embedding (SNE) [@Van_der_Maaten2008-7;
+  @Van_Der_Maaten2014-8], as presented in the reference [@Lee2015-2]
+  below and summarized in [@De_Bodt2022-1].
 
-- `mstsne`: nonlinear dimensionality reduction through multi-scale
-  t-SNE (Ms t-SNE), as presented in the reference [6] below and
-  summarized in [1]. This function enables reducing the dimension of a
-  data set. Given a data set with N samples, the 'mstsne' function has
-  O(N**2 log(N)) time complexity.
+- `runMSTSNE()`: nonlinear dimensionality reduction through
+  multi-scale t-distributed SNE (t-SNE) [@Van_der_Maaten2008-7;
+  @Van_Der_Maaten2014-8], as presented in the reference
+  [@De_Bodt_undated-6] below and summarized in [@De_Bodt2022-1].
 
-- `fmssne`: nonlinear dimensionality reduction through fast
-  multi-scale SNE (FMs SNE), as presented in the reference [1]
-  below. This function enables reducing the dimension of a data
-  set. Given a data set with N samples, the 'fmssne' function has O(N
-  (log(N))**2)
+- `runFMSSNE()`: nonlinear dimensionality reduction through fast
+  multi-scale SNE (FMS SNE), as presented in the reference
+  [@De_Bodt2022-1].
 
-- `fmstsne`: nonlinear dimensionality reduction through fast
-  multi-scale t-SNE (FMs t-SNE), as presented in the reference [1]
-  below. This function enables reducing the dimension of a data
-  set. Given a data set with N samples, the 'fmstsne' function has O(N
-  (log(N))**2) time complexity.
+- `runFMSTSNE()`: nonlinear dimensionality reduction through fast
+  multi-scale t-SNE (FMS t-SNE), as presented in the reference
+  [@De_Bodt2022-1].
 
-Quality control
+See the function manual pages for further details
 
-- `drQuality`: unsupervised evaluation of the quality of a
-  low-dimensional embedding, as introduced in [3, 4] and employed and
-  summarized in [1, 2, 5]. This function enables computing DR quality
-  assessment criteria measuring the neighborhood preservation from the
+## Quality control
+
+- `drQuality()`: unsupervised evaluation of the quality of a
+  low-dimensional embedding, as introduced in [@Lee2009-3; @Lee2010-4]
+  and applied and summarized in [@De_Bodt2022-1; @Lee2015-2;
+  @Lee2013-5]. This function assesses the dimensionality reduction
+  quality measuring the neighborhood preservation from the
   high-dimensional space to the low-dimensional one. The documentation
   of the function explains the meaning of the criteria and how to
-  interpret them. Given a data set with N samples, the
-  'eval_dr_quality' function has O(N**2 log(N)) time complexity. It
-  can hence run using databases with up to a few thousands of
-  samples. This function is not based on the Cython implementations in
-  `fmsne_implem.pyx`.
-
-<!-- - `red_rnx_auc`: this function is similar to the `eval_dr_quality` -->
-<!--   function, but given a data set with N samples, the `red_rnx_auc` -->
-<!--   function has O(N*Kup*log(N)) time complexity, where Kup is the -->
-<!--   maximum neighborhood size accounted when computing the quality -->
-<!--   criteria. This function can hence run using much larger databases -->
-<!--   than `eval_dr_quality`, provided that Kup is small compared to -->
-<!--   N. This function is based on the Cython implementations in -->
-<!--   `fmsne_implem.pyx`. -->
-
-Notations
-
-- DR: dimensionality reduction.
-- HD: high-dimensional.
-- LD: low-dimensional.
-- HDS: HD space.
-- LDS: LD space.
-- SNE: stochastic neighbor embedding.
-- t-SNE: t-distributed SNE.
-- Ms SNE: multi-scale SNE.
-- Ms t-SNE: multi-scale t-SNE.
-- BH t-SNE: Barnes-Hut t-SNE.
-
-
-## References
-
-[1] C. de Bodt, D. Mulders, M. Verleysen and J. A. Lee, "Fast
-Multiscale Neighbor Embedding," in IEEE Transactions on Neural
-Networks and Learning Systems, 2020, doi: 10.1109/TNNLS.2020.3042807.
-
-[2] Lee, J. A., Peluffo-Ordóñez, D. H., & Verleysen,
-M. (2015). Multi-scale similarities in stochastic neighbour embedding:
-Reducing dimensionality while preserving both local and global
-structure. Neurocomputing, 169, 246-261.
-
-[3] Lee, J. A., & Verleysen, M. (2009). Quality assessment of
-dimensionality reduction: Rank-based criteria. Neurocomputing,
-72(7-9), 1431-1443.
-
-[4] Lee, J. A., & Verleysen, M. (2010). Scale-independent quality
-criteria for dimensionality reduction. Pattern Recognition Letters,
-31(14), 2248-2257.
-
-[5] Lee, J. A., Renard, E., Bernard, G., Dupont, P., & Verleysen,
-M. (2013). Type 1 and 2 mixtures of Kullback–Leibler divergences as
-cost functions in dimensionality reduction based on similarity
-preservation. Neurocomputing, 112, 92-108.
-
-[6] de Bodt, C., Mulders, D., Verleysen, M., & Lee,
-J. A. (2018). Perplexity-free t-SNE and twice Student tt-SNE. In ESANN
-(pp. 123-128).
-
-[7] van der Maaten, L., & Hinton, G. (2008). Visualizing data using
-t-SNE. Journal of Machine Learning Research, 9(Nov), 2579-2605.
-
-[8] van der Maaten, L. (2014). Accelerating t-SNE using tree-based
-algorithms. Journal of Machine Learning Research, 15(1), 3221-3245.
+  interpret them.
 
 # Session information
 
 ```{r si, echo = FALSE}
 sessionInfo()
 ```
+
+# References

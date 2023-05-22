@@ -7,31 +7,27 @@
 ##' neighbor embedding (SNE) or t-distributed SNE (t-SNE), including
 ##' fast versions thereof.
 ##'
-##' - The `mssne()` function performs a nonlinear dimensionality
+##' - The `runMSSNE()` function performs a nonlinear dimensionality
 ##'   reduction through multi-scale SNE, as presented in Lee et
 ##'   al. (2015) below and summarized in de Bodt et al. (2020).  Given
-##'   a data set with N samples, the 'mssne()' function has O(N**2
-##'   log(N)) time complexity. It can hence run on dataset with up to
-##'   a few thousands of cells.
+##'   a data set with N samples, it has \eqn{O(N^2 log(N))} time
+##'   complexity.
 ##'
-##' - The `mstsne()` function performs nonlinear dimensionality
+##' - The `runMSTSNE()` function performs nonlinear dimensionality
 ##'   reduction through multi-scale t-SNE, as presented in the
 ##'   reference de Bodt et al. (2018) below and summarized in de Bodt
-##'   et al. (2020). Given a data set with N samples, the 'mstsne'
-##'   function has O(N**2 log(N)) time complexity. It can hence run on
-##'   dataset with up to a few thousands of cells.
+##'   et al. (2020). Given a data set with N samples, it has
+##'   \eqn{O(N^2 log(N))} time complexity.
 ##'
-##' - The `fmssne()` function performs nonlinear dimensionality
+##' - The `runFMSSNE()` function performs nonlinear dimensionality
 ##'   reduction through fast multi-scale SNE, as presented in Lee et
-##'   al. (2015) below. Given a data set with N samples, the 'fmssne'
-##'   function has O(N (log(N))**2) time complexity. It can hence run
-##'   on very large-scale datasets.
+##'   al. (2015) below. Given a data set with N samples, it has
+##'   \eqn{O(N log(N)^2)} time complexity.
 ##'
-##' - The `fmstsne()` function performs nonlinear dimensionality
+##' - The `runFMSTSNE()` function performs nonlinear dimensionality
 ##'   reduction through fast multi-scale t-SNE, as presented in the de
-##'   Bodt et al. (2020) below.  Given a data set with N samples, the
-##'   'fmstsne' function has O(N (log(N))**2) time complexity. It can
-##'   hence run on very large-scale datasets.
+##'   Bodt et al. (2020) below.  Given a data set with N samples, it
+##'   has \eqn{O(N log(N))^2} time complexity.
 ##'
 ##' See the vignette for further details.
 ##'
