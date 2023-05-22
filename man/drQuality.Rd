@@ -4,13 +4,14 @@
 \alias{drQuality}
 \title{Unsupervised dimensionality reduction quality assessment}
 \usage{
-drQuality(object, dimred = "PCA", Kup = NA)
+drQuality(object, dimred = reducedDimNames(object), Kup = NA)
 }
 \arguments{
 \item{object}{A \code{SingleCellExperiment} object.}
 
-\item{dimred}{\code{character(1)} with the \code{reducedDims} low dimension
-embeddings to be assessed.}
+\item{dimred}{\code{character()} with the \code{reducedDims} low dimension
+embeddings to be assessed. Default is to use all available
+with \code{reducedDimNames(object)}.}
 }
 \value{
 A list containing a vector of \code{Rx} values and a \code{AUC}
