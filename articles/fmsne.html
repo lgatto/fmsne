@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fmsne</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -107,11 +107,29 @@ Neighbor Embedding,” in IEEE Transactions on Neural Networks and
 Learning Systems, 2020, doi: 10.1109/TNNLS.2020.3042807.</li>
 </ul>
 <p>and this package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"fmsne"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in citation("fmsne"): could not determine year for 'fmsne' from package</span></span>
+<span><span class="co">#&gt; DESCRIPTION file</span></span>
+<span><span class="co">#&gt; To cite package 'fmsne' in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Cyril de Bodt, Laurent Gatto (????). _fmsne: Fast Multi-scale</span></span>
+<span><span class="co">#&gt;   Neighbour Embedding_. R package version 0.4.0.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Manual{,</span></span>
+<span><span class="co">#&gt;     title = {fmsne: Fast Multi-scale Neighbour Embedding},</span></span>
+<span><span class="co">#&gt;     author = {{Cyril de Bodt} and {Laurent Gatto}},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.4.0},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h3>
 <p>To install this R package, simply run</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"lgatto/fmsne"</span><span class="op">)</span></span></code></pre></div>
 <p>The package on the following Bioconductor packages:</p>
 <ul>
 <li><p><a href="https://bioconductor.org/packages/SingleCellExperiment" class="external-link">SingleCellExperiment</a>
@@ -122,7 +140,7 @@ to install and run the underlying Python implementation.</p></li>
 </ul>
 <p>If you are looking to apply fast multi-scale neighbor embedding in
 Pyhton, you can install the <code>fmsne</code> python package with</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>pip install fmsne</span></code></pre></div>
+<pre><code>pip install fmsne</code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -170,10 +188,50 @@ meaning of the criteria and how to interpret them.</li>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
+<pre><code><span><span class="co">#&gt; R version 4.3.0 (2023-04-21)</span></span>
+<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 22.04.2 LTS</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Matrix products: default</span></span>
+<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; locale:</span></span>
+<span><span class="co">#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
+<span><span class="co">#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
+<span><span class="co">#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
+<span><span class="co">#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
+<span><span class="co">#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
+<span><span class="co">#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; time zone: UTC</span></span>
+<span><span class="co">#&gt; tzcode source: system (glibc)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attached base packages:</span></span>
+<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; other attached packages:</span></span>
+<span><span class="co">#&gt; [1] BiocStyle_2.28.0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span><span class="co">#&gt;  [1] vctrs_0.6.2         cli_3.6.1           knitr_1.42         </span></span>
+<span><span class="co">#&gt;  [4] rlang_1.1.1         xfun_0.39           stringi_1.7.12     </span></span>
+<span><span class="co">#&gt;  [7] purrr_1.0.1         textshaping_0.3.6   jsonlite_1.8.4     </span></span>
+<span><span class="co">#&gt; [10] glue_1.6.2          rprojroot_2.0.3     htmltools_0.5.5    </span></span>
+<span><span class="co">#&gt; [13] ragg_1.2.5          sass_0.4.6          rmarkdown_2.21     </span></span>
+<span><span class="co">#&gt; [16] evaluate_0.21       jquerylib_0.1.4     fastmap_1.1.1      </span></span>
+<span><span class="co">#&gt; [19] lifecycle_1.0.3     yaml_2.3.7          memoise_2.0.1      </span></span>
+<span><span class="co">#&gt; [22] bookdown_0.34       BiocManager_1.30.20 stringr_1.5.0      </span></span>
+<span><span class="co">#&gt; [25] compiler_4.3.0      fs_1.6.2            systemfonts_1.0.4  </span></span>
+<span><span class="co">#&gt; [28] digest_0.6.31       R6_2.5.1            magrittr_2.0.3     </span></span>
+<span><span class="co">#&gt; [31] bslib_0.4.2         tools_4.3.0         pkgdown_2.0.7      </span></span>
+<span><span class="co">#&gt; [34] cachem_1.0.8        desc_1.4.2</span></span></code></pre>
 </div>
 <div class="section level2">
-<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
+<p>See also this <a href="https://paperpile.com/shared/0Qo3Sm" class="external-link">shared
+bibliography</a> (with pdfs).</p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-De_Bodt_undated-6" class="csl-entry">
 Bodt, Cyril de, Dounia Mulders, Michel Verleysen, and John A Lee. n.d.
