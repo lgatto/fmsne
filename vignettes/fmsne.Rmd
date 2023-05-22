@@ -66,7 +66,7 @@ citation("fmsne")
 
 To install this R package, simply run
 
-```r
+```{r, eval = FALSE}
 BiocManager::install("lgatto/fmsne")
 ```
 
@@ -83,7 +83,7 @@ The package on the following Bioconductor packages:
 If you are looking to apply fast multi-scale neighbor embedding in
 Pyhton, you can install the `fmsne` python package with
 
-```r
+```
 pip install fmsne
 ```
 
@@ -129,3 +129,6 @@ sessionInfo()
 ```
 
 # References
+
+See also this [shared
+bibliography](https://paperpile.com/shared/0Qo3Sm) (with pdfs).
