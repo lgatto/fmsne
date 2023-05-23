@@ -13,3 +13,11 @@ fmsnePythonNames <- function() {
     basiliskStop(cl)
     list(fmnsne=fmsne.names)
 }
+
+fmsnePythonVersion <- function() {
+    basiliskRun(env = fmsneenv,
+                fun = function() {
+                    fmsne <- reticulate::import("fmsne")
+                    fmsne$`__version__`
+                })
+}
