@@ -4,7 +4,12 @@
 \alias{drQuality}
 \title{Unsupervised dimensionality reduction quality assessment}
 \usage{
-drQuality(object, dimred = reducedDimNames(object), Kup = NA)
+drQuality(
+  object,
+  dimred = reducedDimNames(object),
+  Kup = ceiling(ncol(object)/2),
+  BPPARAM = BiocParallel::bpparam()
+)
 }
 \arguments{
 \item{object}{A \code{SingleCellExperiment} object.}
@@ -14,10 +19,17 @@ embeddings to be assessed. Default is to use all available
 with \code{reducedDimNames(object)}.}
 
 \item{Kup}{\code{numeric(1)} defining the maximum number of nearest
-neighbours to compute the quality metrics for. Default is
-\code{NA}, i.e. compute the \code{Rx} metric for all values (i.e. 1 to
-N-2). If set, the \code{Rx} metric is computed for neighborhood
-sizes of 1 up to \code{Kup}.}
+neighbours to compute the quality metrics \code{Rx} for. Default is
+\code{ceiling(ncol(object)/2)}, i.e. neighborhood sizes of 1 up to
+half the number of cells. Setting \code{Kup} to NA will compute the
+\code{Rx} metric for all values (i.e. 1 to N-2). This will however
+be at a considerable cost in computation time.}
+
+\item{BPPARAM}{An optional instance of class \code{BiocParallelParam}
+defining the parallelisation backend to be used during
+evaluation. See \code{?BiocParallel::BiocParallelParam} and the
+\code{BiocParallel} package documentation for details. The default
+value is the one returned by \code{\link[BiocParallel:register]{BiocParallel::bpparam()}}.}
 }
 \value{
 A list containing a vector of \code{Rx} values and a \code{AUC}
@@ -25,15 +37,16 @@ scalar.
 }
 \description{
 Rank-based criteria measuring the high-dimensional neighborhood
-preservation in the low-dimensional embedding Lee et al. (2009,
-2010). These criteria are used in the experiments reported in de
-Bodt et al. (2020).
+preservation in the low-dimensional embedding from Lee et
+al. (2009, 2010). These criteria are used in the experiments
+reported in de Bodt et al. (2020).
 }
 \details{
 The \code{drQuality()} function computes the dimensionality reduction
-quality assessment criteria \eqn{R_{NX}(K)} and AUC, as defined in
-Lee et al. (2009, 2010, 2103) and Lee and Verleysen (2009, 2010)
-and as used in the experiments reported in de Bodt et al. (2020).
+quality assessment criteria \eqn{R_{NX}(K)} (\code{Rx}) and area under
+the curve (\code{AUC}), as defined in Lee et al. (2009, 2010, 2103) and
+Lee and Verleysen (2009, 2010) and as used in the experiments
+reported in de Bodt et al. (2020).
 
 These criteria measure the neighborhood preservation around the
 data points from the high-dimensional space to the
@@ -76,7 +89,6 @@ scales with an emphasis on small ones. The AUC lies between -1 and
 random.
 
 Given a dataset with N cells, the function has \eqn{O(N^2 \times log(N))}
-
 time complexity. The \code{Kup} parameter sets the maximum neighborhood
 size when computing the quality criteria, that is computed only
 for the neighborhood sizes of K equal to 1 up to Kup, as opposed

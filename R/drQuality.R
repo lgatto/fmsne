@@ -3,16 +3,17 @@
 ##' @description
 ##'
 ##' Rank-based criteria measuring the high-dimensional neighborhood
-##' preservation in the low-dimensional embedding Lee et al. (2009,
-##' 2010). These criteria are used in the experiments reported in de
-##' Bodt et al. (2020).
+##' preservation in the low-dimensional embedding from Lee et
+##' al. (2009, 2010). These criteria are used in the experiments
+##' reported in de Bodt et al. (2020).
 ##'
 ##' @details
 ##'
 ##' The `drQuality()` function computes the dimensionality reduction
-##' quality assessment criteria \eqn{R_{NX}(K)} and AUC, as defined in
-##' Lee et al. (2009, 2010, 2103) and Lee and Verleysen (2009, 2010)
-##' and as used in the experiments reported in de Bodt et al. (2020).
+##' quality assessment criteria \eqn{R_{NX}(K)} (`Rx`) and area under
+##' the curve (`AUC`), as defined in Lee et al. (2009, 2010, 2103) and
+##' Lee and Verleysen (2009, 2010) and as used in the experiments
+##' reported in de Bodt et al. (2020).
 ##'
 ##' These criteria measure the neighborhood preservation around the
 ##' data points from the high-dimensional space to the
@@ -55,8 +56,6 @@
 ##' random.
 ##'
 ##' Given a dataset with N cells, the function has \eqn{O(N^2 \times log(N))}
-##'
-##'
 ##' time complexity. The `Kup` parameter sets the maximum neighborhood
 ##' size when computing the quality criteria, that is computed only
 ##' for the neighborhood sizes of K equal to 1 up to Kup, as opposed
@@ -73,10 +72,17 @@
 ##'     with `reducedDimNames(object)`.
 ##'
 ##' @param Kup `numeric(1)` defining the maximum number of nearest
-##'     neighbours to compute the quality metrics for. Default is
-##'     `NA`, i.e. compute the `Rx` metric for all values (i.e. 1 to
-##'     N-2). If set, the `Rx` metric is computed for neighborhood
-##'     sizes of 1 up to `Kup`.
+##'     neighbours to compute the quality metrics `Rx` for. Default is
+##'     `ceiling(ncol(object)/2)`, i.e. neighborhood sizes of 1 up to
+##'     half the number of cells. Setting `Kup` to NA will compute the
+##'     `Rx` metric for all values (i.e. 1 to N-2). This will however
+##'     be at a considerable cost in computation time.
+##'
+##' @param BPPARAM An optional instance of class `BiocParallelParam`
+##'     defining the parallelisation backend to be used during
+##'     evaluation. See `?BiocParallel::BiocParallelParam` and the
+##'     `BiocParallel` package documentation for details. The default
+##'     value is the one returned by [BiocParallel::bpparam()].
 ##'
 ##' @return A list containing a vector of `Rx` values and a `AUC`
 ##'     scalar.
@@ -121,15 +127,19 @@
 ##'
 ##' @importFrom reticulate import
 ##'
+##' @importFrom BiocParallel bplapply bpparam
+##'
 ##' @importFrom SummarizedExperiment assay
-drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
+drQuality <- function(object, dimred = reducedDimNames(object),
+                      Kup = ceiling(ncol(object)/2),
+                      BPPARAM = BiocParallel::bpparam()) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     x <- t(as.matrix(assay(object)))
     stopifnot(length(dimred) > 0)
-    res <- lapply(dimred, function(rd) {
+    res <- bplapply(dimred, function(rd) {
         y <- reducedDim(object, rd)
-        .single_drQuality(x, y, Kup)
-    })
+        n.single_drQuality(x, y, Kup)
+    }, BPPARAM = BPPARAM)
     ans <- sapply(res, "[[", 1)
     aux <- sapply(res, "[[", 2)
     names(aux) <- colnames(ans) <- dimred
@@ -145,7 +155,7 @@ drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
                            y = y)
     } else {
         Kup <- as.integer(Kup)
-        stopifnot(length(Kup) == 1, Kup > 0)
+        stopifnot(length(Kup) == 1, Kup > 0, Kup < ncol(x))
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_red_rnx_auc_from_data,
                            x = x,
@@ -157,6 +167,7 @@ drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
 
 .run_eval_dr_quality_from_data <- function(x, y) {
     fmsne <- reticulate::import("fmsne")
+    ## Euclidean distances are calulated in Python
     ans <- fmsne$eval_dr_quality_from_data(X = x,
                                            Y = y)
     names(ans) <- c("Rk", "AUC")
@@ -166,6 +177,7 @@ drQuality <- function(object, dimred = reducedDimNames(object), Kup = NA) {
 
 .run_eval_red_rnx_auc_from_data <- function(x, y, Kup) {
     fmsne <- reticulate::import("fmsne")
+    ## No Euclidean distances computed here
     ans <- fmsne$eval_red_rnx_auc_from_data(X = x,
                                             Y = y,
                                             Kup = Kup)

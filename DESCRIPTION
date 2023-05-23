@@ -1,5 +1,5 @@
 Package: fmsne
-Version: 0.4.0
+Version: 0.5.0
 Title: Fast Multi-scale Neighbour Embedding
 Authors@R: c(
     person("Cyril de Bodt",
@@ -20,7 +20,8 @@ Imports:
     basilisk,
     reticulate,
     SummarizedExperiment,
-    scater
+    scater,
+    BiocParallel
 Suggests:
     BiocManager,
     knitr,
