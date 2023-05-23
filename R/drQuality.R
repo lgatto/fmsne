@@ -138,7 +138,7 @@ drQuality <- function(object, dimred = reducedDimNames(object),
     stopifnot(length(dimred) > 0)
     res <- bplapply(dimred, function(rd) {
         y <- reducedDim(object, rd)
-        n.single_drQuality(x, y, Kup)
+        .single_drQuality(x, y, Kup)
     }, BPPARAM = BPPARAM)
     ans <- sapply(res, "[[", 1)
     aux <- sapply(res, "[[", 2)
