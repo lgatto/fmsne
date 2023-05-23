@@ -107,6 +107,7 @@ legend("topleft",
        bty = "n")
 
 ## --------------------------------------------------------------
+library("fmsne")
 
 ref1 <- readRDS("~/tmp/ref.rds")
 ref1 <- runTSNE(ref1, dimred = "PCA",
@@ -130,6 +131,49 @@ gridExtra::grid.arrange(
                plotPCA(ref2, colour_by = "Trophoblast"))
 
 
+gridExtra::grid.arrange(
+               plotReducedDim(ref1, colour_by = "cellType",
+                              dimred = "TSNE30"),
+               plotPCA(ref1, colour_by = "cellType"),
+               plotReducedDim(ref1, colour_by = "GA",
+                              dimred = "TSNE30"),
+               plotPCA(ref1, colour_by = "GA"))
+
+
 
 ref1 <- fmsne::runFMSSNE(ref1)
 ## ref2 <- fmsne::runFMSSNE(ref2)
+
+## --------------------------------------------------------------
+library("fmsne")
+
+ref1 <- readRDS("~/tmp/ref.rds")
+sce <- ref1[, ref1$GA == "E12.5"]
+reducedDims(sce) <- NULL
+
+## set.seed(123)
+## i <- sample(ncol(sce), ncol(sce)/10)
+## sce <- sce[, i]
+## reducedDimNames(sce) <- paste0("00", reducedDimNames(sce))
+
+
+sce <- runPCA(sce)
+sce <- runTSNE(sce)
+sce <- runFMSTSNE(sce)
+## sce <- runFMSSNE(sce)
+saveRDS(sce, file = "fmsneSce.rds")
+
+sce <- readRDS("~/tmp/fmsneSce.rds")
+
+gridExtra::grid.arrange(
+               plotPCA(sce, colour_by = "cellType") + ggtitle("PCA"),
+               plotTSNE(sce, colour_by = "cellType") + ggtitle("TSNE"),
+               plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSTSNE"))
+
+
+rx <- drQuality(sce)
+rx2 <- drQuality(sce, Kup = NA, BPPARAM = BiocParallel::SerialParam())
+
+matplot(rx, type = "l", lty = 1, log = "x")
+legend("topleft", paste(colnames(rx), "-", round(attr(rx, "AUC"), 2)),
+       lty = 1, col = 1:4)

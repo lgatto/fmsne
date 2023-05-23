@@ -134,8 +134,8 @@ drQuality <- function(object, dimred = reducedDimNames(object),
                       Kup = ceiling(ncol(object)/2),
                       BPPARAM = BiocParallel::bpparam()) {
     stopifnot(inherits(object, "SingleCellExperiment"))
-    x <- t(as.matrix(assay(object)))
     stopifnot(length(dimred) > 0)
+    x <- t(as.matrix(assay(object)))
     res <- bplapply(dimred, function(rd) {
         y <- reducedDim(object, rd)
         .single_drQuality(x, y, Kup)
@@ -155,7 +155,7 @@ drQuality <- function(object, dimred = reducedDimNames(object),
                            y = y)
     } else {
         Kup <- as.integer(Kup)
-        stopifnot(length(Kup) == 1, Kup > 0, Kup < ncol(x))
+        stopifnot(length(Kup) == 1, Kup > 0, Kup < nrow(x))
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_red_rnx_auc_from_data,
                            x = x,
