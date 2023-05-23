@@ -60,10 +60,22 @@
 ##' size when computing the quality criteria, that is computed only
 ##' for the neighborhood sizes of K equal to 1 up to Kup, as opposed
 ##' to all possible neighborhood sizes (for `Kup` set to `NA`). This
-##' reduces the time complexity to
-##' \eqn{O(N \times Kup \times log(N))}{O(N * Kup * log(N))}.
-##' Setting `Kup` can hence be run using much larger dataset, provided
-##' that `Kup` is small compared to the total number of cells N.
+##' implementation reduces the time complexity to \eqn{O(N \times Kup
+##' \times log(N))}{O(N * Kup * log(N))}.  Setting `Kup` can hence be
+##' run using much larger dataset, provided that `Kup` is small
+##' compared to the total number of cells N.
+##'
+##' Note however that when using `Kup`, in particlar a small one, one
+##' does not quantify the quality of the low-dimension embedding in
+##' terms of global structure preservation (larger neighborhood
+##' sizes), and instead focuses on local aspects (smaller
+##' neighborhoods), which favors local DR methods over global ones and
+##' misses, parly at least) the advantage of multi-scale
+##' approaches. Experiment in de Bodt et al. (2020) indicate that
+##' multi-scale methods are superior to single-scale ones, on both
+##' moderate-sized databases (N < 10e4; DR quality is quantified using
+##' K = 1, 2, ... N-2) and large-scale data sets (N >> 10e; DR quality is
+##' quantified using K = 1, 2, ... Kup).
 ##'
 ##' @param object A `SingleCellExperiment` object.
 ##'
@@ -147,7 +159,7 @@ drQuality <- function(object, dimred = reducedDimNames(object),
     ans
 }
 
-.single_drQuality <- function(x, y, Kup = NA) {
+.single_drQuality <- function(x, y, Kup) {
     if (is.na(Kup)) {
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_dr_quality_from_data,
@@ -155,7 +167,10 @@ drQuality <- function(object, dimred = reducedDimNames(object),
                            y = y)
     } else {
         Kup <- as.integer(Kup)
-        stopifnot(length(Kup) == 1, Kup > 0, Kup < nrow(x))
+        stopifnot(length(Kup) == 1, Kup > 0, Kup < (nrow(x) - 1))
+        ## Kup must be a scalar between 1 and the number of
+        ## cells. Note that here, x has already been transposed, hence
+        ## nrow(x) rather than ncol(x).
         ans <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_red_rnx_auc_from_data,
                            x = x,
