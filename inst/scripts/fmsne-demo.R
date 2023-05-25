@@ -174,6 +174,6 @@ gridExtra::grid.arrange(
 rx <- drQuality(sce)
 rx2 <- drQuality(sce, Kup = NA, BPPARAM = BiocParallel::SerialParam())
 
-matplot(rx, type = "l", lty = 1, log = "x")
-legend("topleft", paste(colnames(rx), "-", round(attr(rx, "AUC"), 2)),
+matplot(rx2, type = "l", lty = 1, log = "x")
+legend("topleft", paste(colnames(rx2), "-", round(attr(rx, "AUC"), 2)),
        lty = 1, col = 1:4)
