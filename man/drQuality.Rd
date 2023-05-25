@@ -2,6 +2,7 @@
 % Please edit documentation in R/drQuality.R
 \name{drQuality}
 \alias{drQuality}
+\alias{plotDrQuality}
 \title{Unsupervised dimensionality reduction quality assessment}
 \usage{
 drQuality(
@@ -9,6 +10,8 @@ drQuality(
   dimred = reducedDimNames(object),
   Kup = ceiling(ncol(object)/2)
 )
+
+plotDrQuality(x)
 }
 \arguments{
 \item{object}{A \code{SingleCellExperiment} object.}
@@ -23,10 +26,16 @@ neighbours to compute the quality metrics \code{Rx} for. Default is
 half the number of cells. Setting \code{Kup} to NA will compute the
 \code{Rx} metric for all values (i.e. 1 to N-2). This will however
 be at a considerable cost in computation time.}
+
+\item{x}{A \code{data.frame}, as produced by \code{drQuality()}.}
 }
 \value{
-A list containing a vector of \code{Rx} values and a \code{AUC}
-scalar.
+A \code{data.frame} containing the \code{Rx} values for the low
+dimensional embeddings defined by \code{dimred} (along the
+columns). The number of rows will be be \code{Kup} (is set) or
+\code{ncol(object)} if \code{Kup} was \code{NA} (see details). The areas
+under the respective curves (AUC) are stored as an attribute,
+named \code{"AUC"}.
 }
 \description{
 Rank-based criteria measuring the high-dimensional neighborhood
@@ -44,6 +53,9 @@ reported in de Bodt et al. (2020).
 These criteria measure the neighborhood preservation around the
 data points from the high-dimensional space to the
 low-dimensional space.
+
+The \code{plotDrQuality()} fonction can be used to visualise the
+results of the quality assessment produced by \code{drQuality()}.
 
 Based on the high-dimensional and low-dimensional Euclidean
 distances, the sets \eqn{v_i^K} (resp. \eqn{n_i^K}) of the K
