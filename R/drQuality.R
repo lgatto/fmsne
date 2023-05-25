@@ -148,46 +148,50 @@ drQuality <- function(object, dimred = reducedDimNames(object),
     stopifnot(inherits(object, "SingleCellExperiment"))
     stopifnot(length(dimred) > 0)
     x <- t(as.matrix(assay(object)))
-    res <- bplapply(dimred, function(rd) {
-        y <- reducedDim(object, rd)
-        .single_drQuality(x, y, Kup)
-    }, BPPARAM = BPPARAM)
-    ans <- sapply(res, "[[", 1)
-    aux <- sapply(res, "[[", 2)
-    names(aux) <- colnames(ans) <- dimred
-    attr(ans,"AUC") <- aux
-    ans
-}
-
-.single_drQuality <- function(x, y, Kup) {
     if (is.na(Kup)) {
-        ans <- basiliskRun(env = fmsneenv,
-                           fun = .run_eval_dr_quality_from_data,
+        ## named list -> Python Dict
+        ys <- as.list(reducedDims(sce0))
+        res <- basiliskRun(env = fmsneenv,
+                           fun = .run_eval_dr_quality_from_list,
                            x = x,
-                           y = y)
+                           y = ys)
+
     } else {
         Kup <- as.integer(Kup)
-        stopifnot(length(Kup) == 1, Kup > 0, Kup < (nrow(x) - 1))
         ## Kup must be a scalar between 1 and the number of
         ## cells. Note that here, x has already been transposed, hence
         ## nrow(x) rather than ncol(x).
-        ans <- basiliskRun(env = fmsneenv,
-                           fun = .run_eval_red_rnx_auc_from_data,
-                           x = x,
-                           y = y,
-                           Kup = Kup)
+        stopifnot(length(Kup) == 1, Kup > 0, Kup < (nrow(x) - 1))
+        res <- lapply(dimred, function(rd) {
+            y <- reducedDim(object, rd)
+            basiliskRun(env = fmsneenv,
+                        fun = .run_eval_red_rnx_auc_from_data,
+                        x = x,
+                        y = y,
+                        Kup = Kup)
+        })
     }
+    ## Convert list output to a data.frame
+    ans <- sapply(res, "[[", 1)
+    auc <- sapply(res, "[[", 2)
+    names(auc) <- colnames(ans) <- dimred
+    attr(ans,"AUC") <- auc
     ans
 }
 
-.run_eval_dr_quality_from_data <- function(x, y) {
+
+.run_eval_dr_quality_from_list <- function(x, ys) {
     fmsne <- reticulate::import("fmsne")
     ## Euclidean distances are calulated in Python
-    ans <- fmsne$eval_dr_quality_from_data(X = x,
-                                           Y = y)
-    names(ans) <- c("Rk", "AUC")
-    names(ans[["Rk"]]) <- seq(1, nrow(x)-2, 1)
+    ans <- fmsne$eval_dr_quality_from_list(X = x,
+                                           Ys = ys)
+    names(ans) <- names(ys)
+    ans <- lapply(ans, function(x) {
+        names(x) <- c("Rk", "AUC")
+        x
+    })
     ans
+
 }
 
 .run_eval_red_rnx_auc_from_data <- function(x, y, Kup) {
@@ -196,6 +200,7 @@ drQuality <- function(object, dimred = reducedDimNames(object),
     ans <- fmsne$eval_red_rnx_auc_from_data(X = x,
                                             Y = y,
                                             Kup = Kup)
+    names(ans) <- names(y)
     names(ans) <- c("Rk", "AUC")
     names(ans[["Rk"]]) <- seq(1, Kup, 1)
     ans
