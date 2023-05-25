@@ -93,11 +93,7 @@ reducedDim(sce, "TSNE30")
 
 i <- sample(ncol(sce), 500)
 
-rk <- BiocParallel::bplapply(names(reducedDims(sce)),
-                             function(x) drQuality(sce[, i], dimred = x))
-names(rk) <- names(reducedDims(sce))
-
-sapply(rk, "[[", 2)
+rk <- drQuality(sce[, i])
 
 sapply(rk, "[[", 1) |>
     matplot(type = "l", lty = 1, lwd = 2, log = "x")
@@ -172,7 +168,7 @@ gridExtra::grid.arrange(
 
 
 rx <- drQuality(sce)
-rx2 <- drQuality(sce, Kup = NA, BPPARAM = BiocParallel::SerialParam())
+rx2 <- drQuality(sce, Kup = NA)
 
 matplot(rx2, type = "l", lty = 1, log = "x")
 legend("topleft", paste(colnames(rx2), "-", round(attr(rx, "AUC"), 2)),

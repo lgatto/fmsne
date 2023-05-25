@@ -90,12 +90,6 @@
 ##'     `Rx` metric for all values (i.e. 1 to N-2). This will however
 ##'     be at a considerable cost in computation time.
 ##'
-##' @param BPPARAM An optional instance of class `BiocParallelParam`
-##'     defining the parallelisation backend to be used during
-##'     evaluation. See `?BiocParallel::BiocParallelParam` and the
-##'     `BiocParallel` package documentation for details. The default
-##'     value is the one returned by [BiocParallel::bpparam()].
-##'
 ##' @return A list containing a vector of `Rx` values and a `AUC`
 ##'     scalar.
 ##'
@@ -139,12 +133,9 @@
 ##'
 ##' @importFrom reticulate import
 ##'
-##' @importFrom BiocParallel bplapply bpparam
-##'
 ##' @importFrom SummarizedExperiment assay
 drQuality <- function(object, dimred = reducedDimNames(object),
-                      Kup = ceiling(ncol(object)/2),
-                      BPPARAM = BiocParallel::bpparam()) {
+                      Kup = ceiling(ncol(object)/2)) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     stopifnot(length(dimred) > 0)
     x <- t(as.matrix(assay(object)))

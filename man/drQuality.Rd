@@ -7,8 +7,7 @@
 drQuality(
   object,
   dimred = reducedDimNames(object),
-  Kup = ceiling(ncol(object)/2),
-  BPPARAM = BiocParallel::bpparam()
+  Kup = ceiling(ncol(object)/2)
 )
 }
 \arguments{
@@ -24,12 +23,6 @@ neighbours to compute the quality metrics \code{Rx} for. Default is
 half the number of cells. Setting \code{Kup} to NA will compute the
 \code{Rx} metric for all values (i.e. 1 to N-2). This will however
 be at a considerable cost in computation time.}
-
-\item{BPPARAM}{An optional instance of class \code{BiocParallelParam}
-defining the parallelisation backend to be used during
-evaluation. See \code{?BiocParallel::BiocParallelParam} and the
-\code{BiocParallel} package documentation for details. The default
-value is the one returned by \code{\link[BiocParallel:register]{BiocParallel::bpparam()}}.}
 }
 \value{
 A list containing a vector of \code{Rx} values and a \code{AUC}

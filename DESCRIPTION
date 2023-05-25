@@ -20,8 +20,7 @@ Imports:
     basilisk,
     reticulate,
     SummarizedExperiment,
-    scater,
-    BiocParallel
+    scater
 Suggests:
     BiocManager,
     knitr,
