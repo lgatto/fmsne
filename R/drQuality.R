@@ -141,7 +141,7 @@ drQuality <- function(object, dimred = reducedDimNames(object),
     x <- t(as.matrix(assay(object)))
     if (is.na(Kup)) {
         ## named list -> Python Dict
-        ys <- as.list(reducedDims(sce0))
+        ys <- as.list(reducedDims(object))
         res <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_dr_quality_from_list,
                            x = x,
