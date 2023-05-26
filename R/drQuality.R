@@ -19,6 +19,9 @@
 ##' data points from the high-dimensional space to the
 ##' low-dimensional space.
 ##'
+##' The `plotDrQuality()` fonction can be used to visualise the
+##' results of the quality assessment produced by `drQuality()`.
+##'
 ##' Based on the high-dimensional and low-dimensional Euclidean
 ##' distances, the sets \eqn{v_i^K} (resp. \eqn{n_i^K}) of the K
 ##' nearest neighbours of data point i in the high-dimensional space
@@ -90,8 +93,12 @@
 ##'     `Rx` metric for all values (i.e. 1 to N-2). This will however
 ##'     be at a considerable cost in computation time.
 ##'
-##' @return A list containing a vector of `Rx` values and a `AUC`
-##'     scalar.
+##' @return A `data.frame` containing the `Rx` values for the low
+##'     dimensional embeddings defined by `dimred` (along the
+##'     columns). The number of rows will be be `Kup` (is set) or
+##'     `ncol(object)` if `Kup` was `NA` (see details). The areas
+##'     under the respective curves (AUC) are stored as an attribute,
+##'     named `"AUC"`.
 ##'
 ##' @export
 ##'
@@ -168,6 +175,18 @@ drQuality <- function(object, dimred = reducedDimNames(object),
     names(auc) <- colnames(ans) <- dimred
     attr(ans,"AUC") <- auc
     ans
+}
+
+##' @param x A `data.frame`, as produced by `drQuality()`.
+##'
+##' @rdname drQuality
+##'
+##' @export
+plotDrQuality <- function(x) {
+    matplot(x, type = "l", lty = 1, log = "x")
+    legend("topleft",
+           paste(colnames(x), "-", round(attr(x, "AUC"), 2)),
+           lty = 1, col = seq_len(ncol(x)))
 }
 
 

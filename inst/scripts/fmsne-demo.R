@@ -170,12 +170,6 @@ gridExtra::grid.arrange(
                plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSTSNE"))
 
 
-plotDrQuality <- function(x) {
-    matplot(x, type = "l", lty = 1, log = "x")
-    legend("topleft",
-           paste(colnames(x), "-", round(attr(x, "AUC"), 2)),
-           lty = 1, col = seq_len(ncol(x)))
-}
 
 rx <- drQuality(sce)
 rx2 <- drQuality(sce, Kup = NA)
