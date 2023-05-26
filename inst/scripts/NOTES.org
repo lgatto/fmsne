@@ -1,8 +1,19 @@
-- Licensing?
-
 - How to compare, when t-SNE is run on the PCA data (I believe run on
   most variable genes, 50 PCs) and MS versions on top features. Should
   we try to run all of it on PCAs and/or top features?
+
+- `calculateTSNE()` uses the PCA step in `Rtsne::Rtsne()`, which uses,
+  by default 50 PCs.
+
+- `calculateTSNE()` also uses the `ntop` (500 by default) feautres
+  with the largest variances (unless set manually with `subset_row`).
+
+- Also, the DR method can be applied on existing dimensionality
+  reduction results in 'x' by setting the 'dimred' argument.
+
+- To use all features, pass `rep(TRUE, nrow(object))`.
+
+- TODO implement `ntop`, `dimred` in fmsne functions
 
 - Use non-fast methods, shouldn't be a problem time-wise for 1300 genes.
 
