@@ -179,6 +179,12 @@ plotDrQuality(rx)
 plotDrQuality(rx2)
 
 
+rx <- drQuality(ref1)
+plotDrQuality(rx)
+
+## rx2 <- drQuality(ref1, Kup = NA)
+
+
 gridExtra::grid.arrange(
                plotPCA(ref1, colour_by = "cellType") + ggtitle("PCA"),
                plotUMAP(ref1, colour_by = "cellType") + ggtitle("UMAP"),
