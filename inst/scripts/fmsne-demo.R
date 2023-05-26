@@ -152,6 +152,9 @@ reducedDims(sce) <- NULL
 ## sce <- sce[, i]
 ## reducedDimNames(sce) <- paste0("00", reducedDimNames(sce))
 
+ref1 <- runTSNE(ref1)
+ref1 <- runFMSTSNE(ref1)
+ref1 <- runFMSSNE(ref1)
 
 sce <- runPCA(sce)
 sce <- runTSNE(sce)
@@ -179,3 +182,12 @@ rx2 <- drQuality(sce, Kup = NA)
 
 
 plotDrQuality(rx)
+plotDrQuality(rx2)
+
+
+gridExtra::grid.arrange(
+               plotPCA(ref1, colour_by = "cellType") + ggtitle("PCA"),
+               plotUMAP(ref1, colour_by = "cellType") + ggtitle("UMAP"),
+               plotTSNE(ref1, colour_by = "cellType") + ggtitle("TSNE"),
+               plotFMSSNE(ref1, colour_by = "cellType") + ggtitle("FMSSNE"),
+               plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSTSNE"))
