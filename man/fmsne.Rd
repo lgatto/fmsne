@@ -8,11 +8,19 @@
 \alias{runMSTSNE}
 \alias{runFMSSNE}
 \alias{runFMSTSNE}
+\alias{calculateFMSSNE}
+\alias{calculateFMSTSNE}
+\alias{calculateMSSNE}
+\alias{caclulateMSTSNE}
 \title{Multi-scale stochastic neighbour embedding}
 \usage{
-runFMSSNE(
+calculateFMSSNE(
   x,
-  n_components = 2L,
+  ncomponents = 2L,
+  topn = 500,
+  subset_row = NULL,
+  scale = FALSE,
+  transposed = FALSE,
   init = "pca",
   nit_max = 30,
   gtol = 1e-05,
@@ -21,14 +29,18 @@ runFMSSNE(
   maxcor = 10,
   fit_U = TRUE,
   bht = 0.45,
-  fseed = 1L,
-  subset_row = NULL,
-  name = "FMSSNE"
+  fseed = 1L
 )
 
-runFMSTSNE(
+runFMSSNE(x, ..., name = "FMSSNE")
+
+calculateFMSTSNE(
   x,
-  n_components = 2L,
+  ncomponents = 2L,
+  topn = 500,
+  subset_row = NULL,
+  scale = FALSE,
+  transposed = FALSE,
   init = "pca",
   nit_max = 30,
   gtol = 1e-05,
@@ -36,45 +48,66 @@ runFMSTSNE(
   maxls = 50,
   maxcor = 10,
   bht = 0.45,
-  fseed = 1L,
-  subset_row = NULL,
-  name = "FMSTSNE"
+  fseed = 1L
 )
 
-runMSSNE(
+runFMSTSNE(x, ..., name = "FMSTSNE")
+
+calculateMSSNE(
   x,
-  n_components = 2L,
+  ncomponents = 2L,
+  topn = 500,
+  subset_row = NULL,
+  scale = FALSE,
+  transposed = FALSE,
   init = "pca",
   nit_max = 30,
   gtol = 1e-05,
   ftol = 2.22044604925031e-09,
   maxls = 50,
   maxcor = 10,
-  fit_U = TRUE,
-  subset_row = NULL,
-  name = "MSSNE"
+  fit_U = TRUE
 )
 
-runMSTSNE(
+runMSSNE(x, ..., name = "MSSNE")
+
+caclulateMSTSNE(
   x,
-  n_components = 2L,
+  ncomponents = 2L,
+  topn = 500,
+  subset_row = NULL,
+  scale = FALSE,
+  transposed = FALSE,
   init = "pca",
   nit_max = 30,
   gtol = 1e-05,
   ftol = 2.22044604925031e-09,
   maxls = 50,
-  maxcor = 10,
-  subset_row = NULL,
-  name = "MSTSNE"
+  maxcor = 10
 )
+
+runMSTSNE(x, ..., name = "MSTSNE")
 }
 \arguments{
-\item{x}{Object of class \code{SingleCellExperiment} containing a
-numeric assay with log-expression values where rows are
-features and columns are cells.}
+\item{x}{Matrix (for \verb{calcualate*()}) or object of class
+\code{SingleCellExperiment} (for \verb{run*()}) containing a numeric
+assay with log-expression values where rows are features and
+columns are cells.}
 
-\item{n_components}{\code{integer(1)} indicating the number of t-SNE
+\item{ncomponents}{\code{integer(1)} indicating the number of t-SNE
 dimensions to obtain. Default is 2L.}
+
+\item{topn}{\code{integer(1)} specifying the number of features with
+the highest variances to use for dimensionality
+reduction. Default is 500.}
+
+\item{subset_row}{Vector specifying the subset of features to use
+for dimensionality reduction. This can be a character vector
+of row names, an integer vector of row indices or a logical
+vector. Default is \code{NULL} that takes all features.}
+
+\item{scale}{\code{logical(1)} indicating whether the expression values
+should be standardized? Default is \code{FALSE}.}
 
 \item{init}{\code{character(1)}. If equal to "pca" (default), the LD
 embedding is initialized with the first \code{n_components}
@@ -123,10 +156,8 @@ expense of slightly increasing computation time.}
 seed used to perform the random sampling of the
 high-dimensional data set at the different scales.}
 
-\item{subset_row}{Vector specifying the subset of features to use
-for dimensionality reduction. This can be a character vector
-of row names, an integer vector of row indices or a logical
-vector. Default is \code{NULL} that takes all features.}
+\item{...}{additional parameters passed to the respective
+'calculate*()' functions.}
 
 \item{name}{\code{character(1)} specifying the name to be used to store
 the result in the \code{reducedDims} of the output. Default is
@@ -134,8 +165,11 @@ the result in the \code{reducedDims} of the output. Default is
 the function.}
 }
 \value{
-A modified ‘x’ is returned that contains the multi-scale
-coordinates in ‘reducedDim(x, name)’.
+The \verb{calculate*()} functions reduced a reduced dimension
+matrix of dimensions \code{ncol(x)} (i.e. cells) by
+\code{ncomponents}. The \verb{run*()} functions return a modified ‘x’
+that contains the reduced dimension coordinates in
+‘reducedDim(x, name)’.
 }
 \description{
 The \code{fmsne} package offers various functions to perform nonlinear
@@ -143,25 +177,27 @@ dimensionality reduction through multi-scale (MS) stochastic
 neighbor embedding (SNE) or t-distributed SNE (t-SNE), including
 fast versions thereof.
 \itemize{
-\item The \code{runMSSNE()} function performs a nonlinear dimensionality
-reduction through multi-scale SNE, as presented in Lee et
-al. (2015) below and summarized in de Bodt et al. (2020).  Given
-a data set with N samples, it has \eqn{O(N^2 log(N))} time
-complexity.
-\item The \code{runMSTSNE()} function performs nonlinear dimensionality
-reduction through multi-scale t-SNE, as presented in the
-reference de Bodt et al. (2018) below and summarized in de Bodt
-et al. (2020). Given a data set with N samples, it has
+\item The \code{calculateMSSNE()} function performs a nonlinear
+dimensionality reduction through multi-scale SNE, as presented
+in Lee et al. (2015) below and summarized in de Bodt et
+al. (2020).  Given a data set with N samples, it has \eqn{O(N^2
+  log(N))} time complexity.
+\item The \code{calculateMSTSNE()} function performs nonlinear
+dimensionality reduction through multi-scale t-SNE, as presented
+in the reference de Bodt et al. (2018) below and summarized in
+de Bodt et al. (2020). Given a data set with N samples, it has
 \eqn{O(N^2 log(N))} time complexity.
-\item The \code{runFMSSNE()} function performs nonlinear dimensionality
-reduction through fast multi-scale SNE, as presented in Lee et
-al. (2015) below. Given a data set with N samples, it has
-\eqn{O(N log(N)^2)} time complexity.
-\item The \code{runFMSTSNE()} function performs nonlinear dimensionality
-reduction through fast multi-scale t-SNE, as presented in the de
-Bodt et al. (2020) below.  Given a data set with N samples, it
-has \eqn{O(N log(N))^2} time complexity.
+\item The \code{calculateFMSSNE()} function performs nonlinear
+dimensionality reduction through fast multi-scale SNE, as
+presented in Lee et al. (2015) below. Given a data set with N
+samples, it has \eqn{O(N log(N)^2)} time complexity.
+\item The \code{calculateFMSTSNE()} function performs nonlinear
+dimensionality reduction through fast multi-scale t-SNE, as
+presented in the de Bodt et al. (2020) below.  Given a data set
+with N samples, it has \eqn{O(N log(N))^2} time complexity.
 }
+
+Each function
 
 See the vignette for further details.
 }

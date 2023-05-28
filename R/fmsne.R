@@ -7,36 +7,46 @@
 ##' neighbor embedding (SNE) or t-distributed SNE (t-SNE), including
 ##' fast versions thereof.
 ##'
-##' - The `runMSSNE()` function performs a nonlinear dimensionality
-##'   reduction through multi-scale SNE, as presented in Lee et
-##'   al. (2015) below and summarized in de Bodt et al. (2020).  Given
-##'   a data set with N samples, it has \eqn{O(N^2 log(N))} time
-##'   complexity.
+##' - The `calculateMSSNE()` function performs a nonlinear
+##'   dimensionality reduction through multi-scale SNE, as presented
+##'   in Lee et al. (2015) below and summarized in de Bodt et
+##'   al. (2020).  Given a data set with N samples, it has \eqn{O(N^2
+##'   log(N))} time complexity.
 ##'
-##' - The `runMSTSNE()` function performs nonlinear dimensionality
-##'   reduction through multi-scale t-SNE, as presented in the
-##'   reference de Bodt et al. (2018) below and summarized in de Bodt
-##'   et al. (2020). Given a data set with N samples, it has
+##' - The `calculateMSTSNE()` function performs nonlinear
+##'   dimensionality reduction through multi-scale t-SNE, as presented
+##'   in the reference de Bodt et al. (2018) below and summarized in
+##'   de Bodt et al. (2020). Given a data set with N samples, it has
 ##'   \eqn{O(N^2 log(N))} time complexity.
 ##'
-##' - The `runFMSSNE()` function performs nonlinear dimensionality
-##'   reduction through fast multi-scale SNE, as presented in Lee et
-##'   al. (2015) below. Given a data set with N samples, it has
-##'   \eqn{O(N log(N)^2)} time complexity.
+##' - The `calculateFMSSNE()` function performs nonlinear
+##'   dimensionality reduction through fast multi-scale SNE, as
+##'   presented in Lee et al. (2015) below. Given a data set with N
+##'   samples, it has \eqn{O(N log(N)^2)} time complexity.
 ##'
-##' - The `runFMSTSNE()` function performs nonlinear dimensionality
-##'   reduction through fast multi-scale t-SNE, as presented in the de
-##'   Bodt et al. (2020) below.  Given a data set with N samples, it
-##'   has \eqn{O(N log(N))^2} time complexity.
+##' - The `calculateFMSTSNE()` function performs nonlinear
+##'   dimensionality reduction through fast multi-scale t-SNE, as
+##'   presented in the de Bodt et al. (2020) below.  Given a data set
+##'   with N samples, it has \eqn{O(N log(N))^2} time complexity.
+##'
+##' Each function
 ##'
 ##' See the vignette for further details.
 ##'
-##' @param x Object of class `SingleCellExperiment` containing a
-##'     numeric assay with log-expression values where rows are
-##'     features and columns are cells.
+##' @param x Matrix (for `calcualate*()`) or object of class
+##'     `SingleCellExperiment` (for `run*()`) containing a numeric
+##'     assay with log-expression values where rows are features and
+##'     columns are cells.
 ##'
-##' @param n_components `integer(1)` indicating the number of t-SNE
+##' @param ncomponents `integer(1)` indicating the number of t-SNE
 ##'     dimensions to obtain. Default is 2L.
+##'
+##' @param topn `integer(1)` specifying the number of features with
+##'     the highest variances to use for dimensionality
+##'     reduction. Default is 500.
+##'
+##' @param scale `logical(1)` indicating whether the expression values
+##'     should be standardized? Default is `FALSE`.
 ##'
 ##' @param init `character(1)`. If equal to "pca" (default), the LD
 ##'     embedding is initialized with the first `n_components`
@@ -95,8 +105,11 @@
 ##'     `"MSSNE"`, `"MSTSNE"`, `"FMSSNE"` or `"FMSTSNE"` depending on
 ##'     the function.
 ##'
-##' @return A modified ‘x’ is returned that contains the multi-scale
-##'     coordinates in ‘reducedDim(x, name)’.
+##' @return The `calculate*()` functions reduced a reduced dimension
+##'     matrix of dimensions `ncol(x)` (i.e. cells) by
+##'     `ncomponents`. The `run*()` functions return a modified ‘x’
+##'     that contains the reduced dimension coordinates in
+##'     ‘reducedDim(x, name)’.
 ##'
 ##' @seealso
 ##'
