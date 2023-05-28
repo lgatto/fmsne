@@ -41,7 +41,7 @@
 ##' @param ncomponents `integer(1)` indicating the number of t-SNE
 ##'     dimensions to obtain. Default is 2L.
 ##'
-##' @param topn `integer(1)` specifying the number of features with
+##' @param ntop `integer(1)` specifying the number of features with
 ##'     the highest variances to use for dimensionality
 ##'     reduction. Default is 500.
 ##'

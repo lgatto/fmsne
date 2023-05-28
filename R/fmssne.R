@@ -3,7 +3,7 @@
 ##' @rdname fmsne
 calculateFMSSNE <- function(x,
                             ncomponents = 2L,
-                            topn = 500,
+                            ntop = 500,
                             subset_row = NULL,
                             scale = FALSE,
                             transposed = FALSE,

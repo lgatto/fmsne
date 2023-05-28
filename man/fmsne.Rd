@@ -11,13 +11,13 @@
 \alias{calculateFMSSNE}
 \alias{calculateFMSTSNE}
 \alias{calculateMSSNE}
-\alias{caclulateMSTSNE}
+\alias{calculateMSTSNE}
 \title{Multi-scale stochastic neighbour embedding}
 \usage{
 calculateFMSSNE(
   x,
   ncomponents = 2L,
-  topn = 500,
+  ntop = 500,
   subset_row = NULL,
   scale = FALSE,
   transposed = FALSE,
@@ -37,7 +37,7 @@ runFMSSNE(x, ..., name = "FMSSNE")
 calculateFMSTSNE(
   x,
   ncomponents = 2L,
-  topn = 500,
+  ntop = 500,
   subset_row = NULL,
   scale = FALSE,
   transposed = FALSE,
@@ -56,7 +56,7 @@ runFMSTSNE(x, ..., name = "FMSTSNE")
 calculateMSSNE(
   x,
   ncomponents = 2L,
-  topn = 500,
+  ntop = 500,
   subset_row = NULL,
   scale = FALSE,
   transposed = FALSE,
@@ -71,10 +71,10 @@ calculateMSSNE(
 
 runMSSNE(x, ..., name = "MSSNE")
 
-caclulateMSTSNE(
+calculateMSTSNE(
   x,
   ncomponents = 2L,
-  topn = 500,
+  ntop = 500,
   subset_row = NULL,
   scale = FALSE,
   transposed = FALSE,
@@ -97,7 +97,7 @@ columns are cells.}
 \item{ncomponents}{\code{integer(1)} indicating the number of t-SNE
 dimensions to obtain. Default is 2L.}
 
-\item{topn}{\code{integer(1)} specifying the number of features with
+\item{ntop}{\code{integer(1)} specifying the number of features with
 the highest variances to use for dimensionality
 reduction. Default is 500.}
 
