@@ -36,7 +36,7 @@ calculateMSSNE <- function(x,
                        fit_U = fit_U)
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("MSSNE", seq_len(ncomponents))
-    x
+    ans
 }
 
 ##' @export
@@ -63,7 +63,7 @@ runMSSNE <- function(x, ...,
                        maxcor = 10,
                        fit_U = TRUE) {
     fmsne <- reticulate::import("fmsne")
-    fmsne$mssne(X_hds = t(X),
+    fmsne$mssne(X_hds = X,
                 n_components = n_components,
                 init = init,
                 rand_state = rand_state,

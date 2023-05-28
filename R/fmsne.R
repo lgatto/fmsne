@@ -48,6 +48,9 @@
 ##' @param scale `logical(1)` indicating whether the expression values
 ##'     should be standardized? Default is `FALSE`.
 ##'
+##' @param transposed `logical(1)` indicating whether `x` is
+##'     transposed with cells in rows? Default is `FALSE`.
+##'
 ##' @param init `character(1)`. If equal to "pca" (default), the LD
 ##'     embedding is initialized with the first `n_components`
 ##'     principal components computed on `x`. If equal to "random",

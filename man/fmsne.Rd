@@ -109,6 +109,9 @@ vector. Default is \code{NULL} that takes all features.}
 \item{scale}{\code{logical(1)} indicating whether the expression values
 should be standardized? Default is \code{FALSE}.}
 
+\item{transposed}{\code{logical(1)} indicating whether \code{x} is
+transposed with cells in rows? Default is \code{FALSE}.}
+
 \item{init}{\code{character(1)}. If equal to "pca" (default), the LD
 embedding is initialized with the first \code{n_components}
 principal components computed on \code{x}. If equal to "random",

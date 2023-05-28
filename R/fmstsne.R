@@ -44,8 +44,7 @@ calculateFMSTSNE <- function(x,
                        fseed = fseed)
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("FMSTSNE", seq_len(ncomponents))
-    reducedDim(x, name) <- ans
-    x
+    ans
 }
 
 ##' @export

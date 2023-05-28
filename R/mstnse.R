@@ -16,7 +16,7 @@ calculateMSTSNE <- function(x,
                             maxcor = 10) {
 
     if (!transposed)
-        X <- scater:::.get_mat_for_reddim(x,
+        x <- scater:::.get_mat_for_reddim(x,
                                           subset_row = subset_row,
                                           ntop = ntop,
                                           scale = scale)
@@ -36,7 +36,7 @@ calculateMSTSNE <- function(x,
                        maxcor = maxcor)
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("MSTSNE", seq_len(ncomponents))
-    x
+    ans
 }
 
 ##' @export
@@ -63,7 +63,7 @@ runMSTSNE <- function(x, ...,
                         maxls = 50,
                         maxcor = 10) {
     fmsne <- reticulate::import("fmsne")
-    fmsne$mstsne(X_hds = t(X),
+    fmsne$mstsne(X_hds = X,
                  n_components = n_components,
                  init = init,
                  rand_state = rand_state,
