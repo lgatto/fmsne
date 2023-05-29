@@ -181,6 +181,7 @@ drQuality <- function(object, dimred = reducedDimNames(object),
 ##'
 ##' @rdname drQuality
 ##'
+##' @importFrom graphics matplot legend
 ##' @export
 plotDrQuality <- function(x) {
     matplot(x, type = "l", lty = 1, log = "x")

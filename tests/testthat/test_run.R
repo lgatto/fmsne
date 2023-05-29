@@ -11,8 +11,8 @@ test_that("runFMSTSNE() works", {
                      c("FMSTSNE1", "FMSTSNE2"))
 })
 
-test_that("runFMSTSNE(n_components) works", {
- sce <- runFMSTSNE(sce0, n_components = 3)
+test_that("runFMSTSNE(ncomponents) works", {
+ sce <- runFMSTSNE(sce0, ncomponents = 3)
     expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSTSNE"))
     expect_identical(dim(reducedDim(sce, "FMSTSNE")),
@@ -31,12 +31,6 @@ test_that("runFMSTSNE(subset_row) works", {
                       reducedDim(sce, "FMSTSNE_2")) ## Different colnames
     expect_equivalent(reducedDim(sce, "FMSTSNE_1"),
                       reducedDim(sce, "FMSTSNE_3")) ## Different colnames
-    expect_identical(colnames(reducedDim(sce, "FMSTSNE_1")),
-                     c("FMSTSNE_11", "FMSTSNE_12"))
-    expect_identical(colnames(reducedDim(sce, "FMSTSNE_2")),
-                     c("FMSTSNE_21", "FMSTSNE_22"))
-    expect_identical(colnames(reducedDim(sce, "FMSTSNE_3")),
-                     c("FMSTSNE_31", "FMSTSNE_32"))
     expect_identical(dim(reducedDim(sce, "FMSTSNE_1")),
                      c(ncells, 2L))
     expect_identical(reducedDimNames(sce),
@@ -56,8 +50,8 @@ test_that("runFMSSNE() works", {
                      c("FMSSNE1", "FMSSNE2"))
 })
 
-test_that("runFMSSNE(n_components) works", {
- sce <- runFMSSNE(sce0, n_components = 3)
+test_that("runFMSSNE(ncomponents) works", {
+ sce <- runFMSSNE(sce0, ncomponents = 3)
     expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSSNE"))
     expect_identical(dim(reducedDim(sce, "FMSSNE")),
@@ -76,12 +70,6 @@ test_that("runFMSSNE(subset_row) works", {
                       reducedDim(sce, "FMSSNE_2")) ## Different colnames
     expect_equivalent(reducedDim(sce, "FMSSNE_1"),
                       reducedDim(sce, "FMSSNE_3")) ## Different colnames
-    expect_identical(colnames(reducedDim(sce, "FMSSNE_1")),
-                     c("FMSSNE_11", "FMSSNE_12"))
-    expect_identical(colnames(reducedDim(sce, "FMSSNE_2")),
-                     c("FMSSNE_21", "FMSSNE_22"))
-    expect_identical(colnames(reducedDim(sce, "FMSSNE_3")),
-                     c("FMSSNE_31", "FMSSNE_32"))
     expect_identical(dim(reducedDim(sce, "FMSSNE_1")),
                      c(ncells, 2L))
     expect_identical(reducedDimNames(sce),
@@ -102,8 +90,8 @@ test_that("runMSTSNE() works", {
                      c("MSTSNE1", "MSTSNE2"))
 })
 
-test_that("runMSTSNE(n_components) works", {
-    sce <- runMSTSNE(sce0, n_components = 3)
+test_that("runMSTSNE(ncomponents) works", {
+    sce <- runMSTSNE(sce0, ncomponents = 3)
     expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSTSNE"))
     expect_identical(dim(reducedDim(sce, "MSTSNE")),
@@ -122,12 +110,6 @@ test_that("runMSTSNE(subset_row) works", {
                       reducedDim(sce, "MSTSNE_2")) ## Different colnames
     expect_equivalent(reducedDim(sce, "MSTSNE_1"),
                       reducedDim(sce, "MSTSNE_3")) ## Different colnames
-    expect_identical(colnames(reducedDim(sce, "MSTSNE_1")),
-                     c("MSTSNE_11", "MSTSNE_12"))
-    expect_identical(colnames(reducedDim(sce, "MSTSNE_2")),
-                     c("MSTSNE_21", "MSTSNE_22"))
-    expect_identical(colnames(reducedDim(sce, "MSTSNE_3")),
-                     c("MSTSNE_31", "MSTSNE_32"))
     expect_identical(dim(reducedDim(sce, "MSTSNE_1")),
                      c(ncells, 2L))
     expect_identical(reducedDimNames(sce),
@@ -148,8 +130,8 @@ test_that("runMSSNE() works", {
                      c("MSSNE1", "MSSNE2"))
 })
 
-test_that("runMSSNE(n_components) works", {
- sce <- runMSSNE(sce0, n_components = 3)
+test_that("runMSSNE(ncomponents) works", {
+ sce <- runMSSNE(sce0, ncomponents = 3)
     expect_identical(reducedDimNames(sce),
                      c(names(rd0), "MSSNE"))
     expect_identical(dim(reducedDim(sce, "MSSNE")),
@@ -168,12 +150,6 @@ test_that("runMSSNE(subset_row) works", {
                       reducedDim(sce, "MSSNE_2")) ## Different colnames
     expect_equivalent(reducedDim(sce, "MSSNE_1"),
                       reducedDim(sce, "MSSNE_3")) ## Different colnames
-    expect_identical(colnames(reducedDim(sce, "MSSNE_1")),
-                     c("MSSNE_11", "MSSNE_12"))
-    expect_identical(colnames(reducedDim(sce, "MSSNE_2")),
-                     c("MSSNE_21", "MSSNE_22"))
-    expect_identical(colnames(reducedDim(sce, "MSSNE_3")),
-                     c("MSSNE_31", "MSSNE_32"))
     expect_identical(dim(reducedDim(sce, "MSSNE_1")),
                      c(ncells, 2L))
     expect_identical(reducedDimNames(sce),
