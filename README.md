@@ -39,8 +39,12 @@ The package depends on the following Bioconductor packages:
   for the infrastructure to hold the single-cell and reduced dimension
   data.
 
-- [basilisk](https://bioconductor.org/packages/basilisk) to install
-  and run the underlying Python implementation.
+- [scater](https://bioconductor.org/packages/scater) for the
+  dimensionality reduction interface.
+
+- [basilisk](https://bioconductor.org/packages/basilisk) and
+  [reticulate](https://rstudio.github.io/reticulate/) to install and
+  run the underlying Python implementation.
 
 If you are looking to apply fast multi-scale neighbor embedding in
 Pyhton, you can install the `fmsne` [python
