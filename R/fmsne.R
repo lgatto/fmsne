@@ -29,9 +29,16 @@
 ##'   presented in the de Bodt et al. (2020) below.  Given a data set
 ##'   with N samples, it has \eqn{O(N log(N))^2} time complexity.
 ##'
-##' Each function
+##' Each method can also be called with `run[F]MS[T]SNE()` to store
+##' the result as a new `SingleCellExperiment` reduced dimension
+##' `reducedDim` instance.
 ##'
 ##' See the vignette for further details.
+##'
+##' @section Feature selection:
+##'
+##' @section Using reduced dimensions:
+##'
 ##'
 ##' @param x Matrix (for `calcualate*()`) or object of class
 ##'     `SingleCellExperiment` (for `run*()`) containing a numeric
@@ -50,6 +57,17 @@
 ##'
 ##' @param transposed `logical(1)` indicating whether `x` is
 ##'     transposed with cells in rows? Default is `FALSE`.
+##'
+##' @param exprs_values `integer(1)` or `character(1)` indicating
+##'     which assay of ‘x’ contains the expression values. Default is
+##'     `"logcounts"`.
+##'
+##' @param dimred `character(1)` specifying the optional
+##'     dimensionality reduction results to use. Default is `NULL`.
+##'
+##' @param n_dimref `interger(1)` specifying the dimensions to use if
+##'     `dimred` is specified. Default is `NULL`, to use all
+##'     components.
 ##'
 ##' @param init `character(1)`. If equal to "pca" (default), the LD
 ##'     embedding is initialized with the first `n_components`

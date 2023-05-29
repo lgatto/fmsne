@@ -152,13 +152,15 @@ reducedDims(sce) <- NULL
 ## sce <- sce[, i]
 ## reducedDimNames(sce) <- paste0("00", reducedDimNames(sce))
 
-ref1 <- runTSNE(ref1)
-ref1 <- runFMSTSNE(ref1)
+ref1 <- runTSNE(ref1, dimred = "PCA")
+
+ref1 <- runFMSTSNE(ref1, dimred = "PCA")
+
 ref1 <- runFMSSNE(ref1)
 
-sce <- runPCA(sce)
-sce <- runTSNE(sce)
-sce <- runFMSTSNE(sce)
+## sce <- runPCA(sce)
+## sce <- runTSNE(sce)
+## sce <- runFMSTSNE(sce)
 ## sce <- runFMSSNE(sce)
 saveRDS(sce, file = "fmsneSce.rds")
 

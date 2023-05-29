@@ -8,6 +8,14 @@
 ## - Finally, transposing for downstream use (cells are now rows).
 
 
+## ============================================================
+## scater:::.get_mat_from_sce()
+##
+## Either returns an assay (defined by exprs_values) or the reducedDim
+## matrix (defined by dimred) with all or (optional) 'n_dimred'
+## dimensions. The default is to return the "logcounts" assay.
+
+
 ##' Test function returning python function names
 ##'
 ##' @noRd

@@ -1,7 +1,30 @@
 ##' @export
 ##'
 ##' @rdname fmsne
-calculateFMSSNE <- function(x,
+calculateFMSSNE <- function(x, ...,
+                            exprs_values = "logcounts",
+                            dimred = NULL,
+                            n_dimred = NULL) {
+    stopifnot(inherits(x, "SingleCellExperiment"))
+    mat <- scater:::.get_mat_from_sce(x, assay.type = exprs_values,
+                                      dimred = dimred, n_dimred = n_dimred)
+    .calculate_fmssne(mat, transposed = !is.null(dimred), pca = FALSE, ...)
+}
+
+##' @export
+##'
+##' @param ... additional parameters passed to the respective
+##'     'calculate*()' functions.
+##'
+##' @rdname fmsne
+runFMSSNE <- function(x, ...,
+                      name = "FMSSNE") {
+    stopifnot(inherits(x, "SingleCellExperiment"))
+    reducedDim(x, name) <- calculateFMSSNE(assay(x), ...)
+    x
+}
+
+.calculate_fmssne <- function(x,
                             ncomponents = 2L,
                             ntop = 500,
                             subset_row = NULL,
@@ -43,20 +66,6 @@ calculateFMSSNE <- function(x,
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("FMSSNE", seq_len(ncomponents))
     ans
-}
-
-
-##' @export
-##'
-##' @param ... additional parameters passed to the respective
-##'     'calculate*()' functions.
-##'
-##' @rdname fmsne
-runFMSSNE <- function(x, ...,
-                      name = "FMSSNE") {
-    stopifnot(inherits(x, "SingleCellExperiment"))
-    reducedDim(x, name) <- calculateFMSSNE(assay(x), ...)
-    x
 }
 
 .run_fmssne <- function(X,
