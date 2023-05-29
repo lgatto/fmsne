@@ -178,7 +178,6 @@ rx2 <- drQuality(sce, Kup = NA)
 plotDrQuality(rx)
 plotDrQuality(rx2)
 
-
 rx <- drQuality(ref1)
 plotDrQuality(rx)
 
