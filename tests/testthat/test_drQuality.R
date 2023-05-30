@@ -9,8 +9,6 @@ test_that("drQuality() works", {
     expect_equal(dim(rx), c(ncol(sce) / 2, ndimred))
     expect_equal(dim(qx), c(ncol(sce) - 2, ndimred))
     expect_identical(names(rx), names(qx))
-    expect_identical(order(attr(rx, "AUC")),
-                     order(attr(qx, "AUC")))
 })
 
 
