@@ -1,20 +1,19 @@
 ##' @export
 ##'
 ##' @rdname fmsne
-calculateMSTSNE <- function(x,
-                            ncomponents = 2L,
-                            ntop = 500,
-                            subset_row = NULL,
-                            scale = FALSE,
-                            transposed = FALSE,
-                            init = 'pca',
-                            ## rand_state = NA,
-                            nit_max = 30,
-                            gtol = 1e-5,
-                            ftol = 2.2204460492503131e-09,
-                            maxls = 50,
-                            maxcor = 10) {
-
+.calculate_mstsne <- function(x,
+                              ncomponents = 2L,
+                              ntop = 500,
+                              subset_row = NULL,
+                              scale = FALSE,
+                              transposed = FALSE,
+                              init = 'pca',
+                              ## rand_state = NA,
+                              nit_max = 30,
+                              gtol = 1e-5,
+                              ftol = 2.2204460492503131e-09,
+                              maxls = 50,
+                              maxcor = 10) {
     if (!transposed)
         x <- scater:::.get_mat_for_reddim(x,
                                           subset_row = subset_row,
@@ -38,6 +37,24 @@ calculateMSTSNE <- function(x,
     colnames(ans) <- paste0("MSTSNE", seq_len(ncomponents))
     ans
 }
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateMSTSNE", "ANY", .calculate_mstsne)
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateMSTSNE", "SingleCellExperiment",
+          function(x, ..., exprs_values = "logcounts",
+                   dimred = NULL, n_dimred = NULL) {
+              mat <- scater:::.get_mat_from_sce(x, assay.type = exprs_values,
+                                                dimred = dimred,
+                                                n_dimred = n_dimred)
+              .calculate_mstsne(mat, transposed = !is.null(dimred), ...)
+})
+
 
 ##' @export
 ##'

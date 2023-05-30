@@ -1,25 +1,21 @@
-##' @export
-##'
 ##' @importFrom reticulate import
 ##'
 ##' @import SingleCellExperiment
-##'
-##' @rdname fmsne
-calculateFMSTSNE <- function(x,
-                             ncomponents = 2L,
-                             ntop = 500,
-                             subset_row = NULL,
-                             scale = FALSE,
-                             transposed = FALSE,
-                             init = 'pca',
-                             ## rand_state = NA,
-                             nit_max = 30,
-                             gtol = 1e-5,
-                             ftol = 2.2204460492503131e-09,
-                             maxls = 50,
-                             maxcor = 10,
-                             bht = 0.45,
-                             fseed = 1L) {
+.calculate_fmstsne <- function(x,
+                               ncomponents = 2L,
+                               ntop = 500,
+                               subset_row = NULL,
+                               scale = FALSE,
+                               transposed = FALSE,
+                               init = 'pca',
+                               ## rand_state = NA,
+                               nit_max = 30,
+                               gtol = 1e-5,
+                               ftol = 2.2204460492503131e-09,
+                               maxls = 50,
+                               maxcor = 10,
+                               bht = 0.45,
+                               fseed = 1L) {
     if (!transposed)
         x <- scater:::.get_mat_for_reddim(x,
                                           subset_row = subset_row,
@@ -47,7 +43,28 @@ calculateFMSTSNE <- function(x,
     ans
 }
 
+
 ##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateFMSTSNE", "ANY", .calculate_fmstsne)
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateFMSTSNE", "SingleCellExperiment",
+          function(x, ..., exprs_values = "logcounts",
+                   dimred = NULL, n_dimred = NULL) {
+              mat <- scater:::.get_mat_from_sce(x, assay.type = exprs_values,
+                                                dimred = dimred,
+                                                n_dimred = n_dimred)
+              .calculate_fmstsne(mat, transposed = !is.null(dimred), ...)
+})
+
+##' @export
+##'
+##' @param ... additional parameters passed to the respective
+##'     'calculate*()' functions.
 ##'
 ##' @rdname fmsne
 runFMSTSNE <- function(x, ...,

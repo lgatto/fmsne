@@ -37,8 +37,61 @@
 ##'
 ##' @section Feature selection:
 ##'
+##' This section is adapted from the `scater` package manual and is
+##' relevant if `x` is a numeric matrix of (log-)expression values
+##' with features in rows and cells in columns; or if `x` is a
+##' `SingleCellExperiment` and `dimred = NULL`.  In the latter, the
+##' expression values are obtained from the assay specified by
+##' `exprs_values`.
+##'
+##' The `subset_row` argument specifies the features to use for
+##' dimensionality reduction.  The aim is to allow users to specify
+##' highly variable features to improve the signal/noise ratio, or to
+##' specify genes in a pathway of interest to focus on particular
+##' aspects of heterogeneity.
+##'
+##' If `subset_row = NULL`, the `ntop` features with the largest
+##' variances are used instead.  Using the same underlying function as
+##' in the `scater` package, we literally compute the variances from
+##' the expression values without considering any mean-variance trend,
+##' so often a more considered choice of genes is possible, e.g., with
+##' `scran` functions.  Note that the value of `ntop` is ignored if
+##' `subset_row` is specified.
+##'
+##' If `scale = TRUE`, the expression values for each feature are
+##' standardized so that their variance is unity.  This will also
+##' remove features with standard deviations below 1e-8.
+##'
 ##' @section Using reduced dimensions:
 ##'
+##' This section is adapted from the `scater` package manual.
+##'
+##' If `x` is a `SingleCellExperiment`, the neighbour embedding
+##' methods can be applied on existing dimensionality reduction
+##' results in `x` by setting the `dimred` argument.  This is
+##' typically used to run slower non-linear algorithms (t-SNE, UMAP)
+##' on the results of fast linear decompositions (PCA).  We might also
+##' use this with existing reduced dimensions computed from *a
+##' priori* knowledge (e.g., gene set scores), where further
+##' dimensionality reduction could be applied to compress the data.
+##'
+##' The matrix of existing reduced dimensions is taken from
+##' `reducedDim(x, dimred)`.  By default, all dimensions are used to
+##' compute the second set of reduced dimensions.  If `n_dimred` is
+##' also specified, only the first `n_dimred` columns are used.
+##' Alternatively, `n_dimred` can be an integer vector specifying the
+##' column indices of the dimensions to use.
+##'
+##' When `dimred` is specified, no additional feature selection or
+##' standardization is performed.  This means that any settings of
+##' `ntop`, `subset_row` and `scale` are ignored.
+##'
+##' If `x` is a numeric matrix, setting `transposed=TRUE` will treat
+##' the rows as cells and the columns as the variables/diemnsions.
+##' This allows users to manually pass in dimensionality reduction
+##' results without needing to wrap them in a `SingleCellExperiment`.
+##' As such, no feature selection or standardization is performed,
+##' i.e., `ntop`, `subset_row` and `scale` are ignored.
 ##'
 ##' @param x Matrix (for `calcualate*()`) or object of class
 ##'     `SingleCellExperiment` (for `run*()`) containing a numeric
@@ -65,7 +118,7 @@
 ##' @param dimred `character(1)` specifying the optional
 ##'     dimensionality reduction results to use. Default is `NULL`.
 ##'
-##' @param n_dimref `interger(1)` specifying the dimensions to use if
+##' @param n_dimred `interger(1)` specifying the dimensions to use if
 ##'     `dimred` is specified. Default is `NULL`, to use all
 ##'     components.
 ##'
@@ -140,6 +193,8 @@
 ##' quality assessment.
 ##'
 ##' @aliases runMSSNE runMSTSNE runFMSSNE runFMSTSNE
+##'
+##' @aliases calculateMSSNE calculateMSTSNE calculateFMSSNE calculateFMSTSNE
 ##'
 ##' @name fmsne
 ##'

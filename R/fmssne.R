@@ -1,45 +1,19 @@
-##' @export
-##'
-##' @rdname fmsne
-calculateFMSSNE <- function(x, ...,
-                            exprs_values = "logcounts",
-                            dimred = NULL,
-                            n_dimred = NULL) {
-    stopifnot(inherits(x, "SingleCellExperiment"))
-    mat <- scater:::.get_mat_from_sce(x, assay.type = exprs_values,
-                                      dimred = dimred, n_dimred = n_dimred)
-    .calculate_fmssne(mat, transposed = !is.null(dimred), pca = FALSE, ...)
-}
-
-##' @export
-##'
-##' @param ... additional parameters passed to the respective
-##'     'calculate*()' functions.
-##'
-##' @rdname fmsne
-runFMSSNE <- function(x, ...,
-                      name = "FMSSNE") {
-    stopifnot(inherits(x, "SingleCellExperiment"))
-    reducedDim(x, name) <- calculateFMSSNE(assay(x), ...)
-    x
-}
-
 .calculate_fmssne <- function(x,
-                            ncomponents = 2L,
-                            ntop = 500,
-                            subset_row = NULL,
-                            scale = FALSE,
-                            transposed = FALSE,
-                            init = 'pca',
-                            ## rand_state = NA,
-                            nit_max = 30,
-                            gtol = 1e-5,
-                            ftol = 2.2204460492503131e-09,
-                            maxls = 50,
-                            maxcor = 10,
-                            fit_U = TRUE,
-                            bht = 0.45,
-                            fseed = 1L) {
+                              ncomponents = 2L,
+                              ntop = 500,
+                              subset_row = NULL,
+                              scale = FALSE,
+                              transposed = FALSE,
+                              init = 'pca',
+                              ## rand_state = NA,
+                              nit_max = 30,
+                              gtol = 1e-5,
+                              ftol = 2.2204460492503131e-09,
+                              maxls = 50,
+                              maxcor = 10,
+                              fit_U = TRUE,
+                              bht = 0.45,
+                              fseed = 1L) {
     if (!transposed)
         x <- scater:::.get_mat_for_reddim(x,
                                           subset_row = subset_row,
@@ -66,6 +40,34 @@ runFMSSNE <- function(x, ...,
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("FMSSNE", seq_len(ncomponents))
     ans
+}
+
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateFMSSNE", "ANY", .calculate_fmssne)
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateFMSSNE", "SingleCellExperiment",
+          function(x, ..., exprs_values = "logcounts",
+                   dimred = NULL, n_dimred = NULL) {
+              mat <- scater:::.get_mat_from_sce(x, assay.type = exprs_values,
+                                                dimred = dimred,
+                                                n_dimred = n_dimred)
+              .calculate_fmssne(mat, transposed = !is.null(dimred), ...)
+})
+
+##' @export
+##'
+##' @rdname fmsne
+runFMSSNE <- function(x, ...,
+                      name = "FMSSNE") {
+    stopifnot(inherits(x, "SingleCellExperiment"))
+    reducedDim(x, name) <- calculateFMSSNE(assay(x), ...)
+    x
 }
 
 .run_fmssne <- function(X,

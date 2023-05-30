@@ -1,20 +1,20 @@
 ##' @export
 ##'
 ##' @rdname fmsne
-calculateMSSNE <- function(x,
-                           ncomponents = 2L,
-                           ntop = 500,
-                           subset_row = NULL,
-                           scale = FALSE,
-                           transposed = FALSE,
-                           init = 'pca',
-                           ## rand_state = NA,
-                           nit_max = 30,
-                           gtol = 1e-5,
-                           ftol = 2.2204460492503131e-09,
-                           maxls = 50,
-                           maxcor = 10,
-                           fit_U = TRUE) {
+.calculate_mssne <- function(x,
+                             ncomponents = 2L,
+                             ntop = 500,
+                             subset_row = NULL,
+                             scale = FALSE,
+                             transposed = FALSE,
+                             init = 'pca',
+                             ## rand_state = NA,
+                             nit_max = 30,
+                             gtol = 1e-5,
+                             ftol = 2.2204460492503131e-09,
+                             maxls = 50,
+                             maxcor = 10,
+                             fit_U = TRUE) {
     if (!transposed)
         x <- scater:::.get_mat_for_reddim(x,
                                           subset_row = subset_row,
@@ -38,6 +38,23 @@ calculateMSSNE <- function(x,
     colnames(ans) <- paste0("MSSNE", seq_len(ncomponents))
     ans
 }
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateMSSNE", "ANY", .calculate_mssne)
+
+##' @export
+##'
+##' @rdname fmsne
+setMethod("calculateMSSNE", "SingleCellExperiment",
+          function(x, ..., exprs_values = "logcounts",
+                   dimred = NULL, n_dimred = NULL) {
+              mat <- scater:::.get_mat_from_sce(x, assay.type = exprs_values,
+                                                dimred = dimred,
+                                                n_dimred = n_dimred)
+              .calculate_mssne(mat, transposed = !is.null(dimred), ...)
+})
 
 ##' @export
 ##'

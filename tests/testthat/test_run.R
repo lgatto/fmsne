@@ -51,7 +51,7 @@ test_that("runFMSSNE() works", {
 })
 
 test_that("runFMSSNE(ncomponents) works", {
- sce <- runFMSSNE(sce0, ncomponents = 3)
+    sce <- runFMSSNE(sce0, ncomponents = 3)
     expect_identical(reducedDimNames(sce),
                      c(names(rd0), "FMSSNE"))
     expect_identical(dim(reducedDim(sce, "FMSSNE")),
