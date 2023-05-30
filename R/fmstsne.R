@@ -70,7 +70,7 @@ setMethod("calculateFMSTSNE", "SingleCellExperiment",
 runFMSTSNE <- function(x, ...,
                        name = "FMSTSNE") {
     stopifnot(inherits(x, "SingleCellExperiment"))
-    reducedDim(x, name) <- calculateFMSTSNE(assay(x), ...)
+    reducedDim(x, name) <- calculateFMSTSNE(x, ...)
     x
 }
 

@@ -16,10 +16,8 @@
 \alias{calculateFMSSNE,SingleCellExperiment-method}
 \alias{calculateFMSTSNE,ANY-method}
 \alias{calculateFMSTSNE,SingleCellExperiment-method}
-\alias{.calculate_mssne}
 \alias{calculateMSSNE,ANY-method}
 \alias{calculateMSSNE,SingleCellExperiment-method}
-\alias{.calculate_mstsne}
 \alias{calculateMSTSNE,ANY-method}
 \alias{calculateMSTSNE,SingleCellExperiment-method}
 \title{Multi-scale stochastic neighbour embedding}
@@ -87,22 +85,6 @@ runFMSSNE(x, ..., name = "FMSSNE")
 
 runFMSTSNE(x, ..., name = "FMSTSNE")
 
-.calculate_mssne(
-  x,
-  ncomponents = 2L,
-  ntop = 500,
-  subset_row = NULL,
-  scale = FALSE,
-  transposed = FALSE,
-  init = "pca",
-  nit_max = 30,
-  gtol = 1e-05,
-  ftol = 2.22044604925031e-09,
-  maxls = 50,
-  maxcor = 10,
-  fit_U = TRUE
-)
-
 \S4method{calculateMSSNE}{ANY}(
   x,
   ncomponents = 2L,
@@ -128,21 +110,6 @@ runFMSTSNE(x, ..., name = "FMSTSNE")
 )
 
 runMSSNE(x, ..., name = "MSSNE")
-
-.calculate_mstsne(
-  x,
-  ncomponents = 2L,
-  ntop = 500,
-  subset_row = NULL,
-  scale = FALSE,
-  transposed = FALSE,
-  init = "pca",
-  nit_max = 30,
-  gtol = 1e-05,
-  ftol = 2.22044604925031e-09,
-  maxls = 50,
-  maxcor = 10
-)
 
 \S4method{calculateMSTSNE}{ANY}(
   x,
@@ -170,10 +137,10 @@ runMSSNE(x, ..., name = "MSSNE")
 runMSTSNE(x, ..., name = "MSTSNE")
 }
 \arguments{
-\item{x}{Matrix (for \verb{calcualate*()}) or object of class
-\code{SingleCellExperiment} (for \verb{run*()}) containing a numeric
-assay with log-expression values where rows are features and
-columns are cells.}
+\item{x}{Matrix (for \verb{calculate*()}) or object of class
+\code{SingleCellExperiment} (for both \verb{calculate*()} and \verb{run*()})
+containing a numeric assay with log-expression values where
+rows are features and columns are cells.}
 
 \item{...}{additional parameters passed to the respective
 'calculate*()' functions.}
@@ -260,11 +227,11 @@ the result in the \code{reducedDims} of the output. Default is
 the function.}
 }
 \value{
-The \verb{calculate*()} functions reduced a reduced dimension
+The \verb{calculate*()} functions retrun a reduced dimension
 matrix of dimensions \code{ncol(x)} (i.e. cells) by
-\code{ncomponents}. The \verb{run*()} functions return a modified ‘x’
-that contains the reduced dimension coordinates in
-‘reducedDim(x, name)’.
+\code{ncomponents}. The \verb{run*()} functions return a modified
+\code{SingleCellExperiment} that contains the reduced dimension
+coordinates in ‘reducedDim(x, name)’.
 }
 \description{
 The \code{fmsne} package offers various functions to perform nonlinear

@@ -187,7 +187,8 @@ plotDrQuality <- function(x) {
     matplot(x, type = "l", lty = 1, log = "x")
     legend("topleft",
            paste(colnames(x), "-", round(attr(x, "AUC"), 2)),
-           lty = 1, col = seq_len(ncol(x)))
+           lty = 1, col = seq_len(ncol(x)), bty = "n")
+    invisible(NULL)
 }
 
 

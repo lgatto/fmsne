@@ -93,10 +93,10 @@
 ##' As such, no feature selection or standardization is performed,
 ##' i.e., `ntop`, `subset_row` and `scale` are ignored.
 ##'
-##' @param x Matrix (for `calcualate*()`) or object of class
-##'     `SingleCellExperiment` (for `run*()`) containing a numeric
-##'     assay with log-expression values where rows are features and
-##'     columns are cells.
+##' @param x Matrix (for `calculate*()`) or object of class
+##'     `SingleCellExperiment` (for both `calculate*()` and `run*()`)
+##'     containing a numeric assay with log-expression values where
+##'     rows are features and columns are cells.
 ##'
 ##' @param ncomponents `integer(1)` indicating the number of t-SNE
 ##'     dimensions to obtain. Default is 2L.
@@ -179,11 +179,11 @@
 ##'     `"MSSNE"`, `"MSTSNE"`, `"FMSSNE"` or `"FMSTSNE"` depending on
 ##'     the function.
 ##'
-##' @return The `calculate*()` functions reduced a reduced dimension
+##' @return The `calculate*()` functions retrun a reduced dimension
 ##'     matrix of dimensions `ncol(x)` (i.e. cells) by
-##'     `ncomponents`. The `run*()` functions return a modified ‘x’
-##'     that contains the reduced dimension coordinates in
-##'     ‘reducedDim(x, name)’.
+##'     `ncomponents`. The `run*()` functions return a modified
+##'     `SingleCellExperiment` that contains the reduced dimension
+##'     coordinates in ‘reducedDim(x, name)’.
 ##'
 ##' @seealso
 ##'

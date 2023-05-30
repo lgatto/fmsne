@@ -1,6 +1,3 @@
-##' @export
-##'
-##' @rdname fmsne
 .calculate_mssne <- function(x,
                              ncomponents = 2L,
                              ntop = 500,
@@ -65,7 +62,7 @@ setMethod("calculateMSSNE", "SingleCellExperiment",
 runMSSNE <- function(x, ...,
                       name = "MSSNE") {
     stopifnot(inherits(x, "SingleCellExperiment"))
-    reducedDim(x, name) <- calculateMSSNE(assay(x), ...)
+    reducedDim(x, name) <- calculateMSSNE(x, ...)
     x
 }
 
