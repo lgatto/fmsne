@@ -142,6 +142,7 @@ ref1 <- fmsne::runFMSSNE(ref1)
 
 ## --------------------------------------------------------------
 library("fmsne")
+library("scater")
 
 ref1 <- readRDS("~/tmp/ref.rds")
 sce <- ref1[, ref1$GA == "E12.5"]
@@ -152,11 +153,21 @@ reducedDims(sce) <- NULL
 ## sce <- sce[, i]
 ## reducedDimNames(sce) <- paste0("00", reducedDimNames(sce))
 
+
+reducedDims(ref1) <- NULL
+ref1 <- runPCA(ref1)
 ref1 <- runTSNE(ref1, dimred = "PCA")
-
 ref1 <- runFMSTSNE(ref1, dimred = "PCA")
+ref1 <- runFMSSNE(ref1, dimred = "PCA")
 
-ref1 <- runFMSSNE(ref1)
+rxRef1 <- drQuality(ref1)
+
+gridExtra::grid.arrange(
+               plotPCA(ref1, colour_by = "cellType") + ggtitle("PCA (top 500)"),
+               plotTSNE(ref1, colour_by = "cellType") + ggtitle("TSNE (from PCA)"),
+               plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSTSNE (from PCA)"),
+               plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSSNE (from PCA)"))
+
 
 ## sce <- runPCA(sce)
 ## sce <- runTSNE(sce)
@@ -169,7 +180,8 @@ sce <- readRDS("~/tmp/fmsneSce.rds")
 gridExtra::grid.arrange(
                plotPCA(sce, colour_by = "cellType") + ggtitle("PCA"),
                plotTSNE(sce, colour_by = "cellType") + ggtitle("TSNE"),
-               plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSTSNE"))
+               plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSTSNE"),
+               plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSSNE"))
 
 
 
