@@ -13,10 +13,14 @@
 
 - To use all features, pass `rep(TRUE, nrow(object))`.
 
-- TODO implement `ntop`, `dimred` in fmsne functions
-
 - Use non-fast methods, shouldn't be a problem time-wise for 1300 genes.
 
-- QA should be run on top genes only - same ones as those fed methods.
-
 - (FMSTSNE: could try bht 0.75)
+
+Plan
+- compare from same PCA
+- compare from same 500 topn (but t-SNE also funs PCA)
+- compare from same 500 topn, disabling PCA prior to t-SNE
+- compare on all features (or set topn to large number)
+
+What datasets
