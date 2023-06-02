@@ -148,10 +148,15 @@ reducedDims(sce) <- NULL
 ## reducedDimNames(sce) <- paste0("00", reducedDimNames(sce))
 
 
+## ===================================================
+## Placental data (ref1)
+## ===================================================
+
 ## ----------------------------------------------------
 ## Environment
 library("fmsne")
 library("scater")
+
 
 ## ----------------------------------------------------
 ## Load data
@@ -197,12 +202,11 @@ gridExtra::grid.arrange(
                plotReducedDim(ref1, dimred = "PCA+TSNE", colour_by = "cellType") +
                ggtitle("PCA+TSNE"),
                plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSTSNE (from PCA)"),
-               plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSSNE (from PCA)"),
+               ## plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSSNE (from PCA)"),
                plotReducedDim(ref1, dimred = "FMSTSNE500", colour_by = "cellType") +
                ggtitle("FMSTSNE (top 500)"),
-               plotReducedDim(ref1, dimred = "FMSSNE500",
-                              colour_by = "cellType") +
-               ggtitle("FMSSNE (top 500)"),
+               ## plotReducedDim(ref1, dimred = "FMSSNE500", colour_by = "cellType") +
+               ##                  ggtitle("FMSSNE (top 500)"),
                plotReducedDim(ref1, dimred = "PCA2000",
                               colour_by = "cellType") +
                ggtitle("PCA (top 2000)"),
@@ -211,38 +215,55 @@ gridExtra::grid.arrange(
                ggtitle("FMSTSNE (top 2000)"),
                ncol = 2)
 
-## sce <- runPCA(sce)
-## sce <- runTSNE(sce)
-## sce <- runFMSTSNE(sce)
-## sce <- runFMSSNE(sce)
-saveRDS(sce, file = "fmsneSce.rds")
 
-sce <- readRDS("~/tmp/fmsneSce.rds")
+## ===================================================
+## Testing data
+## ===================================================
+
+## ----------------------------------------------------
+## Environment
+library("fmsne")
+library("scater")
+library("scran")
+
+
+## ----------------------------------------------------
+## Load data
+sce <- readRDS("sceTestis.rds")
+
+set.seed(100)
+clust.testis <- quickCluster(sce)
+sce <- computeSumFactors(sce, cluster=clust.testis, min.mean=0.1)
+sce <- logNormCounts(sce)
+sce
+
+## ----------------------------------------------------
+## DR from PCA, 50 PCs, constructed from top 500
+sce <- runPCA(sce)
+sce <- runTSNE(sce, dimred = "PCA")
+sce <- runFMSTSNE(sce, dimred = "PCA")
+
+## ----------------------------------------------------
+## DR from top 500 (default)
+sce <- runFMSTSNE(sce, name = "FMSTSNE500")
+sce <- runFMSSNE(sce,  name = "FMSSNE500")
+
+## ----------------------------------------------------
+## DR from all (top 5000)
+sce <- runPCA(sce, ntop = 5000, name = "PCA5000")
+sce <- runFMSTSNE(sce, ntop = 5000, name = "FMSTSNE5000")
+
+## ----------------------------------------------------
+## Save results
+saveRDS(sce, file = "sceTestis.rds")
+
+## ----------------------------------------------------
+## Quality assessment
+rxSce <- drQuality(sce)
+saveRDS(rxSce, file = "rxSce.rds")
 
 gridExtra::grid.arrange(
-               plotPCA(sce, colour_by = "cellType") + ggtitle("PCA"),
-               plotTSNE(sce, colour_by = "cellType") + ggtitle("TSNE"),
-               plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSTSNE"),
-               plotFMSTSNE(sce, colour_by = "cellType") + ggtitle("FMSSNE"))
-
-
-
-rx <- drQuality(sce)
-rx2 <- drQuality(sce, Kup = NA)
-
-
-plotDrQuality(rx)
-plotDrQuality(rx2)
-
-rx <- drQuality(ref1)
-plotDrQuality(rx)
-
-## rx2 <- drQuality(ref1, Kup = NA)
-
-
-gridExtra::grid.arrange(
-               plotPCA(ref1, colour_by = "cellType") + ggtitle("PCA"),
-               plotUMAP(ref1, colour_by = "cellType") + ggtitle("UMAP"),
-               plotTSNE(ref1, colour_by = "cellType") + ggtitle("TSNE"),
-               plotFMSSNE(ref1, colour_by = "cellType") + ggtitle("FMSSNE"),
-               plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSTSNE"))
+               plotPCA(sce, colour_by = "type") + ggtitle("PCA (top 500)"),
+               plotTSNE(sce, colour_by = "type") + ggtitle("TSNE (from PCA)"),
+               plotFMSTSNE(sce, colour_by = "type") + ggtitle("FMSTSNE (from PCA)"),
+               ncol = 2)
