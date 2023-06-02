@@ -187,7 +187,8 @@ ref1 <- runFMSTSNE(ref1, ntop = 2000, name = "FMSTSNE2000")
 ## ----------------------------------------------------
 ## Quality assessment
 rxRef1 <- drQuality(ref1)
-## saveRDS(rxRef1, file = "rxRef1.rds")
+saveRDS(rxRef1, file = "rxRef1.rds")
+
 ## rxRef1 <- readRDS("rxRef1.rds")
 
 gridExtra::grid.arrange(
@@ -199,10 +200,16 @@ gridExtra::grid.arrange(
                plotFMSTSNE(ref1, colour_by = "cellType") + ggtitle("FMSSNE (from PCA)"),
                plotReducedDim(ref1, dimred = "FMSTSNE500", colour_by = "cellType") +
                ggtitle("FMSTSNE (top 500)"),
-               plotReducedDim(ref1, dimred = "FMSSNE500", colour_by = "cellType") +
-               ggtitle("FMSSNE (top 500)"))
-
-
+               plotReducedDim(ref1, dimred = "FMSSNE500",
+                              colour_by = "cellType") +
+               ggtitle("FMSSNE (top 500)"),
+               plotReducedDim(ref1, dimred = "PCA2000",
+                              colour_by = "cellType") +
+               ggtitle("PCA (top 2000)"),
+               plotReducedDim(ref1, dimred = "FMSTSNE2000",
+                              colour_by = "cellType") +
+               ggtitle("FMSTSNE (top 2000)"),
+               ncol = 2)
 
 ## sce <- runPCA(sce)
 ## sce <- runTSNE(sce)
