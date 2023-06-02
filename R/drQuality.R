@@ -93,6 +93,11 @@
 ##'     `Rx` metric for all values (i.e. 1 to N-2). This will however
 ##'     be at a considerable cost in computation time.
 ##'
+##' @param BPPARAM An optional `BiocParallelParam` instance from the
+##'     package `BiocParallel`, determining the parallel back-end to
+##'     be used during evaluation. Default is
+##'     [BiocParallel::bpparam()].
+##'
 ##' @return A `data.frame` containing the `Rx` values for the low
 ##'     dimensional embeddings defined by `dimred` (along the
 ##'     columns). The number of rows will be be `Kup` (is set) or
@@ -141,8 +146,11 @@
 ##' @importFrom reticulate import
 ##'
 ##' @importFrom SummarizedExperiment assay
+##'
+##' @importFrom BiocParallel bplapply bpparam
 drQuality <- function(object, dimred = reducedDimNames(object),
-                      Kup = ceiling(ncol(object)/2)) {
+                      Kup = ceiling(ncol(object)/2),
+                      BPPARAM = BiocParallel::bpparam()) {
     stopifnot(inherits(object, "SingleCellExperiment"))
     stopifnot(length(dimred) > 0)
     x <- t(as.matrix(assay(object)))
@@ -160,14 +168,14 @@ drQuality <- function(object, dimred = reducedDimNames(object),
         ## cells. Note that here, x has already been transposed, hence
         ## nrow(x) rather than ncol(x).
         stopifnot(length(Kup) == 1, Kup > 0, Kup < (nrow(x) - 1))
-        res <- lapply(dimred, function(rd) {
+        res <- bplapply(dimred, function(rd) {
             y <- reducedDim(object, rd)
             basiliskRun(env = fmsneenv,
                         fun = .run_eval_red_rnx_auc_from_data,
                         x = x,
                         y = y,
                         Kup = Kup)
-        })
+        }, BPPARAM = BPPARAM)
     }
     ## Convert list output to a data.frame
     ans <- sapply(res, "[[", 1)
