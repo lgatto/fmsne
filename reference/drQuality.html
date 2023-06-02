@@ -62,7 +62,8 @@ reported in de Bodt et al. (2020).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">drQuality</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  dimred <span class="op">=</span> <span class="fu">reducedDimNames</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>,</span>
-<span>  Kup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  Kup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">plotDrQuality</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -87,6 +88,13 @@ neighbours to compute the quality metrics <code>Rx</code> for. Default is
 half the number of cells. Setting <code>Kup</code> to NA will compute the
 <code>Rx</code> metric for all values (i.e. 1 to N-2). This will however
 be at a considerable cost in computation time.</p></dd>
+
+
+<dt>BPPARAM</dt>
+<dd><p>An optional <code>BiocParallelParam</code> instance from the
+package <code>BiocParallel</code>, determining the parallel back-end to
+be used during evaluation. Default is
+<code><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">BiocParallel::bpparam()</a></code>.</p></dd>
 
 
 <dt>x</dt>
