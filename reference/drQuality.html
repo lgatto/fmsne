@@ -65,7 +65,7 @@ reported in de Bodt et al. (2020).</p>
 <span>  Kup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">plotDrQuality</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">plotDrQuality</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,6 +92,14 @@ be at a considerable cost in computation time.</p></dd>
 <dt>x</dt>
 <dd><p>A <code>data.frame</code>, as produced by <code>drQuality()</code>.</p></dd>
 
+
+<dt>col</dt>
+<dd><p>Specification of colours to be used for plotting. By
+default, numeric values from to <code>ncol(x)</code> are used, which is
+however limited to 9 different colours. If more a needed,
+specify a broader patette of colours with, for example,
+<code>colorspace::diverging_hcl(ncol(x))</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -114,7 +122,7 @@ reported in de Bodt et al. (2020).</p>
 <p>These criteria measure the neighborhood preservation around the
 data points from the high-dimensional space to the
 low-dimensional space.</p>
-<p>The <code>plotDrQuality()</code> fonction can be used to visualise the
+<p>The <code>plotDrQuality()</code> function can be used to visualise the
 results of the quality assessment produced by <code>drQuality()</code>.</p>
 <p>Based on the high-dimensional and low-dimensional Euclidean
 distances, the sets \(v_i^K\) (resp. \(n_i^K\)) of the K
