@@ -11,7 +11,7 @@ drQuality(
   Kup = ceiling(ncol(object)/2)
 )
 
-plotDrQuality(x, col = seq_len(ncol(x)))
+plotDrQuality(x, col = seq_len(ncol(x)), ...)
 }
 \arguments{
 \item{object}{A \code{SingleCellExperiment} object.}
@@ -34,6 +34,8 @@ default, numeric values from to \code{ncol(x)} are used, which is
 however limited to 9 different colours. If more a needed,
 specify a broader patette of colours with, for example,
 \code{colorspace::diverging_hcl(ncol(x))}.}
+
+\item{...}{Additional arguments passed to \code{\link[graphics:matplot]{graphics::matplot()}}.}
 }
 \value{
 A \code{data.frame} containing the \code{Rx} values for the low

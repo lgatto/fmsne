@@ -185,13 +185,15 @@ drQuality <- function(object, dimred = reducedDimNames(object),
 ##'     specify a broader patette of colours with, for example,
 ##'     `colorspace::diverging_hcl(ncol(x))`.
 ##'
+##' @param ... Additional arguments passed to [graphics::matplot()].
+##'
 ##' @rdname drQuality
 ##'
 ##' @importFrom graphics matplot legend
 ##' @export
-plotDrQuality <- function(x, col = seq_len(ncol(x))) {
+plotDrQuality <- function(x, col = seq_len(ncol(x)), ...) {
     matplot(x, type = "l", lty = 1,
-            col = col, log = "x")
+            col = col, log = "x", ...)
     legend("topleft",
            paste(colnames(x), "-", round(attr(x, "AUC"), 2)),
            lty = 1, col = col, bty = "n")
