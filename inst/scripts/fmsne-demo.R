@@ -4,9 +4,7 @@ library(scRNAseq)
 library(BiocSingular)
 library(AnnotationHub)
 
-
 ## source: https://bioconductor.org/books/3.16/OSCA.workflows/bach-mouse-mammary-gland-10x-genomics.html
-
 
 ######################################
 ## 12.2 Data loading
@@ -173,9 +171,14 @@ ref1 <- runTSNE(ref1, name = "PCA+TSNE")
 
 
 ## ----------------------------------------------------
-## DR from top 500
+## DR from top 500 (default)
 ref1 <- runFMSTSNE(ref1, name = "FMSTSNE500")
 ref1 <- runFMSSNE(ref1,  name = "FMSSNE500")
+
+## ----------------------------------------------------
+## DR from all (top 2000)
+ref1 <- runPCA(ref1, ntop = 2000, name = "PCA2000")
+ref1 <- runFMSTSNE(ref1, ntop = 2000, name = "FMSTSNE2000")
 
 ## ----------------------------------------------------
 ## Save results
@@ -185,8 +188,7 @@ ref1 <- runFMSSNE(ref1,  name = "FMSSNE500")
 ## Quality assessment
 rxRef1 <- drQuality(ref1)
 ## saveRDS(rxRef1, file = "rxRef1.rds")
-
-rxRef1 <- readRDS("rxRef1.rds")
+## rxRef1 <- readRDS("rxRef1.rds")
 
 gridExtra::grid.arrange(
                plotPCA(ref1, colour_by = "cellType") + ggtitle("PCA (top 500)"),
