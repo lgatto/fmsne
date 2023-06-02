@@ -11,7 +11,7 @@ drQuality(
   Kup = ceiling(ncol(object)/2)
 )
 
-plotDrQuality(x)
+plotDrQuality(x, col = seq_len(ncol(x)))
 }
 \arguments{
 \item{object}{A \code{SingleCellExperiment} object.}
@@ -28,6 +28,12 @@ half the number of cells. Setting \code{Kup} to NA will compute the
 be at a considerable cost in computation time.}
 
 \item{x}{A \code{data.frame}, as produced by \code{drQuality()}.}
+
+\item{col}{Specification of colours to be used for plotting. By
+default, numeric values from to \code{ncol(x)} are used, which is
+however limited to 9 different colours. If more a needed,
+specify a broader patette of colours with, for example,
+\code{colorspace::diverging_hcl(ncol(x))}.}
 }
 \value{
 A \code{data.frame} containing the \code{Rx} values for the low
@@ -54,7 +60,7 @@ These criteria measure the neighborhood preservation around the
 data points from the high-dimensional space to the
 low-dimensional space.
 
-The \code{plotDrQuality()} fonction can be used to visualise the
+The \code{plotDrQuality()} function can be used to visualise the
 results of the quality assessment produced by \code{drQuality()}.
 
 Based on the high-dimensional and low-dimensional Euclidean

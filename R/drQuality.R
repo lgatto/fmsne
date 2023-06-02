@@ -19,7 +19,7 @@
 ##' data points from the high-dimensional space to the
 ##' low-dimensional space.
 ##'
-##' The `plotDrQuality()` fonction can be used to visualise the
+##' The `plotDrQuality()` function can be used to visualise the
 ##' results of the quality assessment produced by `drQuality()`.
 ##'
 ##' Based on the high-dimensional and low-dimensional Euclidean
@@ -179,15 +179,22 @@ drQuality <- function(object, dimred = reducedDimNames(object),
 
 ##' @param x A `data.frame`, as produced by `drQuality()`.
 ##'
+##' @param col Specification of colours to be used for plotting. By
+##'     default, numeric values from to `ncol(x)` are used, which is
+##'     however limited to 9 different colours. If more a needed,
+##'     specify a broader patette of colours with, for example,
+##'     `colorspace::diverging_hcl(ncol(x))`.
+##'
 ##' @rdname drQuality
 ##'
 ##' @importFrom graphics matplot legend
 ##' @export
-plotDrQuality <- function(x) {
-    matplot(x, type = "l", lty = 1, log = "x")
+plotDrQuality <- function(x, col = seq_len(ncol(x))) {
+    matplot(x, type = "l", lty = 1,
+            col = col, log = "x")
     legend("topleft",
            paste(colnames(x), "-", round(attr(x, "AUC"), 2)),
-           lty = 1, col = seq_len(ncol(x)), bty = "n")
+           lty = 1, col = col, bty = "n")
     invisible(NULL)
 }
 
