@@ -65,7 +65,7 @@ reported in de Bodt et al. (2020).</p>
 <span>  Kup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">plotDrQuality</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">plotDrQuality</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,6 +99,10 @@ default, numeric values from to <code>ncol(x)</code> are used, which is
 however limited to 9 different colours. If more a needed,
 specify a broader patette of colours with, for example,
 <code>colorspace::diverging_hcl(ncol(x))</code>.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional arguments passed to <code><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">graphics::matplot()</a></code>.</p></dd>
 
 </dl></div>
     <div id="value">
