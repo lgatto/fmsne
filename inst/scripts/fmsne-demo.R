@@ -246,10 +246,9 @@ sce <- runFMSTSNE(sce, dimred = "PCA")
 ## ----------------------------------------------------
 ## DR from top 500 (default)
 sce <- runFMSTSNE(sce, name = "FMSTSNE500")
-sce <- runFMSSNE(sce,  name = "FMSSNE500")
 
 ## ----------------------------------------------------
-## DR from all (top 5000)
+## DR from (top 5000)
 sce <- runPCA(sce, ntop = 5000, name = "PCA5000")
 sce <- runFMSTSNE(sce, ntop = 5000, name = "FMSTSNE5000")
 
@@ -262,6 +261,8 @@ saveRDS(sce, file = "sceTestis.rds")
 rxSce <- drQuality(sce)
 saveRDS(rxSce, file = "rxSce.rds")
 
+
+## Check also Donor
 gridExtra::grid.arrange(
                plotPCA(sce, colour_by = "type") + ggtitle("PCA (top 500)"),
                plotTSNE(sce, colour_by = "type") + ggtitle("TSNE (from PCA)"),
