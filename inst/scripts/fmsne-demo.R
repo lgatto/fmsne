@@ -217,7 +217,7 @@ gridExtra::grid.arrange(
 
 
 ## ===================================================
-## Testing data
+## Testis data
 ## ===================================================
 
 ## ----------------------------------------------------
@@ -251,6 +251,11 @@ sce <- runFMSTSNE(sce, name = "FMSTSNE500")
 ## DR from (top 5000)
 sce <- runPCA(sce, ntop = 5000, name = "PCA5000")
 sce <- runFMSTSNE(sce, ntop = 5000, name = "FMSTSNE5000")
+
+## ----------------------------------------------------
+## DR from (all)
+sce <- runPCA(sce, ntop = ncol(sce), name = "PCAall")
+sce <- runFMSTSNE(sce, ntop = ncol(sce), name = "FMSTSNEall")
 
 ## ----------------------------------------------------
 ## Save results
