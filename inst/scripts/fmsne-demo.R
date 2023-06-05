@@ -272,4 +272,14 @@ gridExtra::grid.arrange(
                plotPCA(sce, colour_by = "type") + ggtitle("PCA (top 500)"),
                plotTSNE(sce, colour_by = "type") + ggtitle("TSNE (from PCA)"),
                plotFMSTSNE(sce, colour_by = "type") + ggtitle("FMSTSNE (from PCA)"),
+               plotReducedDim(sce, dimred = "FMSTSNE500", colour_by = "type")
+               + ggtitle("FMSTSNE (top 500)"),
+               plotReducedDim(sce, dimred = "PCA5000", colour_by = "type")
+               + ggtitle("PCA (top 5000)"),
+               plotReducedDim(sce, dimred = "FMSTSNE5000", colour_by = "type")
+               + ggtitle("FMSTNSE (top 5000)"),
+               plotReducedDim(sce, dimred = "PCAall", colour_by = "type")
+               + ggtitle("PCA (all)"),
+               plotReducedDim(sce, dimred = "FMSTSNEall", colour_by = "type")
+               + ggtitle("FMSTNSE (all)"),
                ncol = 2)
