@@ -30,7 +30,8 @@
                        ftol = ftol,
                        maxls = maxls,
                        maxcor = maxcor,
-                       fit_U = fit_U)
+                       fit_U = fit_U,
+                       testload = "numba")
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("MSSNE", seq_len(ncomponents))
     ans

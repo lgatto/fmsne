@@ -160,7 +160,8 @@ drQuality <- function(object, dimred = reducedDimNames(object),
         res <- basiliskRun(env = fmsneenv,
                            fun = .run_eval_dr_quality_from_list,
                            x = x,
-                           y = ys)
+                           y = ys,
+                           testload = "numba")
 
     } else {
         Kup <- as.integer(Kup)
@@ -174,7 +175,8 @@ drQuality <- function(object, dimred = reducedDimNames(object),
                         fun = .run_eval_red_rnx_auc_from_data,
                         x = x,
                         y = y,
-                        Kup = Kup)
+                        Kup = Kup,
+                        testload = "numba")
         }, BPPARAM = BPPARAM)
     }
     ## Convert list output to a data.frame

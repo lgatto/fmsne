@@ -37,7 +37,8 @@
                        maxls = maxls,
                        maxcor = maxcor,
                        bht = bht,
-                       fseed = fseed)
+                       fseed = fseed,
+                       testload = "numba")
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("FMSTSNE", seq_len(ncomponents))
     ans
