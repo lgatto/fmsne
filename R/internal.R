@@ -23,7 +23,8 @@
 ##' @importFrom reticulate import
 ##' @importFrom basilisk basiliskStart basiliskRun basiliskStop
 fmsnePythonNames <- function() {
-    cl <- basiliskStart(fmsneenv)
+    cl <- basiliskStart(fmsneenv,
+                        testload = "numba")
     fmsne.names <- basiliskRun(cl, function() {
         X <- reticulate::import("fmsne")
         names(X)
@@ -37,5 +38,6 @@ fmsnePythonVersion <- function() {
                 fun = function() {
                     fmsne <- reticulate::import("fmsne")
                     fmsne$`__version__`
-                })
+                },
+                testload = "numba")
 }

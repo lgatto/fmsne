@@ -29,7 +29,8 @@
                        gtol = gtol,
                        ftol = ftol,
                        maxls = maxls,
-                       maxcor = maxcor)
+                       maxcor = maxcor,
+                       testload = "numba")
     rownames(ans) <- rownames(x)
     colnames(ans) <- paste0("MSTSNE", seq_len(ncomponents))
     ans
