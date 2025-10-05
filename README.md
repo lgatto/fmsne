@@ -1,5 +1,5 @@
 The `fmsne` R package implements the [fast multi-scale neighbour
-embedding](https://github.com/lgatto/Fast_Multi-scale_NE) methods
+embedding](https://github.com/cdebodt/Fast_Multi-scale_NE) methods
 developed by [Cyril de Bodt](https://github.com/cdebodt).
 
 # Fast Multi-scale Neighbor Embedding
